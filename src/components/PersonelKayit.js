@@ -68,11 +68,16 @@ export class PersonelKayit extends Component {
                         <p>
                             Kimlik bilgileri 
                         </p>
-                        <div className="p-col-12 p-md-4">
+                                <div className="p-col-12 p-md-4">
                                     <h3>Cüzdan Seri - No</h3>
                                     <span className="p-float-label">
                                         <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Cüzdan Seri - No</label>
+                                    </span>
+                                    <h3>Uyruğu</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Uyruğu</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
