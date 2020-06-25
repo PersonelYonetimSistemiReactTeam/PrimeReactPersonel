@@ -25,7 +25,7 @@ export class PersonelListe extends Component {
             <div className="p-grid">
                 <div className="p-col-12">
                     <div className="card">
-                        <h1>Personel Listesi </h1>
+                        <h1>Personel Listesi  </h1>
                         {isLoading ?  <ProgressSpinner style={{position: 'absolute'},{width:'25%'}}/>   : ''}
                         {
                                 this.state.Users.map(Users => 
