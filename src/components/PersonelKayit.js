@@ -69,7 +69,7 @@ export class PersonelKayit extends Component {
                             Kimlik bilgileri 
                         </p>
                                 <div className="p-col-12 p-md-4">
-                                    <h3>Cüzdan Seri - No</h3>
+                                    <h3>Cüzdan Seri - No</h3> 
                                     <span className="p-float-label">
                                         <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Cüzdan Seri - No</label>
