@@ -88,8 +88,6 @@ export class PersonelKayit extends Component {
                                                 <InputText id="babaadi" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                                 <label htmlFor="float-input">Baba Adı</label>
                                             </span>
-                                        </div>
-                                        <div className="p-col-12 p-md-4">
                                             <h3>Anne Adı</h3>
                                             <span className="p-float-label">
                                                 <InputText id="anneadi" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
@@ -101,6 +99,11 @@ export class PersonelKayit extends Component {
                                             <span className="p-float-label">
                                                 <InputText id="medenihal" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                                 <label htmlFor="float-input">Medeni Hali</label>
+                                            </span>
+                                            <h3>Cinsiyeti</h3>
+                                            <span className="p-float-label">
+                                                <InputText id="cinsiyeti" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                                <label htmlFor="float-input">Cinsiyeti</label>
                                             </span>
                                         </div>
                                         <div className="p-col-12 p-md-4">
@@ -117,13 +120,7 @@ export class PersonelKayit extends Component {
                                                 <label htmlFor="float-input">Kan Grubu</label>
                                             </span>
                                         </div>
-                                        <div className="p-col-12 p-md-4">
-                                            <h3>Cinsiyeti</h3>
-                                            <span className="p-float-label">
-                                                <InputText id="cinsiyeti" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
-                                                <label htmlFor="float-input">Cinsiyeti</label>
-                                            </span>
-                                        </div>
+                             
                                         <div className="p-col-12 p-md-4">
                                             <h3>Kayıtlı Olduğu İl</h3>
                                             <span className="p-float-label">
