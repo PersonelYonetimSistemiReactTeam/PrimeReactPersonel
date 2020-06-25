@@ -146,28 +146,28 @@ export class PersonelKayit extends Component {
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
-                                    <h3>Kayıtlı Olduğu İl</h3>
+                                    <h3>Kayıtlı Olduğu Mahalle/Köy</h3>
                                     <span className="p-float-label">
                                         <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Mahalle/Köy</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
-                                    <h3>Kayıtlı Olduğu İl</h3>
+                                    <h3>Kayıtlı Olduğu Cilt No</h3>
                                     <span className="p-float-label">
                                         <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Cilt No</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
-                                    <h3>Kayıtlı Olduğu İl</h3>
+                                    <h3>Kayıtlı Olduğu Aile Sıra No</h3>
                                     <span className="p-float-label">
                                         <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Aile Sıra No</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
-                                    <h3>Kayıtlı Olduğu İl</h3>
+                                    <h3>Kayıtlı Olduğu Sıra No</h3>
                                     <span className="p-float-label">
                                         <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Sıra No</label>
