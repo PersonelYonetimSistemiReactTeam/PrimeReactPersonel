@@ -71,131 +71,117 @@ export class PersonelKayit extends Component {
                                 <div className="p-col-12 p-md-4">
                                     <h3>Cüzdan Seri - No</h3> 
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="cuzdanserino" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Cüzdan Seri - No</label>
                                     </span>
                                     <h3>Uyruğu</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
-                                        <label htmlFor="float-input">Uyruğu</label>
-                                    </span>
-                                </div>
-                                <div className="p-col-12 p-md-4">
-                                    <h3>Uyruğu</h3>
-                                    <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="uyruk" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Uyruğu</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Baba Adı</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="babaadi" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Baba Adı</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Anne Adı</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="anneadi" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Anne Adı</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Medeni Hali</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="medenihal" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Medeni Hali</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Dini</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
-                                        <label htmlFor="float-input">Dini</label>
-                                    </span>
-                                </div>
-                                <div className="p-col-12 p-md-4">
-                                    <h3>Dini</h3>
-                                    <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="dini" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Dini</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kan Grubu</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="kangrubu" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kan Grubu</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Cinsiyeti</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="cinsiyeti" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Cinsiyeti</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıtlı Olduğu İl</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="kolduguil" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu İl</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıtlı Olduğu İlçe</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="kolduguilce" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu İlçe</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıtlı Olduğu Mahalle/Köy</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="mahallekoy" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Mahalle/Köy</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıtlı Olduğu Cilt No</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="ciltno" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Cilt No</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıtlı Olduğu Aile Sıra No</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="ailesirano" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Aile Sıra No</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıtlı Olduğu Sıra No</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="sirano" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıtlı Olduğu Sıra No</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Kayıt No</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="kayitno" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">Kayıt No</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>Veriliş Tarihi</h3>
                                     <span className="p-float-label">
-                                        <Calendar id="float-claendar" value={this.state.calendarValue} onChange={(e) => this.setState({ calendarValue: e.value })} />
+                                        <Calendar id="verilistarihi" value={this.state.calendarValue} onChange={(e) => this.setState({ calendarValue: e.value })} />
                                         <label htmlFor="float-calendar">Veriliş Tarihi</label>
                                     </span>
                                 </div>
                                 <div className="p-col-12 p-md-4">
                                     <h3>İşe İlk Başladığındaki Soyadı</h3>
                                     <span className="p-float-label">
-                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <InputText id="ilksoyad" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
                                         <label htmlFor="float-input">İşe İlk Başladığındaki Soyadı</label>
                                     </span>
                                 </div>
