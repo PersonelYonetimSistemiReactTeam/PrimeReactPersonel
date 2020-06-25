@@ -21,6 +21,7 @@ import { ToggleButton } from 'primereact/togglebutton';
 import { SelectButton } from 'primereact/selectbutton';
 import { Button } from 'primereact/button';
 import { SplitButton } from 'primereact/splitbutton';
+import {TabView,TabPanel} from 'primereact/tabview';
 export class PersonelKayit extends Component {
     constructor() {
         super();
@@ -62,35 +63,26 @@ export class PersonelKayit extends Component {
                 <div className="p-col-12">
                     <div className="card">
                         <h1>Personel Kayıt</h1>                      
-                           
-                                <div className="p-col-12 p-md-12">
-                                    <span className="p-float-label">
-                                        <InputText id="in"  />
-                                        {/* <InputText id="in" value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} /> */}
-                                        <label htmlFor="in">Ad Soyad</label>
-                                    </span>
-                                </div>
+                        <TabView renderActiveOnly={false}>
+                    <TabPanel header="Kimlik Bilgileri" leftIcon="pi pi-calendar">
+                        <p>
+                            Kimlik bilgileri 
+                        </p>
+                    </TabPanel>
+                    <TabPanel header=" Öğrenim Bilgileri" rightIcon="pi pi-user">
+                        <p>
+                        Öğrenim bilgileri
+                        </p>
+                    </TabPanel>
+                    <TabPanel header="İletişim Bilgileri" leftIcon="pi pi-search" rightIcon="pi pi-check">
+                        <p>
+                            İletişim Bilgileri
 
-                                <div className="p-col-12 p-md-12">
-                                    <Dropdown value={this.state.unvan} options={this.unvanlar} onChange={this.onUnvanChange} itemTemplate={this.UnvanTemplate} style={{ width: '12em' }}
-                                        filter={true} filterPlaceholder="Unvan" filterBy="label,value" showClear={true} />
-                                    <div style={{ marginTop: '.5em' }}>{this.state.unvan ? 'Seçilen Unvan: ' + this.state.unvan : 'Unvan Seçilmedi'}</div>
+                        </p>
+                    </TabPanel>
 
-                                </div>
-                                <div className="p-col-12 p-md-12">
-                                    <span className="p-float-label">
-                                        <InputText id="in" />
-                                        {/* <InputText id="in" value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} /> */}
-                                        <label htmlFor="in">Birim</label>
-                                    </span>
-                                </div>
-                                 <div className="p-col-12 p-md-12">
-                                    <span className="p-float-label">
-                                        <InputText id="in" />
-                                        {/* <InputText id="in" value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} /> */}
-                                        <label htmlFor="in"></label>
-                                    </span>
-                                </div>                       
+                </TabView>
+                                
                     </div>
                 </div>
             </div>
