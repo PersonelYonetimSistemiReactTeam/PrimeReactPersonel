@@ -164,6 +164,7 @@ export class PersonelKayit extends Component {
                       </span>
                     </div>
 
+<<<<<<< HEAD
                     <div className="p-col-12 p-md-4">
                       <h3>KeyFilter</h3>
                       <span className="p-float-label">
@@ -171,6 +172,171 @@ export class PersonelKayit extends Component {
                         <label htmlFor="float-keyfilter">Integers</label>
                       </span>
                     </div>
+=======
+    UnvanTemplate(option) {
+        if (!option.value) {
+            return option.label;
+        }
+        else {
+            return (
+                <div className="p-clearfix">
+                    <span >{option.label}</span>
+                </div>
+            );
+        }
+    }
+    render() {
+        return (
+            <div className="p-grid">
+                <div className="p-col-12">
+                    <div className="card">
+                        <h1>Personel Kayıt</h1>                      
+                        <TabView renderActiveOnly={false}>
+                    <TabPanel header="Kimlik Bilgileri" leftIcon="pi pi-calendar">
+                        <p>
+                            Kimlik bilgileri 
+                        </p>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Cüzdan Seri - No</h3> 
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Cüzdan Seri - No</label>
+                                    </span>
+                                    <h3>Uyruğu</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Uyruğu</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Uyruğu</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Uyruğu</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Baba Adı</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Baba Adı</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Anne Adı</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Anne Adı</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Medeni Hali</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Medeni Hali</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Dini</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Dini</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Dini</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Dini</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kan Grubu</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kan Grubu</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Cinsiyeti</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Cinsiyeti</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıtlı Olduğu İl</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıtlı Olduğu İl</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıtlı Olduğu İlçe</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıtlı Olduğu İlçe</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıtlı Olduğu Mahalle/Köy</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıtlı Olduğu Mahalle/Köy</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıtlı Olduğu Cilt No</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıtlı Olduğu Cilt No</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıtlı Olduğu Aile Sıra No</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıtlı Olduğu Aile Sıra No</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıtlı Olduğu Sıra No</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıtlı Olduğu Sıra No</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Kayıt No</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">Kayıt No</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>Veriliş Tarihi</h3>
+                                    <span className="p-float-label">
+                                        <Calendar id="float-claendar" value={this.state.calendarValue} onChange={(e) => this.setState({ calendarValue: e.value })} />
+                                        <label htmlFor="float-calendar">Veriliş Tarihi</label>
+                                    </span>
+                                </div>
+                                <div className="p-col-12 p-md-4">
+                                    <h3>İşe İlk Başladığındaki Soyadı</h3>
+                                    <span className="p-float-label">
+                                        <InputText id="float-input" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                                        <label htmlFor="float-input">İşe İlk Başladığındaki Soyadı</label>
+                                    </span>
+                                </div>
+                    </TabPanel>
+                    <TabPanel header=" Öğrenim Bilgileri" rightIcon="pi pi-user">
+                        <p>
+                        Öğrenim bilgileri
+                        </p>
+                    </TabPanel>
+                    <TabPanel header="İletişim Bilgileri" leftIcon="pi pi-search" rightIcon="pi pi-check">
+                        <p>
+                            İletişim Bilgileri
+>>>>>>> 078efc93960e2e1726ccfa2930d35361e93c4d13
 
                     <div className="p-col-12 p-md-4">
                       <h3>Password</h3>
