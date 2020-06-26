@@ -29,33 +29,45 @@ export class PersonelKayit extends Component {
     this.state = {
       unvan: 'Yazılım Uzmanı',
       cinsiyet: null,
-      medeniDurum: null
-
+      medeniDurum: null,
+      kangrubu: null
     };
 
-    this.unvanlar = [
-      { label: 'Yazılım Uzmanı', value: 'Yazılım Uzmanı' },
-      { label: 'Kıdemli Yazılım Uzmanı', value: 'Kıdemli Yazılım Uzmanı' },
-      { label: 'Proje Müdür Yardımcısı', value: 'Proje Müdür Yardımcısı' },
-      { label: 'Proje Müdürü', value: 'Proje Müdürü' }
-    ];
-    this.medenidurum = [
-      { name: 'Evli', value: 'Evli' },
-      { name: 'Bekar', value: 'Bekar' },
-    ];
+        this.unvanlar = [
+            { label: 'Yazılım Uzmanı', value: 'Yazılım Uzmanı' },
+            { label: 'Kıdemli Yazılım Uzmanı', value: 'Kıdemli Yazılım Uzmanı' },
+            { label: 'Proje Müdür Yardımcısı', value: 'Proje Müdür Yardımcısı' },
+            { label: 'Proje Müdürü', value: 'Proje Müdürü' }
+        ];
+        this.medenidurum = [
+            {name: 'Evli', code: 'Evli'},
+            {name: 'Bekar', code: 'Bekar'},
+        ];
+        this.kangrubulist = [
+            {name: 'O Rh-pozitif', code: 'O Rh-pozitif'},
+            {name: '0 Rh-negatif', code: '0 Rh-negatif'},
+            {name: 'A Rh-pozitif', code: 'A Rh-pozitif'},
+            {name: 'A Rh-negatif', code: 'A Rh-negatif'},
+            {name: 'B Rh-pozitif', code: 'B Rh-pozitif'},
+            {name: 'B Rh-negatif', code: 'B Rh-negatif'},
+            {name: 'AB Rh-pozitif', code: 'AB Rh-pozitif'},
+            {name: 'AB Rh-negatif', code: 'AB Rh-negatif'}
+        ];
 
-
-    this.onUnvanChange = this.onUnvanChange.bind(this);
-    this.onmedenidurum = this.onmedenidurum.bind(this);
-
-  }
-
-  onUnvanChange(e) {
-    this.setState({ unvan: e.value });
-  }
-  onmedenidurum(e) {
-    this.setState({ medenidurum: e.value });
-  }
+        this.onUnvanChange = this.onUnvanChange.bind(this);
+        this.onmedenidurum = this.onmedenidurum.bind(this);
+        this.onkangrubuchange=this.onkangrubuchange.bind(this);
+    
+    };  
+    onUnvanChange(e) {
+        this.setState({ unvan: e.value });
+      }
+    onmedenidurum(e) {
+        this.setState({medeniDurum: e.value});
+    }
+    onkangrubuchange(e) {
+        this.setState({kangrubu: e.value});
+    }
 
   render() {
     return (
@@ -164,10 +176,7 @@ export class PersonelKayit extends Component {
                       <label htmlFor="float-calendar">Veriliş Tarihi</label>
                     </span>
                     <h3>Kan Grubu</h3>
-                    <span className="p-float-label">
-                      <InputText id="kangrubu" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
-                      <label htmlFor="float-input">Kan Grubu</label>
-                    </span>
+                    <Dropdown value={this.state.kangrubu} options={this.kangrubulist} onChange={this.onkangrubuchange} optionLabel="name" style={{ width: '12em' }} />
                     <h3>İşe İlk Başladığındaki Soyadı</h3>
                     <span className="p-float-label">
                       <InputText id="ilksoyad" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
