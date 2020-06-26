@@ -22,6 +22,7 @@ import { SelectButton } from "primereact/selectbutton";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
 import { TabView, TabPanel } from "primereact/tabview";
+import {InputMask} from 'primereact/inputmask';
 export class PersonelKayit extends Component {
   constructor() {
     super();
@@ -238,69 +239,16 @@ export class PersonelKayit extends Component {
                             <label htmlFor="float-dropdown">Select City</label>
                         </span>
                     </div>
-                    <div className="p-col-12 p-md-8">
-                      <h3>AutoComplete</h3>
-                      <span className="p-float-label">
-                        <AutoComplete
-                          id="float-auto"
-                          value={this.state.country}
-                          suggestions={this.state.filteredCountriesSingle}
-                          completeMethod={this.filterCountrySingle}
-                          field="name"
-                          size={30}
-                          minLength={1}
-                          onChange={(e) => this.setState({ country: e.value })}
-                        />
-                        <label htmlFor="float-auto">Countries</label>
-                      </span>
-                    </div>
 
                     <div className="p-col-12 p-md-8">
-                      <h3>Calendar</h3>
-                      <span className="p-float-label">
-                        <Calendar
-                          id="float-claendar"
-                          value={this.state.calendarValue}
-                          onChange={(e) =>
-                            this.setState({ calendarValue: e.value })
-                          }
-                        />
-                        <label htmlFor="float-calendar">Select a Date</label>
-                      </span>
+                        <h3>Telefon Numarası</h3>
+                        <span className="p-float-label">
+                            <InputMask id="float-mask" mask="5999999999" value={this.state.maskValue} onChange={(e) => this.setState({maskValue: e.value})}/>
+                            <label htmlFor="float-mask">599999999</label>
+                        </span>
                     </div>
-
-                    <div className="p-col-12 p-md-4">
-                      <h3>Chips</h3>
-                      <span className="p-float-label">
-                        <Chips
-                          id="float-chips"
-                          value={this.state.chipsValue}
-                          onChange={(e) =>
-                            this.setState({ chipsValue: e.value })
-                          }
-                        />
-                        <label htmlFor="float-chips">Enter a Text</label>
-                      </span>
-                    </div>
-
-                    <div className="p-col-12 p-md-4">
-                      <h3>KeyFilter</h3>
-                      <span className="p-float-label">
-                        <InputText id="float-keyfilter" keyfilter="int" />
-                        <label htmlFor="float-keyfilter">Integers</label>
-                      </span>
-                    </div>
-
-                    <div className="p-col-12 p-md-4">
-                      <h3>Password</h3>
-                      <span className="p-float-label">
-                        <Password id="float-password" />
-                        <label htmlFor="float-password">Password</label>
-                      </span>
-                    </div>
-
-                    <div className="p-col-12 p-md-4">
-                      <h3>InputTextarea</h3>
+                    <div className="p-col-12 p-md-8">
+                      <h3>Adres Bilgisi </h3>
                       <span className="p-float-label">
                         <InputTextarea
                           id="float-textarea"
@@ -311,7 +259,7 @@ export class PersonelKayit extends Component {
                           rows={5}
                           cols={30}
                         />
-                        <label htmlFor="float-textarea">Your Message</label>
+                        <label htmlFor="float-textarea">Adres</label>
                       </span>
                     </div>
                   </div>
