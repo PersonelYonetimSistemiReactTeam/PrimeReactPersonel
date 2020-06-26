@@ -22,7 +22,7 @@ import { SelectButton } from 'primereact/selectbutton';
 import { Button } from 'primereact/button';
 import { SplitButton } from 'primereact/splitbutton';
 import { TabView, TabPanel } from 'primereact/tabview';
-import {InputMask} from 'primereact/inputmask';
+import { InputMask } from 'primereact/inputmask';
 export class PersonelKayit extends Component {
   constructor() {
     super();
@@ -178,9 +178,17 @@ export class PersonelKayit extends Component {
 
               </TabPanel>
               <TabPanel header=" Öğrenim Bilgileri" rightIcon="pi pi-user">
-                <p>
-                  Öğrenim bilgileri
-                        </p>
+                <h3>Eğitim Durumu</h3>
+                <Dropdown value={this.state.unvan} options={this.unvanlar} onChange={this.onUnvanChange} style={{ width: '12em' }}
+                  filter={true} filterPlaceholder="Unvan Seçiniz" filterBy="label,value" showClear={true} />
+                <h3>Unvan</h3>
+                <Dropdown value={this.state.unvan} options={this.unvanlar} onChange={this.onUnvanChange} style={{ width: '12em' }}
+                  filter={true} filterPlaceholder="Unvan Seçiniz" filterBy="label,value" showClear={true} />
+                <h3>Okul</h3>
+                <span className="p-float-label">
+                  <InputText id="mezuniyetOkul" type="text" size={30} value={this.state.mezuniyetOkul} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+                  <label htmlFor="float-input">Mezuniyet Okul</label>
+                </span>
               </TabPanel>
               <TabPanel header="İletişim Bilgileri" leftIcon="pi pi-search" rightIcon="pi pi-check">
 
