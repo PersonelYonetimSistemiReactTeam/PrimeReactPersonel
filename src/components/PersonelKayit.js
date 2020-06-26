@@ -1,67 +1,48 @@
-import React, { Component } from "react";
-import { CountryService } from "../service/CountryService";
-import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
-import { AutoComplete } from "primereact/autocomplete";
-import { MultiSelect } from "primereact/multiselect";
-import { Calendar } from "primereact/calendar";
-import { Chips } from "primereact/chips";
-import { Checkbox } from "primereact/checkbox";
-import { RadioButton } from "primereact/radiobutton";
-import { InputSwitch } from "primereact/inputswitch";
-import { Dropdown } from "primereact/dropdown";
-import { Password } from "primereact/password";
-import { Spinner } from "primereact/spinner";
-import { Slider } from "primereact/components/slider/Slider";
-import { ListBox } from "primereact/listbox";
-import { Rating } from "primereact/rating";
-import { ColorPicker } from "primereact/colorpicker";
-import { Editor } from "primereact/editor";
-import { ToggleButton } from "primereact/togglebutton";
-import { SelectButton } from "primereact/selectbutton";
-import { Button } from "primereact/button";
-import { SplitButton } from "primereact/splitbutton";
-import { TabView, TabPanel } from "primereact/tabview";
-import {InputMask} from 'primereact/inputmask';
+import React, { Component } from 'react';
+import { CountryService } from '../service/CountryService';
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { AutoComplete } from 'primereact/autocomplete';
+import { MultiSelect } from 'primereact/multiselect';
+import { Calendar } from 'primereact/calendar';
+import { Chips } from 'primereact/chips';
+import { Checkbox } from 'primereact/checkbox';
+import { RadioButton } from 'primereact/radiobutton';
+import { InputSwitch } from 'primereact/inputswitch';
+import { Dropdown } from 'primereact/dropdown';
+import { Password } from 'primereact/password';
+import { Spinner } from 'primereact/spinner';
+import { Slider } from 'primereact/components/slider/Slider';
+import { ListBox } from 'primereact/listbox';
+import { Rating } from 'primereact/rating';
+import { ColorPicker } from 'primereact/colorpicker';
+import { Editor } from 'primereact/editor';
+import { ToggleButton } from 'primereact/togglebutton';
+import { SelectButton } from 'primereact/selectbutton';
+import { Button } from 'primereact/button';
+import { SplitButton } from 'primereact/splitbutton';
+import {TabView,TabPanel} from 'primereact/tabview';
 export class PersonelKayit extends Component {
-  constructor() {
-    super();
-    this.state = {
-      unvan: "Yazılım Uzmanı",
-    };
+    constructor() {
+        super();
+        this.state = {
+            unvan: 'Yazılım Uzmanı'
+        };
 
-    this.unvanlar = [
-      { label: "Yazılım Uzmanı", value: "Yazılım Uzmanı" },
-      { label: "Kıdemli Yazılım Uzmanı", value: "Kıdemli Yazılım Uzmanı" },
-      { label: "Proje Müdür Yardımcısı", value: "Proje Müdür Yardımcısı" },
-      { label: "Proje Müdürü", value: "Proje Müdürü" },
-    ];
-    this.cities = [
-        {name: 'Ankara', code: 'ANK'},
-        {name: 'İstanbul', code: 'IST'}
-    ];
+        this.unvanlar = [
+            { label: 'Yazılım Uzmanı', value: 'Yazılım Uzmanı' },
+            { label: 'Kıdemli Yazılım Uzmanı', value: 'Kıdemli Yazılım Uzmanı' },
+            { label: 'Proje Müdür Yardımcısı', value: 'Proje Müdür Yardımcısı' },
+            { label: 'Proje Müdürü', value: 'Proje Müdürü' }
+        ];
+    
 
-    this.onUnvanChange = this.onUnvanChange.bind(this);
-    this.onCityChange = this.onCityChange.bind(this);
-  }
-  onUnvanChange(e) {
-    this.setState({ unvan: e.value });
-  }
-  onCityChange(e) {
-    this.setState({ cities: e.value });
-  }
-
-  UnvanTemplate(option) {
-    if (!option.value) {
-      return option.label;
-    } else {
-      return (
-        <div className="p-clearfix">
-          <span>{option.label}</span>
-        </div>
-      );
+        this.onUnvanChange = this.onUnvanChange.bind(this);
     }
-  }
+    onUnvanChange(e) {
+        this.setState({ unvan: e.value });
+      }
+
     render() {
         return (
             <div className="p-grid">
@@ -199,8 +180,8 @@ export class PersonelKayit extends Component {
                         </p>
                     </TabPanel>
                     <TabPanel header="İletişim Bilgileri" leftIcon="pi pi-search" rightIcon="pi pi-check">
+
                  
-                <div>
                   <div className="p-grid p-fluid">
                     <div className="p-col-12 p-md-8">
                       <h3>Sokak</h3>
@@ -241,34 +222,48 @@ export class PersonelKayit extends Component {
                     </div>
 
                     <div className="p-col-12 p-md-8">
-                        <h3>Telefon Numarası</h3>
-                        <span className="p-float-label">
-                            <InputMask id="float-mask" mask="5999999999" value={this.state.maskValue} onChange={(e) => this.setState({maskValue: e.value})}/>
-                            <label htmlFor="float-mask">599999999</label>
-                        </span>
-                    </div>
-                    <div className="p-col-12 p-md-8">
-                      <h3>Adres Bilgisi </h3>
+                      <h3>Calendar</h3>
                       <span className="p-float-label">
-                        <InputTextarea
-                          id="float-textarea"
-                          value={this.state.textareaValue}
+                        <Calendar
+                          id="float-claendar"
+                          value={this.state.calendarValue}
                           onChange={(e) =>
-                            this.setState({ textareaValue: e.target.value })
+                            this.setState({ calendarValue: e.value })
                           }
-                          rows={5}
-                          cols={30}
                         />
-                        <label htmlFor="float-textarea">Adres</label>
+                        <label htmlFor="float-calendar">Select a Date</label>
                       </span>
                     </div>
-                  </div>
-                </div>
-              </TabPanel>
-            </TabView>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+
+                    <div className="p-col-12 p-md-4">
+                      <h3>Chips</h3>
+                      <span className="p-float-label">
+                        <Chips
+                          id="float-chips"
+                          value={this.state.chipsValue}
+                          onChange={(e) =>
+                            this.setState({ chipsValue: e.value })
+                          }
+                        />
+                        <label htmlFor="float-chips">Enter a Text</label>
+                      </span>
+                    </div>
+
+                    <div className="p-col-12 p-md-4">
+                      <h3>KeyFilter</h3>
+                      <span className="p-float-label">
+                        <InputText id="float-keyfilter" keyfilter="int" />
+                        <label htmlFor="float-keyfilter">Integers</label>
+                      </span>
+                    </div>
+                    </div> 
+                    </TabPanel>
+
+                </TabView>
+                                
+                </div> 
+            </div>
+            </div>
+        );
+    
+}}
