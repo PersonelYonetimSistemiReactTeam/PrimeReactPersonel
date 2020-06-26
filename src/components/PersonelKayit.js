@@ -39,8 +39,8 @@ export class PersonelKayit extends Component {
             { label: 'Proje Müdürü', value: 'Proje Müdürü' }
         ];
         this.medenidurum = [
-            {name: 'Evli', value: 'Evli'},
-            {name: 'Bekar', value: 'Bekar'},
+            {name: 'Evli', code: 'Evli'},
+            {name: 'Bekar', code: 'Bekar'},
         ];
     
 
@@ -53,7 +53,7 @@ export class PersonelKayit extends Component {
         this.setState({ unvan: e.value });
       }
     onmedenidurum(e) {
-        this.setState({medenidurum: e.value});
+        this.setState({medeniDurum: e.value});
     }
 
     render() {
