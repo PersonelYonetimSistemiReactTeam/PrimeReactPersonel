@@ -1,0 +1,342 @@
+
+{
+    "data": [
+        {
+            "value": "15",
+            "label": "BURDUR"
+        },
+        {
+            "value": "26",
+            "label": "ESKİŞEHİR"
+        },
+        {
+            "value": "18",
+            "label": "ÇANKIRI"
+        },
+        {
+            "value": "80",
+            "label": "OSMANİYE"
+        },
+        {
+            "value": "41",
+            "label": "KOCAELİ"
+        },
+        {
+            "value": "27",
+            "label": "GAZİANTEP"
+        },
+        {
+            "value": "31",
+            "label": "HATAY"
+        },
+        {
+            "value": "38",
+            "label": "KAYSERİ"
+        },
+        {
+            "value": "29",
+            "label": "GÜMÜŞHANE"
+        },
+        {
+            "value": "54",
+            "label": "SAKARYA"
+        },
+        {
+            "value": "16",
+            "label": "BURSA"
+        },
+        {
+            "value": "69",
+            "label": "BAYBURT"
+        },
+        {
+            "value": "17",
+            "label": "ÇANAKKALE"
+        },
+        {
+            "value": "57",
+            "label": "SİNOP"
+        },
+        {
+            "value": "74",
+            "label": "BARTIN"
+        },
+        {
+            "value": "503",
+            "label": "MAĞUSA (KIBRIS)"
+        },
+        {
+            "value": "33",
+            "label": "MERSİN"
+        },
+        {
+            "value": "51",
+            "label": "NİĞDE"
+        },
+        {
+            "value": "42",
+            "label": "KONYA"
+        },
+        {
+            "value": "60",
+            "label": "TOKAT"
+        },
+        {
+            "value": "2",
+            "label": "ADIYAMAN"
+        },
+        {
+            "value": "6",
+            "label": "ANKARA"
+        },
+        {
+            "value": "66",
+            "label": "YOZGAT"
+        },
+        {
+            "value": "52",
+            "label": "ORDU"
+        },
+        {
+            "value": "53",
+            "label": "RİZE"
+        },
+        {
+            "value": "1",
+            "label": "ADANA"
+        },
+        {
+            "value": "40",
+            "label": "KIRŞEHİR"
+        },
+        {
+            "value": "76",
+            "label": "IĞDIR"
+        },
+        {
+            "value": "45",
+            "label": "MANİSA"
+        },
+        {
+            "value": "21",
+            "label": "DİYARBAKIR"
+        },
+        {
+            "value": "64",
+            "label": "UŞAK"
+        },
+        {
+            "value": "501",
+            "label": "LEFKOŞE (KIBRIS)"
+        },
+        {
+            "value": "5",
+            "label": "AMASYA"
+        },
+        {
+            "value": "24",
+            "label": "ERZİNCAN"
+        },
+        {
+            "value": "32",
+            "label": "ISPARTA"
+        },
+        {
+            "value": "502",
+            "label": "GİRNE (KIBRIS)"
+        },
+        {
+            "value": "23",
+            "label": "ELAZIĞ"
+        },
+        {
+            "value": "78",
+            "label": "KARABÜK"
+        },
+        {
+            "value": "30",
+            "label": "HAKKARİ"
+        },
+        {
+            "value": "36",
+            "label": "KARS"
+        },
+        {
+            "value": "67",
+            "label": "ZONGULDAK"
+        },
+        {
+            "value": "68",
+            "label": "AKSARAY"
+        },
+        {
+            "value": "44",
+            "label": "MALATYA"
+        },
+        {
+            "value": "10",
+            "label": "BALIKESİR"
+        },
+        {
+            "value": "20",
+            "label": "DENİZLİ"
+        },
+        {
+            "value": "49",
+            "label": "MUŞ"
+        },
+        {
+            "value": "73",
+            "label": "ŞIRNAK"
+        },
+        {
+            "value": "48",
+            "label": "MUĞLA"
+        },
+        {
+            "value": "59",
+            "label": "TEKİRDAĞ"
+        },
+        {
+            "value": "39",
+            "label": "KIRKLARELİ"
+        },
+        {
+            "value": "56",
+            "label": "SİİRT"
+        },
+        {
+            "value": "28",
+            "label": "GİRESUN"
+        },
+        {
+            "value": "63",
+            "label": "ŞANLIURFA"
+        },
+        {
+            "value": "9",
+            "label": "AYDIN"
+        },
+        {
+            "value": "72",
+            "label": "BATMAN"
+        },
+        {
+            "value": "13",
+            "label": "BİTLİS"
+        },
+        {
+            "value": "3",
+            "label": "AFYONKARAHİSAR"
+        },
+        {
+            "value": "8",
+            "label": "ARTVİN"
+        },
+        {
+            "value": "4",
+            "label": "AĞRI"
+        },
+        {
+            "value": "77",
+            "label": "YALOVA"
+        },
+        {
+            "value": "50",
+            "label": "NEVŞEHİR"
+        },
+        {
+            "value": "61",
+            "label": "TRABZON"
+        },
+        {
+            "value": "58",
+            "label": "SİVAS"
+        },
+        {
+            "value": "7",
+            "label": "ANTALYA"
+        },
+        {
+            "value": "37",
+            "label": "KASTAMONU"
+        },
+        {
+            "value": "47",
+            "label": "MARDİN"
+        },
+        {
+            "value": "46",
+            "label": "KAHRAMANMARAŞ"
+        },
+        {
+            "value": "25",
+            "label": "ERZURUM"
+        },
+        {
+            "value": "75",
+            "label": "ARDAHAN"
+        },
+        {
+            "value": "81",
+            "label": "DÜZCE"
+        },
+        {
+            "value": "55",
+            "label": "SAMSUN"
+        },
+        {
+            "value": "19",
+            "label": "ÇORUM"
+        },
+        {
+            "value": "65",
+            "label": "VAN"
+        },
+        {
+            "value": "14",
+            "label": "BOLU"
+        },
+        {
+            "value": "43",
+            "label": "KÜTAHYA"
+        },
+        {
+            "value": "11",
+            "label": "BİLECİK"
+        },
+        {
+            "value": "34",
+            "label": "İSTANBUL"
+        },
+        {
+            "value": "79",
+            "label": "KİLİS"
+        },
+        {
+            "value": "62",
+            "label": "TUNCELİ"
+        },
+        {
+            "value": "12",
+            "label": "BİNGÖL"
+        },
+        {
+            "value": "22",
+            "label": "EDİRNE"
+        },
+        {
+            "value": "71",
+            "label": "KIRIKKALE"
+        },
+        {
+            "value": "70",
+            "label": "KARAMAN"
+        },
+        {
+            "value": "35",
+            "label": "İZMİR"
+        }
+    ]
+
+}

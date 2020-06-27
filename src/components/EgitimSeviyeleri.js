@@ -1,43 +1,47 @@
 import React, { Component } from 'react';
+import '../layout/sass/personelKayit.scss';
+import { OkulBilgisi } from './OkulBilgisi';
+import { YuksekOkulBilgisi } from './YuksekOkulBilgisi'
+
 
 export class EgitimSeviyeleri extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            okulSeviyesi:'İlköğretim Bilgisi'
+        };
+    }
     render() {
+        const egitimSeviyesi =Number(this.props[0]) ;
         return (
             <div className="p-grid">
-                <div className="p-col-12">
+                <div className="p-col-12 ">
                     <div className="card">
-                        <div style={{ visible: true }} >
-                            <h3>İlköğretim Bilgisi</h3>
+                        <div className={egitimSeviyesi > 0 ? 'divVisible okulBilgisi' : 'divVisibleHidden' }>
+                            <h2>İlköğretim Bilgisi</h2>
+                            <OkulBilgisi />
+                        </div>
+                        <div className={egitimSeviyesi > 1 ? 'divVisible okulBilgisi' : 'divVisibleHidden'} >
+                            <h2> Orta Öğretim Bilgisi</h2>
+                            <OkulBilgisi/>
 
                         </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>İlköğretim Bilgisi</h3>
+                        <div className={egitimSeviyesi > 2 ? 'divVisible okulBilgisi' : 'divVisibleHidden'} >
+                        <h2> Lise Bilgisi</h2>
+                            <OkulBilgisi/>
 
                         </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>Orta Öğretim Bilgisi</h3>
-
+                        <div className={egitimSeviyesi > 3 ? 'divVisible okulBilgisi' : 'divVisibleHidden'} >
+                            <h2>Üniversite Bilgisi</h2>
+                            <YuksekOkulBilgisi/>
                         </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>Lise Bilgisi</h3>
-
+                        <div className={egitimSeviyesi > 4 ? 'divVisible okulBilgisi' : 'divVisibleHidden'}>
+                            <h2>Yüksek Lisans Bilgisi</h2>
+                            <YuksekOkulBilgisi/>
                         </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>Meslek Yüksek Okulu Bilgisi</h3>
-
-                        </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>Üniversite Bilgisi</h3>
-
-                        </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>Yüksek Lisans Bilgisi</h3>
-
-                        </div>
-                        <div style={{ visible: "false" }} >
-                            <h3>Doktora Bilgisi</h3>
-
+                        <div className={egitimSeviyesi > 5 ? 'divVisible okulBilgisi' : 'divVisibleHidden'} >
+                            <h2>Doktora Bilgisi</h2>
+                            <YuksekOkulBilgisi/>
                         </div>
                     </div>
                 </div>
