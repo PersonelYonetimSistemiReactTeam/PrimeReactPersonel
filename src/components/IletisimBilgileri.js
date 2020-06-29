@@ -3,18 +3,33 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputMask } from 'primereact/inputmask';
 import { Dropdown } from 'primereact/dropdown';
+import { IlService } from '../service/IlService';
 
 
 export class IletisimBilgileri extends Component {
     constructor() {
         super();
         this.state = {
+            il: '6',
+            iller: []
+
           
         };
+        this.cities = [
+            { name: 'İstanbul', value: 'IST' },
+            { name: 'Ankara', value: 'ANK' },
+          ];
 
+          this.onCityChange = this.onCityChange.bind(this);
+          this.ilservice = new IlService();
 
     };
-
+    onCityChange(e) {
+        this.setState({ city: e.value });
+    }
+    componentDidMount() {
+        this.ilservice.getIller().then(data => this.setState({ iller: data }));
+    }
     render() {
         return (
             <div className="p-grid p-fluid">
@@ -49,11 +64,10 @@ export class IletisimBilgileri extends Component {
                     </span>
                 </div>
                 <div className="p-col-12 p-md-8">
-                    <h3>Dropdown</h3>
-                    <span className="p-float-label">
-                        <Dropdown id="float-dropdown" value={this.state.city} options={this.cities} ariaLabel="Test" onChange={this.onCityChange} optionLabel="name" />
-                        <label htmlFor="float-dropdown">Select City</label>
-                    </span>
+                <h3>İl Seçiniz</h3>
+                <Dropdown value={this.state.il} key={this.state.iller.value} options={this.state.iller} onChange={this.onIlChange} style={{ width: '12em' }}
+                                    filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
+                 
                 </div>
 
                 <div className="p-col-12 p-md-8">
@@ -78,7 +92,8 @@ export class IletisimBilgileri extends Component {
                         <label htmlFor="float-textarea">Adres</label>
                     </span>
                 </div>
-            </div>
+             </div>
+            
         );
     }
 }
