@@ -211,7 +211,7 @@ export class PersonelListe extends Component {
                     <Column field="name" header="Ad-Soyad" sortable filter filterPlaceholder="Ad-Soyad" />
                     <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl"/>
                     <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
-                    <Column field="status" header="Birim" body={this.statusBodyTemplate} sortable filter filterElement={statusFilter} />
+                    <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
                     <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center'}} bodyStyle={{textAlign: 'center', overflow: 'visible'}} />
                 </DataTable>
             </div>
