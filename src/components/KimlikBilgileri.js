@@ -11,7 +11,24 @@ export class KimlikBilgileri extends Component {
     this.state = {
       cinsiyet: null,
       medeniDurum: null,
-      kangrubu: null
+      kangrubu: null,
+      ad:null,
+      soyad:null,
+      tc:null,
+      babaadi: null,
+      anneadi: null,
+      din: null,
+      uyruk: null,
+      il: null,
+      ilce: null,
+      mahallekoy: null,
+      ciltno: null,
+      ailesirano: null,
+      sirano: null,
+      kayitno: null,
+      serino: null,
+      ibsoyad: null
+      
     };
 
     this.medenidurum = [
@@ -47,17 +64,17 @@ export class KimlikBilgileri extends Component {
         <div className="p-col-12 p-md-4">
           <h3>Ad</h3>
           <span className="p-float-label">
-            <InputText id="ad" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="ad" type="text" size={30} value={this.state.ad} onChange={(e) => this.setState({ ad: e.target.value})} />
             <label htmlFor="float-input">Ad</label>
           </span>
           <h3>Soyad</h3>
           <span className="p-float-label">
-            <InputText id="soyad" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="soyad" type="text" size={30} value={this.state.soyad} onChange={(e) => this.setState({ soyad: e.target.value})} />
             <label htmlFor="float-input">Soyad</label>
           </span>
           <h3>T.C Kimlik No</h3>
           <span className="p-float-label">
-            <InputText id="tc" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="tc" type="text" size={30} value={this.state.tc} onChange={(e) => this.setState({ tc: e.target.value })} />
             <label htmlFor="float-input">T.C Kimlik No</label>
           </span>
           <h3>Cinsiyeti</h3>
@@ -72,68 +89,68 @@ export class KimlikBilgileri extends Component {
           </div>
           <h3>Baba Adı</h3>
           <span className="p-float-label">
-            <InputText id="babaadi" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="babaadi" type="text" size={30} value={this.state.babaadi} onChange={(e) => this.setState({ babaadi: e.target.value })} />
             <label htmlFor="float-input">Baba Adı</label>
           </span>
           <h3>Anne Adı</h3>
           <span className="p-float-label">
-            <InputText id="anneadi" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="anneadi" type="text" size={30} value={this.state.anneadi} onChange={(e) => this.setState({ anneadi: e.target.value })} />
             <label htmlFor="float-input">Anne Adı</label>
           </span>
           <h3>Medeni Durum</h3>
           <Dropdown value={this.state.medeniDurum} options={this.medenidurum} onChange={this.onmedenidurum} optionLabel="name" style={{ width: '12em' }} />
           <h3>Dini</h3>
           <span className="p-float-label">
-            <InputText id="dini" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="dini" type="text" size={30} value={this.state.din} onChange={(e) => this.setState({ din: e.target.value })} />
             <label htmlFor="float-input">Dini</label>
           </span>
         </div>
         <div className="p-col-12 p-md-4">
           <h3>Uyruğu</h3>
           <span className="p-float-label">
-            <InputText id="uyruk" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="uyruk" type="text" size={30} value={this.state.uyruk} onChange={(e) => this.setState({ uyruk: e.target.value })} />
             <label htmlFor="float-input">Uyruğu</label>
           </span>
           <h3>Kayıtlı Olduğu İl</h3>
           <span className="p-float-label">
-            <InputText id="kolduguil" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="kolduguil" type="text" size={30} value={this.state.il} onChange={(e) => this.setState({ il: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu İl</label>
           </span>
           <h3>Kayıtlı Olduğu İlçe</h3>
           <span className="p-float-label">
-            <InputText id="kolduguilce" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="kolduguilce" type="text" size={30} value={this.state.ilce} onChange={(e) => this.setState({ ilce: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu İlçe</label>
           </span>
           <h3>Kayıtlı Olduğu Mahalle/Köy</h3>
           <span className="p-float-label">
-            <InputText id="mahallekoy" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="mahallekoy" type="text" size={30} value={this.state.mahallekoy} onChange={(e) => this.setState({ mahallekoy: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu Mahalle/Köy</label>
           </span>
           <h3>Kayıtlı Olduğu Cilt No</h3>
           <span className="p-float-label">
-            <InputText id="ciltno" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="ciltno" type="text" size={30} value={this.state.ciltno} onChange={(e) => this.setState({ ciltno: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu Cilt No</label>
           </span>
           <h3>Kayıtlı Olduğu Aile Sıra No</h3>
           <span className="p-float-label">
-            <InputText id="ailesirano" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="ailesirano" type="text" size={30} value={this.state.ailesirano} onChange={(e) => this.setState({ ailesirano: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu Aile Sıra No</label>
           </span>
           <h3>Kayıtlı Olduğu Sıra No</h3>
           <span className="p-float-label">
-            <InputText id="sirano" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="sirano" type="text" size={30} value={this.state.sirano} onChange={(e) => this.setState({ sirano: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu Sıra No</label>
           </span>
           <h3>Kayıt No</h3>
           <span className="p-float-label">
-            <InputText id="kayitno" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="kayitno" type="text" size={30} value={this.state.kayitno} onChange={(e) => this.setState({ kayitno: e.target.value})} />
             <label htmlFor="float-input">Kayıt No</label>
           </span>
         </div>
         <div className="p-col-12 p-md-4">
           <h3>Cüzdan Seri - No</h3>
           <span className="p-float-label">
-            <InputText id="cuzdanserino" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="cuzdanserino" type="text" size={30} value={this.state.serino} onChange={(e) => this.setState({ serino: e.target.value})} />
             <label htmlFor="float-input">Cüzdan Seri - No</label>
           </span>
           <h3>Veriliş Tarihi</h3>
@@ -145,7 +162,7 @@ export class KimlikBilgileri extends Component {
           <Dropdown value={this.state.kangrubu} options={this.kangrubulist} onChange={this.onkangrubuchange} optionLabel="name" style={{ width: '12em' }} />
           <h3>İşe İlk Başladığındaki Soyadı</h3>
           <span className="p-float-label">
-            <InputText id="ilksoyad" type="text" size={30} value={this.state.inputtextValue} onChange={(e) => this.setState({ inputtextValue: e.target.value })} />
+            <InputText id="ilksoyad" type="text" size={30} value={this.state.ibsoyad} onChange={(e) => this.setState({ ibsoyad: e.target.value })} />
             <label htmlFor="float-input">İşe İlk Başladığındaki Soyadı</label>
           </span>
         </div>
