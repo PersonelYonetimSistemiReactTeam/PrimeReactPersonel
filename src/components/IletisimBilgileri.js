@@ -40,9 +40,9 @@ export class IletisimBilgileri extends Component {
                             id="float-input"
                             type="text"
                             size={30}
-                            value={this.state.inputtextValue}
+                            value={this.state.SokakIsmi}
                             onChange={(e) =>
-                                this.setState({ inputtextValue: e.target.value })
+                                this.setState({ SokakIsmi: e.target.value })
                             }
                         />
                         <label htmlFor="float-input">Sokak</label>
@@ -55,9 +55,9 @@ export class IletisimBilgileri extends Component {
                             id="float-input"
                             type="text"
                             size={30}
-                            value={this.state.inputtextValue}
+                            value={this.state.CaddeIsmi}
                             onChange={(e) =>
-                                this.setState({ inputtextValue: e.target.value })
+                                this.setState({ CaddeIsmi: e.target.value })
                             }
                         />
                         <label htmlFor="float-input">Cadde</label>
