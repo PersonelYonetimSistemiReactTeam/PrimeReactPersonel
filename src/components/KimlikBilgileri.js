@@ -230,11 +230,6 @@ export class KimlikBilgileri extends Component {
         </div>
 
         <div className="p-col-12 p-md-4">
-          <h3>Kayıt No</h3>
-          <span className="p-float-label">
-            <InputText id="kayitno" type="text" size={30} value={this.state.kayitno} onChange={(e) => this.setState({ kayitno: e.target.value })} />
-            <label htmlFor="float-input">Kayıt No</label>
-          </span>
           <h3>Cüzdan Seri - No</h3>
           <span className="p-float-label">
             <InputText name="cuzdanserino" type="text" size={30} value={this.state.serino} onChange={(e) => this.handleInputChange(e)} />
