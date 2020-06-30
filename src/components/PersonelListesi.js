@@ -19,6 +19,8 @@ import classNames from 'classnames';
 import { PersonelListeService } from '../service/CustomerService';
 import {SplitButton} from 'primereact/splitbutton';
 import {Growl} from 'primereact/growl';
+import {OverlayPanel} from 'primereact/overlaypanel';
+import {Dialog} from 'primereact/dialog';
 
 export class PersonelListe extends Component {
 
@@ -31,8 +33,11 @@ export class PersonelListe extends Component {
             selectedRepresentatives: null,
             dateFilter: null,
             selectedStatus: null,
+            displayBasic: false
             
         };
+        this.onClick = this.onClick.bind(this); //popup için eklendi
+        this.onHide = this.onHide.bind(this);//popup için eklendi
         this.items = [
             {
                 label: 'Update',
@@ -40,46 +45,9 @@ export class PersonelListe extends Component {
                 command: () => {
                     this.growl.show({severity:'success', summary:'Updated', detail:'Data Updated'});
                 }
-            },
-            {
-                label: 'Update',
-                icon: 'pi pi-refresh',
-                command: () => {
-                    this.growl.show({severity:'success', summary:'Updated', detail:'Data Updated'});
-                }
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-times',
-                command: () => {
-                    this.growl.show({ severity: 'success', summary: 'Delete', detail: 'Data Deleted' });
-                }
-            },
-            {
-                label: 'React Website',
-                icon: 'pi pi-external-link',
-                command: () => {
-                    window.location.href = 'https://facebook.github.io/react/'
-                }
-            },
-            {   label: 'Upload',
-                icon: 'pi pi-upload',
-                command: () => {
-                    window.location.hash = "/fileupload"
-                }
             }
+            
         ]
-
-        this.representatives = [
-            {name: "Amy Elsner", image: ''},
-            {name: "Anna Fali", image: ''},
-            {name: "Asiya Javayant", image: ''},
-            {name: "Bernardo Dominic", image: ''},
-        ];
-
-        this.statuses = [
-            'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
-        ];
 
         this.customers = new CustomerService();
 
@@ -94,7 +62,7 @@ export class PersonelListe extends Component {
         this.representativeItemTemplate = this.representativeItemTemplate.bind(this);
         this.onRepresentativeFilterChange = this.onRepresentativeFilterChange.bind(this);
         this.onDateFilterChange = this.onDateFilterChange.bind(this);
-        this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.filterDate = this.filterDate.bind(this);       
         this.statusItemTemplate = this.statusItemTemplate.bind(this);
         this.onStatusFilterChange = this.onStatusFilterChange.bind(this);
     }
@@ -112,6 +80,27 @@ export class PersonelListe extends Component {
                 </div>
             </div>
         );
+    }
+    //popup için eklendi
+    onClick(name, position) {
+        let state = {
+            [`${name}`]: true
+        };
+
+        if (position) {
+            state = {
+                ...state,
+                position
+            }
+        }
+
+        this.setState(state);
+    }
+
+    onHide(name) {
+        this.setState({
+            [`${name}`]: false
+        });
     }
 
     activityBodyTemplate(rowData) {
@@ -241,6 +230,14 @@ export class PersonelListe extends Component {
             <Button type="button" icon="pi pi-pencil" className="p-button-warning"></Button>
         </div>;
     }
+    renderFooter(name) {
+        return (
+            <div>
+                <Button label="Yes" icon="pi pi-check" onClick={() => this.onHide(name)} />
+                <Button label="No" icon="pi pi-times" onClick={() => this.onHide(name)} className="p-button-secondary"/>
+            </div>
+        );
+    }
     render() {
         const header = this.renderHeader();
         const representativeFilter = this.renderRepresentativeFilter();
@@ -251,6 +248,14 @@ export class PersonelListe extends Component {
         return (
             
             <div className="datatable-doc-demo">
+               <h3>Basic</h3>
+                <Button label="Show" icon="pi pi-external-link" onClick={() => this.onClick('displayBasic')} />
+                <Dialog header="Godfather I" visible={this.state.displayBasic} style={{width: '50vw'}} onHide={() => this.onHide('displayBasic')} footer={this.renderFooter('displayBasic')}>
+                    <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+                        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.</p>
+                </Dialog>
                 <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({selectedCustomers: e.value})}
@@ -262,8 +267,9 @@ export class PersonelListe extends Component {
                     <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
                     <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
                     <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
-                    <Column  header="Güncelle/Detay"body={this.actionTemplate} style={{textAlign:'center', width: '6em'}}/>
-                    <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center'}} bodyStyle={{textAlign: 'center', overflow: 'visible'}} />
+                    <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
+                    <Column  body={this.actionTemplate}  style={{textAlign:'center', width: '6em'}}/>
+                    <Column body={this.actionBodyTemplate}  headerStyle={{width: '8em', textAlign: 'center'}} bodyStyle={{textAlign: 'center', overflow: 'visible'}}/>
                
                 </DataTable>
                 

@@ -3,6 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 import { RadioButton } from 'primereact/radiobutton';
 import { Dropdown } from 'primereact/dropdown';
+import { Growl } from 'primereact/growl';
+import { FileUpload } from 'primereact/fileupload';
 
 
 export class KimlikBilgileri extends Component {
@@ -47,9 +49,22 @@ export class KimlikBilgileri extends Component {
 
     this.onmedenidurum = this.onmedenidurum.bind(this);
     this.onkangrubuchange = this.onkangrubuchange.bind(this);
+    this.onUpload = this.onUpload.bind(this);
+    this.onBasicUpload = this.onBasicUpload.bind(this);
+    this.onBasicUploadAuto = this.onBasicUploadAuto.bind(this);
 
   };
+  onUpload(event) {
+    this.growl.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+  }
 
+  onBasicUpload(event) {
+    this.growl.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
+  }
+
+  onBasicUploadAuto(event) {
+    this.growl.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
+  }
   onmedenidurum(e) {
     this.setState({ medeniDurum: e.value });
   }
@@ -98,11 +113,7 @@ export class KimlikBilgileri extends Component {
           </span>
           <h3>Medeni Durum</h3>
           <Dropdown value={this.state.medeniDurum} options={this.medenidurum} onChange={this.onmedenidurum} optionLabel="name" style={{ width: '12em' }} />
-          <h3>Uyruğu</h3>
-          <span className="p-float-label">
-            <InputText id="uyruk" type="text" size={30} value={this.state.uyruk} onChange={(e) => this.setState({ uyruk: e.target.value })} />
-            <label htmlFor="float-input">Uyruğu</label>
-          </span>
+
         </div>
         <div className="p-col-12 p-md-4">
 
@@ -136,13 +147,18 @@ export class KimlikBilgileri extends Component {
             <InputText id="sirano" type="text" size={30} value={this.state.sirano} onChange={(e) => this.setState({ sirano: e.target.value })} />
             <label htmlFor="float-input">Kayıtlı Olduğu Sıra No</label>
           </span>
+          <h3>Uyruğu</h3>
+          <span className="p-float-label">
+            <InputText id="uyruk" type="text" size={30} value={this.state.uyruk} onChange={(e) => this.setState({ uyruk: e.target.value })} />
+            <label htmlFor="float-input">Uyruğu</label>
+          </span>
+        </div>
+        <div className="p-col-12 p-md-4">
           <h3>Kayıt No</h3>
           <span className="p-float-label">
             <InputText id="kayitno" type="text" size={30} value={this.state.kayitno} onChange={(e) => this.setState({ kayitno: e.target.value })} />
             <label htmlFor="float-input">Kayıt No</label>
           </span>
-        </div>
-        <div className="p-col-12 p-md-4">
           <h3>Cüzdan Seri - No</h3>
           <span className="p-float-label">
             <InputText id="cuzdanserino" type="text" size={30} value={this.state.serino} onChange={(e) => this.setState({ serino: e.target.value })} />
@@ -160,6 +176,12 @@ export class KimlikBilgileri extends Component {
             <InputText id="ilksoyad" type="text" size={30} value={this.state.ibsoyad} onChange={(e) => this.setState({ ibsoyad: e.target.value })} />
             <label htmlFor="float-input">İşe İlk Başladığındaki Soyadı</label>
           </span>
+          <div>
+            <h3>Fotoğraf</h3>
+            <FileUpload name="demo[]" url="./upload.php" onUpload={this.onUpload}
+              multiple={true} accept="image/*" maxFileSize={1000000} />
+            <Growl ref={(el) => { this.growl = el; }}></Growl>
+          </div>
         </div>
       </div>
     );
