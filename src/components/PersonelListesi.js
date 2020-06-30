@@ -17,6 +17,8 @@ import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
 import classNames from 'classnames';
 import { PersonelListeService } from '../service/CustomerService';
+import {SplitButton} from 'primereact/splitbutton';
+import {Growl} from 'primereact/growl';
 
 export class PersonelListe extends Component {
 
@@ -29,7 +31,44 @@ export class PersonelListe extends Component {
             selectedRepresentatives: null,
             dateFilter: null,
             selectedStatus: null,
+            
         };
+        this.items = [
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh',
+                command: () => {
+                    this.growl.show({severity:'success', summary:'Updated', detail:'Data Updated'});
+                }
+            },
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh',
+                command: () => {
+                    this.growl.show({severity:'success', summary:'Updated', detail:'Data Updated'});
+                }
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-times',
+                command: () => {
+                    this.growl.show({ severity: 'success', summary: 'Delete', detail: 'Data Deleted' });
+                }
+            },
+            {
+                label: 'React Website',
+                icon: 'pi pi-external-link',
+                command: () => {
+                    window.location.href = 'https://facebook.github.io/react/'
+                }
+            },
+            {   label: 'Upload',
+                icon: 'pi pi-upload',
+                command: () => {
+                    window.location.hash = "/fileupload"
+                }
+            }
+        ]
 
         this.representatives = [
             {name: "Amy Elsner", image: ''},
@@ -136,7 +175,7 @@ export class PersonelListe extends Component {
 
     renderDateFilter() {
         return (
-            <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="İşe Başlama Tarihi" dateFormat="yy-mm-dd" className="p-column-filter" />
+            <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="İşe Başlama Tarihi" dateFormat="dd-mm-yy" className="p-column-filter" />
         );
     }
 
@@ -193,19 +232,29 @@ export class PersonelListe extends Component {
         this.dt.filter(event.value, 'status', 'equals');
         this.setState({selectedStatus: event.value});
     }
-
+    save() {
+        this.growl.show({severity: 'success', summary: 'Success', detail: 'Data Saved'});
+    }
+    actionTemplate(rowData, column) {
+        return <div>
+            <Button type="button" icon="pi pi-search" className="p-button-success"></Button>
+            <Button type="button" icon="pi pi-pencil" className="p-button-warning"></Button>
+        </div>;
+    }
     render() {
         const header = this.renderHeader();
         const representativeFilter = this.renderRepresentativeFilter();
         const dateFilter = this.renderDateFilter();
         const statusFilter = this.renderStatusFilter();
+        
 
         return (
+            
             <div className="datatable-doc-demo">
                 <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({selectedCustomers: e.value})}
-                    paginator rows={10} emptyMessage="Personel bulunamadı!" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    paginator rows={10} emptyMessage="Personel bulunamadı!"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column selectionMode="multiple" style={{width:'3em'}}/>
                     <Column field="name" header="Ad-Soyad" sortable filter filterPlaceholder="Ad-Soyad" />
@@ -213,11 +262,14 @@ export class PersonelListe extends Component {
                     <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
                     <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
                     <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
+                    <Column  header="Güncelle/Detay"body={this.actionTemplate} style={{textAlign:'center', width: '6em'}}/>
                     <Column body={this.actionBodyTemplate} headerStyle={{width: '8em', textAlign: 'center'}} bodyStyle={{textAlign: 'center', overflow: 'visible'}} />
+               
                 </DataTable>
+                
             </div>
         );
-    }
+            }
 }
                 
 const rootElement = document.getElementById("root");
