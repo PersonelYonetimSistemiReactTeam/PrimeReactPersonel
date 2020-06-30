@@ -230,6 +230,11 @@ export class KimlikBilgileri extends Component {
         </div>
 
         <div className="p-col-12 p-md-4">
+          <h3>Kayıt No</h3>
+          <span className="p-float-label">
+            <InputText id="kayitno" type="text" size={30} value={this.state.kayitno} onChange={(e) => this.setState({ kayitno: e.target.value })} />
+            <label htmlFor="float-input">Kayıt No</label>
+          </span>
           <h3>Cüzdan Seri - No</h3>
           <span className="p-float-label">
             <InputText name="cuzdanserino" type="text" size={30} value={this.state.serino} onChange={(e) => this.handleInputChange(e)} />
@@ -253,6 +258,12 @@ export class KimlikBilgileri extends Component {
             <InputText name="ilksoyad" type="text" size={30} value={this.state.ibsoyad} onChange={(e) => this.handleInputChange(e)} />
             <label htmlFor="float-input">İşe İlk Başladığındaki Soyadı</label>
           </span>
+          <div>
+            <h3>Fotoğraf</h3>
+            <FileUpload name="demo[]" url="./upload.php" onUpload={this.onUpload}
+              multiple={true} accept="image/*" maxFileSize={1000000} />
+            <Growl ref={(el) => { this.growl = el; }}></Growl>
+          </div>
         </div>
         <div className="p-col-12 p-md-12"></div>
         <div className="p-col-12 p-md-8"></div>
