@@ -27,6 +27,7 @@
         "react-router-dom": "^4.3.1",
         "react-scripts": "3.0.1",
         "react-transition-group": "^2.5.1",
+        "simple-react-validator": "^1.5.0",
         "validator": "^13.1.1"
     },
     "scripts": {
@@ -44,7 +45,4 @@
         "not ie <= 11",
         "not op_mini all"
     ]
-    
 }
-
-

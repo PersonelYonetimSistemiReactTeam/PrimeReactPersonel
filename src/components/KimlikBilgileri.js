@@ -6,6 +6,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import '../layout/sass/personelKayit.scss';
+import { InputMask } from 'primereact/inputmask';
 
 
 export class KimlikBilgileri extends Component {
@@ -131,7 +132,7 @@ export class KimlikBilgileri extends Component {
         <div className="p-col-12 p-md-4">
           <h3>T.C Kimlik No*</h3>
           <span className="p-float-label">
-            <InputText name="tc" type="number" maxLength="11" size="11" min="0" max="99999999999" value={this.state.tc} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
+            <InputMask id="float-mask" name="tc" id="float-mask" mask="99999999999" value={this.state.tc} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
             <label htmlFor="float-input">T.C Kimlik No</label>
           </span>
           <div className={this.state.reqClassTCkimlik} >
