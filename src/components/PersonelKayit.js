@@ -58,7 +58,7 @@ render() {
       <div className="p-col-12">
         <div className="card">
           <h1>Personel Kayıt</h1>
-          <TabView renderActiveOnly={true} activeIndex={this.state.selectedIndex} selectedIndex={this.state.selectedIndex} onSelect={this.handleSelect} >
+          <TabView renderActiveOnly={false} activeIndex={this.state.selectedIndex} selectedIndex={this.state.selectedIndex} onSelect={this.handleSelect} >
             <TabPanel  eventKey={1} header="Kimlik Bilgileri" leftIcon="pi pi-user-plus" >
               <KimlikBilgileri parentCallback={this.callbackFunctionKimlik} />
             </TabPanel>
