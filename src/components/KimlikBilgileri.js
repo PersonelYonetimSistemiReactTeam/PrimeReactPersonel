@@ -139,7 +139,7 @@ export class KimlikBilgileri extends Component {
             <Message severity="error" text="TC Kimlik No Alanı Boş Geçilemez" />
           </div>
         </div >
-        <div className="p-col-12 p-md-4">
+        <div className="p-col-12 p-md-2">
           <h3>Cinsiyeti</h3>
           <div className="p-grid" style={{ width: '250px', marginBottom: '10px' }}>
             <div className="p-col-12">
@@ -150,21 +150,7 @@ export class KimlikBilgileri extends Component {
             </div>
           </div>
         </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Baba Adı</h3>
-          <span className="p-float-label">
-            <InputText name="babaadi" type="text" size={30} value={this.state.babaadi} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Baba Adı</label>
-          </span>
-        </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Anne Adı</h3>
-          <span className="p-float-label">
-            <InputText name="anneadi" type="text" size={30} value={this.state.anneadi} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Anne Adı</label>
-          </span>
-        </div>
-        <div className="p-col-12 p-md-4">
+        <div className="p-col-12 p-md-2">
           <h3>Medeni Durum</h3>
           <div className="p-col-12">
             <RadioButton inputId="rbEvli" name="medeniDurum" value={"Evli"} onChange={(e) => this.handleInputChange(e)} checked={this.state.medeniDurum === 'Evli'}/>
@@ -180,6 +166,22 @@ export class KimlikBilgileri extends Component {
             <label htmlFor="float-input">Uyruğu</label>
           </span>
         </div>
+        <div className="p-col-12 p-md-4">
+          <h3>Baba Adı</h3>
+          <span className="p-float-label">
+            <InputText name="babaadi" type="text" size={30} value={this.state.babaadi} onChange={(e) => this.handleInputChange(e)} />
+            <label htmlFor="float-input">Baba Adı</label>
+          </span>
+        </div>
+        <div className="p-col-12 p-md-4">
+          <h3>Anne Adı</h3>
+          <span className="p-float-label">
+            <InputText name="anneadi" type="text" size={30} value={this.state.anneadi} onChange={(e) => this.handleInputChange(e)} />
+            <label htmlFor="float-input">Anne Adı</label>
+          </span>
+        </div>
+        
+        
         <div className="p-col-12 p-md-4">
           <h3>Kayıtlı Olduğu İl</h3>
           <span className="p-float-label">
@@ -201,66 +203,13 @@ export class KimlikBilgileri extends Component {
             <label htmlFor="float-input">Kayıtlı Olduğu Mahalle/Köy</label>
           </span>
         </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Kayıtlı Olduğu Cilt No</h3>
-          <span className="p-float-label">
-            <InputText name="ciltno" type="text" size={30} value={this.state.ciltno} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Kayıtlı Olduğu Cilt No</label>
-          </span>
-        </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Kayıtlı Olduğu Aile Sıra No</h3>
-          <span className="p-float-label">
-            <InputText name="ailesirano" type="text" size={30} value={this.state.ailesirano} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Kayıtlı Olduğu Aile Sıra No</label>
-          </span>
-        </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Kayıtlı Olduğu Sıra No</h3>
-          <span className="p-float-label">
-            <InputText name="sirano" type="text" size={30} value={this.state.sirano} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Kayıtlı Olduğu Sıra No</label>
-          </span>
-        </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Kayıt No</h3>
-          <span className="p-float-label">
-            <InputText name="kayitno" type="text" size={30} value={this.state.kayitno} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Kayıt No</label>
-          </span>
-        </div>
-
-        <div className="p-col-12 p-md-4">
-          <h3>Cüzdan Seri - No</h3>
-          <span className="p-float-label">
-            <InputText name="cuzdanserino" type="text" size={30} value={this.state.serino} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">Cüzdan Seri - No</label>
-          </span>
-        </div>
-        <div className="p-col-12 p-md-4">
-          <h3>Veriliş Tarihi</h3>
-          <span className="p-float-label">
-            <Calendar name="verilistarihi" value={this.state.verilistarihi}  onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-calendar">Veriliş Tarihi</label>
-          </span>
-        </div>
+        
+        
         <div className="p-col-12 p-md-4">
           <h3>Kan Grubu</h3>
           <Dropdown value={this.state.kangrubu} options={this.kangrubulist} onChange={this.onkangrubuchange} optionLabel="name" style={{ width: '12em' }} />
         </div>
-        <div className="p-col-12 p-md-4">
-          <h3>İşe İlk Başladığındaki Soyadı</h3>
-          <span className="p-float-label">
-            <InputText name="ilksoyad" type="text" size={30} value={this.state.ibsoyad} onChange={(e) => this.handleInputChange(e)} />
-            <label htmlFor="float-input">İşe İlk Başladığındaki Soyadı</label>
-          </span>
-          {/* <div>
-            <h3>Fotoğraf</h3>
-            <FileUpload name="demo[]" url="./upload.php" onUpload={this.onUpload}
-              multiple={true} accept="image/*" maxFileSize={1000000} />
-            <Growl ref={(el) => { this.growl = el; }}></Growl>
-          </div> */}
-        </div>
+       
         <div className="p-col-12 p-md-12"></div>
         <div className="p-col-12 p-md-8"></div>
         <div className="p-col-12 p-md-2">
