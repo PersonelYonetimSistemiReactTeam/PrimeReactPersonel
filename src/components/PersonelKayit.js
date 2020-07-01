@@ -4,6 +4,11 @@ import { EgitimBilgileri } from './EgitimBilgileri';
 import { KimlikBilgileri } from './KimlikBilgileri';
 import { IletisimBilgileri } from './IletisimBilgileri';
 import 'primeicons/primeicons.css';
+import { Steps } from 'primereact/steps';
+import { Growl } from 'primereact/growl';
+import { Button } from 'primereact/button';
+import { Message } from 'primereact/message';
+
 
 export class PersonelKayit extends Component {
   constructor() {
@@ -12,38 +17,98 @@ export class PersonelKayit extends Component {
       kimlik: "",
       ogrenim: "",
       iletisim: "",
-      activeTab: 0,
-      selectedIndex:0
+      selectedIndex: 0,
+      kimlikSave: "0",
+      ogrenimSave: "0",
+      isBilgileriSave: "0",
+      iletisimSave: "0"
+
     };
     this.callbackFunctionKimlik = this.callbackFunctionKimlik.bind(this)
     this.callbackFunctionOgrenim = this.callbackFunctionOgrenim.bind(this)
     this.callbackFunctionIletisim = this.callbackFunctionIletisim.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
+    this.showError = this.showError.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
+    this.items = [
+      {
+        label: 'Kimlik Bilgileri'
+      },
+      {
+        label: 'Öğrenim Bilgileri',
+        command: (event) => {
+          this.growl.show({ severity: 'info', detail: event.item.label });
+        },
+        content: "dasdsad"
 
+      },
+      {
+        label: 'İş bilgileri',
+        command: (event) => {
+          this.growl.show({ severity: 'info', detail: event.item.label });
+        }
+      },
+      {
+        label: 'İletişim Bilgileri',
+        command: (event) => {
+          this.growl.show({ severity: 'info', detail: event.item.label });
+        }
+      }
+    ];
 
   }
-  handleSelect = index => {
-    this.setState({ selectedIndex: index });
+  showError() {
+    this.growl.show({ severity: 'error', summary: 'Lütfen Zorunlu Alanları Doldurunuz.', detail: '' });
+  }
+  next = () => {
+    if (this.state.selectedIndex === 0) {
+      this.setState({ kimlikSave: "1" });
+    }
+    else if(this.state.selectedIndex === 1)
+    {
+      this.setState({ ogrenimSave: "1" });
+    }
+    else if(this.state.selectedIndex === 2)
+    {
+      this.setState({ isBilgileriSave: "1" });
+    }
+    else 
+    {
+      this.setState({ iletisimSave: "1" });
+
+    }
+  };
+  prev = () => {
+    const selectedIndex = this.state.selectedIndex - 1;
+    this.setState({ selectedIndex });
   };
 
-  handleButtonClick = () => {
-    this.setState({ selectedIndex: 0 });
-  };
-
-  async callbackFunctionKimlik(childData) {
-    await this.setState({ kimlik: childData, selectedIndex: 1 });
-    // console.log(this.state.kimlik.ad,this.state.kimlik.soyad,
-    //   this.state.kimlik.tc,this.state.kimlik.cinsiyet,this.state.kimlik.babaadi,
-    //   this.state.kimlik.anneadi,this.state.kimlik.medeniDurum,this.state.kimlik.uyruk,
-    //   this.state.kimlik.il,this.state.kimlik.ilce,this.state.kimlik.mahallekoy,
-    //   this.state.kimlik.ciltno,this.state.kimlik.ailesirano,this.state.kimlik.sirano,
-    //   this.state.kimlik.kayitno,this.state.kimlik.serino,this.state.kimlik.kangrubu.name,this.state.kimlik.ibsoyad,
-    //   this.state.kimlik.verilistarihi)
+  async callbackFunctionKimlik(childData, validate) {
+    if (validate === true) {
+      await this.setState({ kimlik: childData, kimlikSave: "0"});
+      const selectedIndex = this.state.selectedIndex + 1;
+      await this.setState({ selectedIndex });
+    }
+    else {
+      this.setState({ kimlikSave: "0" });
+      this.showError();
+    }
   }
-  async callbackFunctionOgrenim(childData) {
-    await this.setState({ ogrenim: childData, selectedIndex: 2 });
+  async callbackFunctionOgrenim(childData, validate) {
+    if (validate === true) {
+      if(this.state.ogrenim === ""){
+        const selectedIndex = this.state.selectedIndex + 1;
+        await this.setState({ selectedIndex});
+      }      
+    await this.setState({ ogrenim: childData,ogrenimSave: "0"  });  
+    console.log(this.state.ogrenim);
+    }
+    else {
+      this.setState({ ogrenimSave: "0" });
+      this.showError();
+    }
   }
-  async callbackFunctionIletisim(childData) {
+  async callbackFunctionIletisim(childData, validate) {
     await this.setState({ iletisim: childData });
 
     console.log(this.state.ogrenim)
@@ -51,28 +116,50 @@ export class PersonelKayit extends Component {
   }
 
 
-render() {
-  return (
+  render() {
+    const { selectedIndex } = this.state;
+    return (
 
-    <div className="p-grid">
-      <div className="p-col-12">
-        <div className="card">
-          <h1>Personel Kayıt</h1>
-          <TabView renderActiveOnly={false} activeIndex={this.state.selectedIndex} selectedIndex={this.state.selectedIndex} onSelect={this.handleSelect} >
-            <TabPanel  eventKey={1} header="Kimlik Bilgileri" leftIcon="pi pi-user-plus" >
-              <KimlikBilgileri parentCallback={this.callbackFunctionKimlik} />
-            </TabPanel>
-            <TabPanel eventKey={2} header=" Öğrenim Bilgileri" leftIcon="pi pi-pencil" disabled={this.state.kimlik === "" ? true : this.state.kimlik.fields.ogrenimDurum}>
-              <EgitimBilgileri parentCallback={this.callbackFunctionOgrenim} />
-            </TabPanel>
-            <TabPanel eventKey={3} header="İletişim Bilgileri" leftIcon="pi pi-comments" disabled={this.state.ogrenim === "" ? true : this.state.ogrenim.iletisimDurum}>
-              <IletisimBilgileri parentCallback={this.callbackFunctionIletisim} />
-            </TabPanel>
-          </TabView>
+      <div className="p-grid">
+
+        <div className="p-col-12">
+          <div className="card">
+            <h1>Personel Kayıt</h1>
+            <div>
+              <Growl ref={(el) => { this.growl = el }}></Growl>
+              <Steps model={this.items} activeIndex={this.state.selectedIndex} onSelect={(e) => this.setState({ selectedIndex: e.index })} />
+              <div className={this.state.selectedIndex === 0 ? '' : 'divDisplayNone'}>
+                <KimlikBilgileri {...this.state.kimlikSave} parentCallback={this.callbackFunctionKimlik} />
+              </div>
+              <div className={this.state.selectedIndex === 1 ? '' : 'divDisplayNone'}>
+                <EgitimBilgileri {...this.state.ogrenimSave} parentCallback={this.callbackFunctionOgrenim} />
+              </div>
+              <div className={this.state.selectedIndex === 2 ? '' : 'divDisplayNone'}>
+              </div>
+              <div className={this.state.selectedIndex === 3 ? '' : 'divDisplayNone'} >
+                <IletisimBilgileri parentCallback={this.callbackFunctionIletisim} />
+              </div>
+            </div>
+
+            <div className="steps-action">
+              {selectedIndex > 0 && (
+                <Button label="Geri" icon="pi pi-angle-left" onClick={() => this.prev()}>
+                </Button>
+              )}
+              {selectedIndex < 3 && (
+                <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={() => this.next()}>
+                </Button>
+              )}
+              {selectedIndex === 3 && (
+                <Button id="kaydet" label="Kaydet" icon="pi pi-check" iconPos="left" className="p-button-success" onClick={() => this.sendData()} />
+
+              )}
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
 }

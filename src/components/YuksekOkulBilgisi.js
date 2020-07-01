@@ -65,10 +65,6 @@ export class YuksekOkulBilgisi extends Component {
     }
 
 
-    sendData() {
-        this.props.parentCallback(this.state);
-    }
-
     render() {
         const tr = {
             monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]

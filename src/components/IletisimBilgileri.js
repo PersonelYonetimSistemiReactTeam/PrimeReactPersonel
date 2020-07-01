@@ -198,11 +198,7 @@ export class IletisimBilgileri extends Component {
                         <label htmlFor="float-textarea">Adres</label>
                     </span>
                 </div>
-                <div className="p-col-12 p-md-12"></div>
-                <div className="p-col-12 p-md-8"></div>
-                <div className="p-col-12 p-md-2">
-                    <Button id="kaydet" label="Kaydet" icon="pi pi-check" iconPos="left" className="p-button-success" onClick={() => this.sendData()} />
-                </div>
+             
             </div>
 
         );

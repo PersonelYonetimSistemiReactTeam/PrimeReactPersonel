@@ -36,9 +36,10 @@ export class KimlikBilgileri extends Component {
       kayitno: null,
       serino: null,
       ibsoyad: null,
-      ogrenimDrurum:false,
-      verilistarihi:null
-
+      ogrenimDrurum: false,
+      verilistarihi: null,
+      KimlikBilgileriAlindi: false,
+      calisti: false
     };
 
 
@@ -60,7 +61,7 @@ export class KimlikBilgileri extends Component {
     let validate = true;
     if (this.state.ad.length < 1)
       validate = false
-    else if (this.state.soyad.length < 1 )
+    else if (this.state.soyad.length < 1)
       validate = false
     else if (this.state.tc < 10000000000)
       validate = false
@@ -88,23 +89,32 @@ export class KimlikBilgileri extends Component {
     this.setState({ kangrubu: e.value });
   }
   sendData() {
-    this.setState({
-      reqClassAd: this.state.ad.length < 1 ? "" : "divDisplayNone",
-      reqClassSoyad: this.state.soyad.length < 1 ? "" : "divDisplayNone",
-      reqClassTCkimlik: this.state.tc < 10000000000 ? "" : "divDisplayNone"
-    });
-
     if (this.handleValidation()) {
-      this.props.parentCallback(this.state);
+      return true
     }
     else {
-      console.log("validate");
+      return false;
     }
 
-    
+
   }
 
   render() {
+    const save = this.props[0];
+    {
+      {
+        if (save === "1") {
+
+          if (this.handleValidation()) {
+            this.props.parentCallback(this.state, true);
+            this.setState({ calisti: true });
+          }
+          else
+            this.props.parentCallback(this.state, false);
+        }
+
+      }
+    }
     return (
 
       <div className="p-grid p-fluid">
@@ -132,7 +142,7 @@ export class KimlikBilgileri extends Component {
         <div className="p-col-12 p-md-4">
           <h3>T.C Kimlik No*</h3>
           <span className="p-float-label">
-            <InputMask id="float-mask" name="tc"  mask="99999999999" autoClear={false} value={this.state.tc} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
+            <InputMask id="float-mask" name="tc" mask="99999999999" autoClear={false} value={this.state.tc} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
             <label htmlFor="float-input">T.C Kimlik No</label>
           </span>
           <div className={this.state.reqClassTCkimlik} >
@@ -153,7 +163,7 @@ export class KimlikBilgileri extends Component {
         <div className="p-col-12 p-md-2">
           <h3>Medeni Durum</h3>
           <div className="p-col-12">
-            <RadioButton inputId="rbEvli" name="medeniDurum" value={"Evli"} onChange={(e) => this.handleInputChange(e)} checked={this.state.medeniDurum === 'Evli'}/>
+            <RadioButton inputId="rbEvli" name="medeniDurum" value={"Evli"} onChange={(e) => this.handleInputChange(e)} checked={this.state.medeniDurum === 'Evli'} />
             <label htmlFor="rb1" className="p-radiobutton-label">Evli </label>
             <RadioButton inputId="rbBekar" name="medeniDurum" value={"Bekar"} onChange={(e) => this.handleInputChange(e)} checked={this.state.medeniDurum === 'Bekar'} />
             <label htmlFor="rb2" className="p-radiobutton-label">Bekar</label>
@@ -180,8 +190,8 @@ export class KimlikBilgileri extends Component {
             <label htmlFor="float-input">Anne Adı</label>
           </span>
         </div>
-        
-        
+
+
         <div className="p-col-12 p-md-4">
           <h3>Kayıtlı Olduğu İl</h3>
           <span className="p-float-label">
@@ -203,18 +213,14 @@ export class KimlikBilgileri extends Component {
             <label htmlFor="float-input">Kayıtlı Olduğu Mahalle/Köy</label>
           </span>
         </div>
-        
-        
+
+
         <div className="p-col-12 p-md-4">
           <h3>Kan Grubu</h3>
           <Dropdown value={this.state.kangrubu} options={this.kangrubulist} onChange={this.onkangrubuchange} optionLabel="name" style={{ width: '12em' }} />
         </div>
-       
-        <div className="p-col-12 p-md-12"></div>
-        <div className="p-col-12 p-md-8"></div>
-        <div className="p-col-12 p-md-2">
-          <Button id="kaydet" label="Kaydet" icon="pi pi-check" iconPos="left" className="p-button-success" onClick={() => this.sendData()} />
-        </div>
+
+
       </div >
     );
   }

@@ -17,13 +17,18 @@ export class EgitimBilgileri extends Component {
             value: '',
             iletisimDurum: false,
             IlkOgretimBilgisi: "",
-            OkulKontrol:"0",
             OrtaOgretimBilgisi: "",
             LiseBilgisi: "",
             LisansBilgisi: "",
             YLisansBilgisi: "",
             DoktoraBilgisi: "",
             reqClassEgitimSeviyesi: "divDisplayNone",
+            IlkOgretimKontrol: "0",
+            OrtaOgretimKontrol: "0",
+            LiseKontrol: "0",
+            LisansKontrol: "0",
+            YLisansKontrol: "0",
+            DoktoraKontrol: "0",
         };
 
 
@@ -50,33 +55,38 @@ export class EgitimBilgileri extends Component {
     }
     async callbackFunctionIlk(childData) {
         await this.setState({
-            IlkOgretimBilgisi: childData
+            IlkOgretimBilgisi: childData,
+            IlkOgretimKontrol: "0"
         });
     }
     async callbackFunctionOrta(childData) {
         await this.setState({
-            OrtaOgretimBilgisi: childData
+            OrtaOgretimBilgisi: childData,
+            OrtaOgretimKontrol: "0"
         });
     }
     async callbackFunctionLise(childData) {
         await this.setState({
-            LiseBilgisi: childData
+            LiseBilgisi: childData,
+            LisansKontrol: "0"
         });
     }
     async callbackFunctionLisans(childData) {
         await this.setState({
-            LisansBilgisi: childData
+            LisansBilgisi: childData,
+            LisansKontrol: "0"
         });
-        console.log(this.state.LisansBilgisi)
     }
     async callbackFunctionYuksekLisans(childData) {
         await this.setState({
-            YLisansBilgisi: childData
+            YLisansBilgisi: childData,
+            YLisansKontrol: "0"
         });
     }
     async callbackFunctionDoktora(childData) {
         await this.setState({
-            DoktoraBilgisi: childData
+            DoktoraBilgisi: childData,
+            DoktoraKontrol: "0"
         });
     }
 
@@ -85,33 +95,43 @@ export class EgitimBilgileri extends Component {
     }
 
     async sendData() {
-        this.setState({
-            reqClassEgitimSeviyesi: this.state.egitim === "0" ? "" : "divDisplayNone",
-        });
-
-        if (this.state.egitim === "0") {
-            console.log("validate");
+        if (this.state.egitim !== "0") {
+            await this.setState({
+                IlkOgretimKontrol: "1",
+                OrtaOgretimKontrol: "1",
+                LisansKontrol: "1",
+                LisansKontrol: "1",
+                YLisansKontrol: "1",
+                DoktoraKontrol: "1"
+            });                     
+            setTimeout(() => {
+                this.props.parentCallback(this.state, true);
+              }, 1000);
+            
         }
         else {
-            this.setState({
-                OkulKontrol: "1",
-            });
-            setTimeout(() => {this.props.parentCallback(this.state);
-            }, 1000);
-            
-          
+            this.props.parentCallback(this.state, false);
         }
-       
+
 
     }
 
 
     render() {
+        const save = this.props[0];
+        {
+            if(this.state.IlkOgretimKontrol === "0")
+            {
+                if (save === "1")                    
+                this.sendData();
+            }
+               
 
+        }
         return (
             <div className="p-grid p-fluid">
                 <div className="p-col-12 p-md-4">
-                    <h3>Eğitim Seviyesi</h3>
+                    <h3>Eğitim Seviyesi *</h3>
                     <Dropdown value={this.state.egitim} options={this.egitimseviyeleri} onChange={this.onEgitimChange} style={{ width: '12em' }}
                         filter={true} filterPlaceholder="Eğitim Durumu Seçiniz" filterBy="label,value" showClear={true} />
                     <div className={this.state.reqClassEgitimSeviyesi} >
@@ -124,38 +144,33 @@ export class EgitimBilgileri extends Component {
                             <div className="card">
                                 <div className={this.state.egitim > 0 ? 'okulBilgisi' : 'divDisplayNone'}>
                                     <h2>İlköğretim Bilgisi</h2>
-                                    <OkulBilgisi {...this.state.OkulKontrol} parentCallback={this.callbackFunctionIlk} />
+                                    <OkulBilgisi {...this.state.IlkOgretimKontrol} parentCallback={this.callbackFunctionIlk} />
                                 </div>
-                                <div className={this.state.egitim  > 1 ? 'okulBilgisi' : 'divDisplayNone'} >
+                                <div className={this.state.egitim > 1 ? 'okulBilgisi' : 'divDisplayNone'} >
                                     <h2> Orta Öğretim Bilgisi</h2>
-                                    <OkulBilgisi {...this.state.OkulKontrol} parentCallback={this.callbackFunctionOrta} />
+                                    <OkulBilgisi {...this.state.OrtaOgretimKontrol} parentCallback={this.callbackFunctionOrta} />
 
                                 </div>
-                                <div className={this.state.egitim  > 2 ? 'okulBilgisi' : 'divDisplayNone'} >
+                                <div className={this.state.egitim > 2 ? 'okulBilgisi' : 'divDisplayNone'} >
                                     <h2> Lise Bilgisi</h2>
-                                    <OkulBilgisi  {...this.state.OkulKontrol} parentCallback={this.callbackFunctionLise} />
+                                    <OkulBilgisi  {...this.state.LiseKontrol} parentCallback={this.callbackFunctionLise} />
 
                                 </div>
-                                <div className={this.state.egitim  > 3 ? 'okulBilgisi' : 'divDisplayNone'} >
+                                <div className={this.state.egitim > 3 ? 'okulBilgisi' : 'divDisplayNone'} >
                                     <h2>Üniversite Bilgisi</h2>
-                                    <YuksekOkulBilgisi {...this.state.OkulKontrol} parentCallback={this.callbackFunctionLisans} />
+                                    <YuksekOkulBilgisi {...this.state.LisansKontrol} parentCallback={this.callbackFunctionLisans} />
                                 </div>
-                                <div className={this.state.egitim  > 4 ? 'okulBilgisi' : 'divDisplayNone'}>
+                                <div className={this.state.egitim > 4 ? 'okulBilgisi' : 'divDisplayNone'}>
                                     <h2>Yüksek Lisans Bilgisi</h2>
-                                    <YuksekOkulBilgisi  {...this.state.OkulKontrol} parentCallback={this.callbackFunctionYuksekLisans} />
+                                    <YuksekOkulBilgisi  {...this.state.YLisansKontrol} parentCallback={this.callbackFunctionYuksekLisans} />
                                 </div>
                                 <div className={this.state.egitim > 5 ? 'okulBilgisi' : 'divDisplayNone'} >
                                     <h2>Doktora Bilgisi</h2>
-                                    <YuksekOkulBilgisi {...this.state.OkulKontrol} parentCallback={this.callbackFunctionDoktora} />
+                                    <YuksekOkulBilgisi {...this.state.DoktoraKontrol} parentCallback={this.callbackFunctionDoktora} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="p-col-12 p-md-12"></div>
-                <div className="p-col-12 p-md-8"></div>
-                <div className="p-col-12 p-md-2">
-                    <Button id="kaydet" label="Kaydet" icon="pi pi-check" iconPos="left" className="p-button-success" onClick={() => this.sendData()} />
                 </div>
             </div>
 
