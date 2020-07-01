@@ -16,8 +16,12 @@ export class IsBilgileri extends Component {
       iller: [],
       baglioldugumudurluk: "",
       baglioldugumudur: "",
-      kidem: ""
-
+      kidem: "",
+      reqClassUnvan: "divDisplayNone",
+      reqClassSirket: "divDisplayNone",
+      reqClassMudurluk: "divDisplayNone",
+      reqClassMudur: "divDisplayNone",
+      reqClassKidem:"divDisplayNone"
     };
     this.sirketlist = [
       { name: 'Limak Teknoloji', code: 'LT' },
@@ -32,6 +36,7 @@ export class IsBilgileri extends Component {
     this.onsirketchange = this.onsirketchange.bind(this);
     this.ilservice = new IlService();
   };
+  
   onsirketchange(e) {
     this.setState({ sirket: e.value });
   }
@@ -45,7 +50,7 @@ export class IsBilgileri extends Component {
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value })
     if (event.target.name === "unvan") {
-      this.setState({ reqClassAd: event.target.value.length < 1 ? "" : "divDisplayNone" })
+      this.setState({ reqClassUnvan: event.target.value.length < 1 ? "" : "divDisplayNone" })
     }
     if (event.target.name === "baglioldugumudurluk") {
       this.setState({ reqClassMudurluk: event.target.value.length < 1 ? "" : "divDisplayNone" })
@@ -57,7 +62,36 @@ export class IsBilgileri extends Component {
       this.setState({ reqClassKidem: event.target.value.length < 1 ? "" : "divDisplayNone" })
     }
   }
+  handleValidation() {
+    let validate = true;
+    if (this.state.unvan.length < 1)
+      validate = false
+    else if (this.state.baglioldugumudurluk.length < 1)
+      validate = false
+    else if (this.state.baglioldugumudur.length < 1)
+      validate = false
+      else if (this.state.kidem.length < 1)
+      validate = false
+
+    return validate;
+
+  }
   render() {
+    const save = this.props[0];
+    {
+      {
+        if (save === "1") {
+
+          if (this.handleValidation()) {
+            this.props.parentCallback(this.state, true);
+            this.setState({ calisti: true });
+          }
+          else
+            this.props.parentCallback(this.state, false);
+        }
+
+      }
+    }
     return (
       <div className="p-grid p-fluid">
         <div className="p-col-12 p-md-4">
@@ -66,7 +100,7 @@ export class IsBilgileri extends Component {
             <InputText name="unvan" type="text" size={30} value={this.state.unvan} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
             <label htmlFor="float-input">Ünvan</label>
           </span>
-          <div className={this.state.reqClassAd}>
+          <div className={this.state.reqClassUnvan}>
             <Message severity="error" text="Unvan alanı boş geçilemez!" />
           </div>
           <h3>Bağlı Olduğu Müdürlük*</h3>
@@ -102,9 +136,6 @@ export class IsBilgileri extends Component {
             <Dropdown value={this.state.il} key={this.state.iller.value} options={this.state.iller} onChange={this.onIlChange} style={{ width: '12em' }}
               filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
           </div>
-        <div className="p-col-12 p-md-6">
-          <Button id="kaydet" label="Kaydet" icon="pi pi-check" iconPos="left" className="p-button-success" onClick={() => this.sendData()} />
-        </div>
         </div>
       </div>
 

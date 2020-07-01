@@ -22,7 +22,7 @@ export class PersonelKayit extends Component {
       selectedIndex: 0,
       kimlikSave: "0",
       ogrenimSave: "0",
-      isBilgileriSave: "0",
+      isSave: "0",
       iletisimSave: "0",
       is:"",
       isSave:"0"
@@ -76,9 +76,9 @@ export class PersonelKayit extends Component {
     }
     else if(this.state.selectedIndex === 2)
     {
-      this.setState({ isBilgileriSave: "1" });
+      this.setState({ isSave: "1" });
     }
-    else 
+    else if(this.state.selectedIndex === 3)
     {
       this.setState({ iletisimSave: "1" });
 
@@ -107,7 +107,7 @@ export class PersonelKayit extends Component {
       await this.setState({ selectedIndex });
     }
     else {
-      this.setState({ kimlikSave: "0" });
+      this.setState({ isSave: "0" });
       this.showError();
     }
   }
@@ -154,7 +154,7 @@ export class PersonelKayit extends Component {
                 <EgitimBilgileri {...this.state.ogrenimSave} parentCallback={this.callbackFunctionOgrenim} />
               </div>
               <div className={this.state.selectedIndex === 2 ? '' : 'divDisplayNone'}>
-              <IsBilgileri parentCallback={this.callbackFunctionIs} />
+              <IsBilgileri  {...this.state.isSave} parentCallback={this.callbackFunctionIs} />
               </div>
               <div className={this.state.selectedIndex === 3 ? '' : 'divDisplayNone'} >
                 <IletisimBilgileri parentCallback={this.callbackFunctionIletisim} />

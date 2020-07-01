@@ -226,10 +226,11 @@ export class PersonelListe extends Component {
     }
     actionTemplate(rowData, column) {
         return <div>
-            <Button type="button" icon="pi pi-search" className="p-button-success"></Button>
-            <Button type="button" icon="pi pi-pencil" className="p-button-warning"></Button>
+            <Button  icon="pi pi-search" className="p-button-success"></Button>
+            <Button  icon="pi pi-pencil" className="p-button-warning"></Button>
         </div>;
     }
+    test=()=>{console.log("aa")}
     renderFooter(name) {
         return (
             <div>
@@ -262,7 +263,8 @@ export class PersonelListe extends Component {
                     paginator rows={10} emptyMessage="Personel bulunamadı!"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column selectionMode="multiple" style={{width:'3em'}}/>
-                    <Column field="name" header="Ad-Soyad" sortable filter filterPlaceholder="Ad-Soyad" />
+                    <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
+                    <Column field="surname" header="Soyad" sortable filter filterPlaceholder="Soyad" />
                     <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl"/>
                     <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
                     <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
