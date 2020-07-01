@@ -23,12 +23,16 @@ export class PersonelKayit extends Component {
       kimlikSave: "0",
       ogrenimSave: "0",
       isBilgileriSave: "0",
-      iletisimSave: "0"
+      iletisimSave: "0",
+      is:"",
+      isSave:"0"
 
     };
     this.callbackFunctionKimlik = this.callbackFunctionKimlik.bind(this)
     this.callbackFunctionOgrenim = this.callbackFunctionOgrenim.bind(this)
     this.callbackFunctionIletisim = this.callbackFunctionIletisim.bind(this)
+    this.callbackFunctionIs = this.callbackFunctionIs.bind(this)
+
     this.showError = this.showError.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
@@ -96,6 +100,17 @@ export class PersonelKayit extends Component {
       this.showError();
     }
   }
+  async callbackFunctionIs(childData, validate) {
+    if (validate === true) {
+      await this.setState({ is: childData, isSave: "0"});
+      const selectedIndex = this.state.selectedIndex + 1;
+      await this.setState({ selectedIndex });
+    }
+    else {
+      this.setState({ kimlikSave: "0" });
+      this.showError();
+    }
+  }
   async callbackFunctionOgrenim(childData, validate) {
     if (validate === true) {
       if(this.state.ogrenim === ""){
@@ -139,6 +154,7 @@ export class PersonelKayit extends Component {
                 <EgitimBilgileri {...this.state.ogrenimSave} parentCallback={this.callbackFunctionOgrenim} />
               </div>
               <div className={this.state.selectedIndex === 2 ? '' : 'divDisplayNone'}>
+              <IsBilgileri parentCallback={this.callbackFunctionIs} />
               </div>
               <div className={this.state.selectedIndex === 3 ? '' : 'divDisplayNone'} >
                 <IletisimBilgileri parentCallback={this.callbackFunctionIletisim} />
