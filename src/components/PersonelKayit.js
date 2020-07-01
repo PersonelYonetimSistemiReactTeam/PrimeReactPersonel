@@ -3,6 +3,8 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { EgitimBilgileri } from './EgitimBilgileri';
 import { KimlikBilgileri } from './KimlikBilgileri';
 import { IletisimBilgileri } from './IletisimBilgileri';
+import {IsBilgileri} from './IsBilgileri';
+
 import 'primeicons/primeicons.css';
 
 export class PersonelKayit extends Component {
@@ -12,14 +14,16 @@ export class PersonelKayit extends Component {
       kimlik: "",
       ogrenim: "",
       iletisim: "",
+      is:"",
       activeTab: 0,
       selectedIndex:0
     };
     this.callbackFunctionKimlik = this.callbackFunctionKimlik.bind(this)
     this.callbackFunctionOgrenim = this.callbackFunctionOgrenim.bind(this)
     this.callbackFunctionIletisim = this.callbackFunctionIletisim.bind(this)
+    this.callbackFunctionIs = this.callbackFunctionIs.bind(this)
+    
     this.handleSelect = this.handleSelect.bind(this)
-
 
   }
   handleSelect = index => {
@@ -32,22 +36,22 @@ export class PersonelKayit extends Component {
 
   async callbackFunctionKimlik(childData) {
     await this.setState({ kimlik: childData, selectedIndex: 1 });
-    // console.log(this.state.kimlik.ad,this.state.kimlik.soyad,
-    //   this.state.kimlik.tc,this.state.kimlik.cinsiyet,this.state.kimlik.babaadi,
-    //   this.state.kimlik.anneadi,this.state.kimlik.medeniDurum,this.state.kimlik.uyruk,
-    //   this.state.kimlik.il,this.state.kimlik.ilce,this.state.kimlik.mahallekoy,
-    //   this.state.kimlik.ciltno,this.state.kimlik.ailesirano,this.state.kimlik.sirano,
-    //   this.state.kimlik.kayitno,this.state.kimlik.serino,this.state.kimlik.kangrubu.name,this.state.kimlik.ibsoyad,
-    //   this.state.kimlik.verilistarihi)
+
   }
   async callbackFunctionOgrenim(childData) {
     await this.setState({ ogrenim: childData, selectedIndex: 2 });
+  }
+  async callbackFunctionIs(childData) {
+    await this.setState({ is: childData, selectedIndex: 3 });
+
   }
   async callbackFunctionIletisim(childData) {
     await this.setState({ iletisim: childData });
 
     console.log(this.state.ogrenim)
     console.log(this.state.iletisim)
+    console.log(this.state.is)
+
   }
 
 
@@ -67,6 +71,9 @@ render() {
             </TabPanel>
             <TabPanel eventKey={3} header="İletişim Bilgileri" leftIcon="pi pi-comments" disabled={this.state.ogrenim === "" ? true : this.state.ogrenim.iletisimDurum}>
               <IletisimBilgileri parentCallback={this.callbackFunctionIletisim} />
+            </TabPanel>
+            <TabPanel eventKey={3} header="İş Bilgileri" leftIcon="pi pi-comments" disabled={this.state.iletisim === "" ? true : this.state.iletisim.iletisimDurum}>
+              <IsBilgileri parentCallback={this.callbackFunctionIs} />
             </TabPanel>
           </TabView>
         </div>

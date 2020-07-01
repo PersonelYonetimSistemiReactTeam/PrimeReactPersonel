@@ -20,7 +20,7 @@ export class KimlikBilgileri extends Component {
       kangrubu: null,
       ad: "",
       soyad: "",
-      tc: 0,
+      tc: "",
       babaadi: null,
       anneadi: null,
       reqClassAd: "divDisplayNone",
@@ -132,7 +132,7 @@ export class KimlikBilgileri extends Component {
         <div className="p-col-12 p-md-4">
           <h3>T.C Kimlik No*</h3>
           <span className="p-float-label">
-            <InputMask id="float-mask" name="tc" id="float-mask" mask="99999999999" autoClear={false} value={this.state.tc} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
+            <InputMask id="float-mask" name="tc"  mask="99999999999" autoClear={false} value={this.state.tc} onChange={(e) => this.handleInputChange(e)} onClick={(e) => this.handleInputChange(e)} />
             <label htmlFor="float-input">T.C Kimlik No</label>
           </span>
           <div className={this.state.reqClassTCkimlik} >
@@ -270,3 +270,4 @@ export class KimlikBilgileri extends Component {
     );
   }
 }
+

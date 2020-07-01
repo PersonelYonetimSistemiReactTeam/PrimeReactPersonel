@@ -104,8 +104,6 @@ export class EgitimBilgileri extends Component {
        
 
     }
-
-
     render() {
 
         return (
@@ -129,7 +127,6 @@ export class EgitimBilgileri extends Component {
                                 <div className={this.state.egitim  > 1 ? 'okulBilgisi' : 'divDisplayNone'} >
                                     <h2> Orta Öğretim Bilgisi</h2>
                                     <OkulBilgisi {...this.state.OkulKontrol} parentCallback={this.callbackFunctionOrta} />
-
                                 </div>
                                 <div className={this.state.egitim  > 2 ? 'okulBilgisi' : 'divDisplayNone'} >
                                     <h2> Lise Bilgisi</h2>
