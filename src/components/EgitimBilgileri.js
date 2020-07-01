@@ -115,8 +115,6 @@ export class EgitimBilgileri extends Component {
 
 
     }
-
-
     render() {
         const save = this.props[0];
         {

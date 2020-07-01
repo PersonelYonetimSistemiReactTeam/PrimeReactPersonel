@@ -3,6 +3,8 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { EgitimBilgileri } from './EgitimBilgileri';
 import { KimlikBilgileri } from './KimlikBilgileri';
 import { IletisimBilgileri } from './IletisimBilgileri';
+import {IsBilgileri} from './IsBilgileri';
+
 import 'primeicons/primeicons.css';
 import { Steps } from 'primereact/steps';
 import { Growl } from 'primereact/growl';
@@ -113,6 +115,8 @@ export class PersonelKayit extends Component {
 
     console.log(this.state.ogrenim)
     console.log(this.state.iletisim)
+    console.log(this.state.is)
+
   }
 
 
