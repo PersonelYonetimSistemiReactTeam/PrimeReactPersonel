@@ -37,6 +37,10 @@ export class PersonelListe extends Component {
             
         };
         this.onClick = this.onClick.bind(this); //popup için eklendi
+
+
+        this.ShopPopup = this.ShopPopup.bind(this); //popup için eklendi
+
         this.onHide = this.onHide.bind(this);//popup için eklendi
         this.items = [
             {
@@ -57,6 +61,7 @@ export class PersonelListe extends Component {
         this.statusBodyTemplate = this.statusBodyTemplate.bind(this);
         this.activityBodyTemplate = this.activityBodyTemplate.bind(this);
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
+        this.actionTemplate = this.actionTemplate.bind(this);
 
         //filters
         this.representativeItemTemplate = this.representativeItemTemplate.bind(this);
@@ -82,17 +87,17 @@ export class PersonelListe extends Component {
         );
     }
     //popup için eklendi
-    onClick(name, position) {
+    onClick(name) {
         let state = {
             [`${name}`]: true
         };
 
-        if (position) {
-            state = {
-                ...state,
-                position
-            }
-        }
+        // if (position) {
+        //     state = {
+        //         ...state,
+        //         position
+        //     }
+        // }
 
         this.setState(state);
     }
@@ -226,7 +231,7 @@ export class PersonelListe extends Component {
     }
     actionTemplate(rowData, column) {
         return <div>
-            <Button  icon="pi pi-search" className="p-button-success"></Button>
+            <Button  icon="pi pi-search" className="p-button-success" onClick={() => this.setState({displayBasic:true})} ></Button>
             <Button  icon="pi pi-pencil" className="p-button-warning"></Button>
         </div>;
     }
@@ -239,6 +244,10 @@ export class PersonelListe extends Component {
             </div>
         );
     }
+    ShopPopup()
+    {
+        this.setState({displayBasic:true});
+    }
     render() {
         const header = this.renderHeader();
         const representativeFilter = this.renderRepresentativeFilter();
@@ -250,12 +259,14 @@ export class PersonelListe extends Component {
             
             <div className="datatable-doc-demo">
                <h3>Basic</h3>
-                <Button label="Show" icon="pi pi-external-link" onClick={() => this.onClick('displayBasic')} />
-                <Dialog header="Godfather I" visible={this.state.displayBasic} style={{width: '50vw'}} onHide={() => this.onHide('displayBasic')} footer={this.renderFooter('displayBasic')}>
-                    <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-                        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.</p>
+                <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({displayBasic:true})} />
+                <Dialog header="Personel Detayları" 
+                visible={this.state.displayBasic} 
+                style={{width: '50vw'}} onHide={() => this.onHide('displayBasic')} footer={this.renderFooter('displayBasic')}>
+                    
+
+
+
                 </Dialog>
                 <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
