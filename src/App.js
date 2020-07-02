@@ -17,7 +17,7 @@ import {ChartsDemo} from './components/ChartsDemo';
 import {MiscDemo} from './components/MiscDemo';
 import {EmptyPage} from './components/EmptyPage';
 import {Documentation} from "./components/Documentation";
-import {PersonelKayit} from "./components/PersonelKayit";
+import PersonelKayit from "./components/PersonelKayit";
 import {PersonelListe} from "./components/PersonelListesi";
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -179,8 +179,7 @@ class App extends Component {
                     <Route path="/empty" component={EmptyPage} />
                     <Route path="/documentation" component={Documentation}
                      />
-                     <Route path="/personelKayit" component={PersonelKayit}
-                     />
+                     <Route path="/personelKayit"><PersonelKayit/></Route>
                      <Route path="/personelListe" component={PersonelListe}
                      />
                 </div>

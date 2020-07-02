@@ -65,61 +65,46 @@ export class EgitimBilgileri extends Component {
     }
   
     render() {
-        return (
-            <PersonelConsumer>{value => {
-                const { dispatch } = value;
-                const okulTip = this.props[0];
-                if (this.state.dispach === null)
-                    this.setState({ dispach: dispatch, okulTipi: okulTip })
-                return (
-                    <div className="p-grid p-fluid">
-                        <div className="p-col-12 p-md-4">
-                            <h3>Eğitim Seviyesi *</h3>
-                            <Dropdown value={this.state.egitim} options={this.egitimseviyeleri} onChange={this.onEgitimChange} style={{ width: '12em' }}
-                                filter={true} filterPlaceholder="Eğitim Durumu Seçiniz" filterBy="label,value" showClear={true} />
-                            <div className={this.state.reqClassEgitimSeviyesi} >
-                                <Message severity="error" text="Eğitim Seviyesi Alanını Doldurunuz" />
-                            </div>
-                        </div>
-                        <div className="p-col-12 p-md-12">
-                            <div className="p-grid">
-                                <div className="p-col-12 ">
-                                    <div className="card">
-                                        <div className={this.state.egitim > 0 ? 'okulBilgisi' : 'divDisplayNone'}>
-                                            <h2>İlköğretim Bilgisi</h2>
-                                            <OkulBilgisi {...this.state.IlkOgretim} />
-                                        </div>
-                                        <div className={this.state.egitim > 1 ? 'okulBilgisi' : 'divDisplayNone'} >
-                                            <h2> Orta Öğretim Bilgisi</h2>
-                                            <OkulBilgisi {...this.state.OrtaOgretim}  />
-
-                                        </div>
-                                        <div className={this.state.egitim > 2 ? 'okulBilgisi' : 'divDisplayNone'} >
-                                            <h2> Lise Bilgisi</h2>
-                                            <OkulBilgisi  {...this.state.Lise}  />
-
-                                        </div>
-                                        <div className={this.state.egitim > 3 ? 'okulBilgisi' : 'divDisplayNone'} >
-                                            <h2>Üniversite Bilgisi</h2>
-                                            <YuksekOkulBilgisi {...this.state.Lisans}  />
-                                        </div>
-                                        <div className={this.state.egitim > 4 ? 'okulBilgisi' : 'divDisplayNone'}>
-                                            <h2>Yüksek Lisans Bilgisi</h2>
-                                            <YuksekOkulBilgisi  {...this.state.YLisans}  />
-                                        </div>
-                                        <div className={this.state.egitim > 5 ? 'okulBilgisi' : 'divDisplayNone'} >
-                                            <h2>Doktora Bilgisi</h2>
-                                            <YuksekOkulBilgisi {...this.state.Doktora}  />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            return (
+                <div className="p-grid p-fluid">
+                    <div className="p-col-12 p-md-4">
+                        <h3>Eğitim Seviyesi *</h3>
+                        <Dropdown value={this.state.egitim} options={this.egitimseviyeleri} onChange={this.onEgitimChange} style={{ width: '12em' }}
+                            filter={true} filterPlaceholder="Eğitim Durumu Seçiniz" filterBy="label,value" showClear={true} />
+                        <div className={this.state.reqClassEgitimSeviyesi} >
+                            <Message severity="error" text="Eğitim Seviyesi Alanını Doldurunuz" />
                         </div>
                     </div>
+                    <div className="p-col-12 p-md-12 card">
+                        <div className={this.state.egitim > 0 ? 'okulBilgisi' : 'divDisplayNone'}>
+                            <h2>İlköğretim Bilgisi</h2>
+                            <OkulBilgisi {...this.state.IlkOgretim} />
+                        </div>
+                        <div className={this.state.egitim > 1 ? 'okulBilgisi' : 'divDisplayNone'} >
+                            <h2> Orta Öğretim Bilgisi</h2>
+                            <OkulBilgisi {...this.state.OrtaOgretim}  />
 
-                );
-            }}
-            </PersonelConsumer>
-        )
+                        </div>
+                        <div className={this.state.egitim > 2 ? 'okulBilgisi' : 'divDisplayNone'} >
+                            <h2> Lise Bilgisi</h2>
+                            <OkulBilgisi  {...this.state.Lise}  />
+
+                        </div>
+                        <div className={this.state.egitim > 3 ? 'okulBilgisi' : 'divDisplayNone'} >
+                            <h2>Üniversite Bilgisi</h2>
+                            <YuksekOkulBilgisi {...this.state.Lisans}  />
+                        </div>
+                        <div className={this.state.egitim > 4 ? 'okulBilgisi' : 'divDisplayNone'}>
+                            <h2>Yüksek Lisans Bilgisi</h2>
+                            <YuksekOkulBilgisi  {...this.state.YLisans}  />
+                        </div>
+                        <div className={this.state.egitim > 5 ? 'okulBilgisi' : 'divDisplayNone'} >
+                            <h2>Doktora Bilgisi</h2>
+                            <YuksekOkulBilgisi {...this.state.Doktora}  />
+                        </div>
+                    </div>
+                </div>
+
+            );
     }
 }
