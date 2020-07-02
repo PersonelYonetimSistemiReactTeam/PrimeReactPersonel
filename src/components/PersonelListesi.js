@@ -36,12 +36,6 @@ export class PersonelListe extends Component {
             displayBasic: false
             
         };
-        this.onClick = this.onClick.bind(this); //popup için eklendi
-
-
-        this.ShopPopup = this.ShopPopup.bind(this); //popup için eklendi
-
-        this.onHide = this.onHide.bind(this);//popup için eklendi
         this.items = [
             {
                 label: 'Update',
@@ -85,28 +79,7 @@ export class PersonelListe extends Component {
                 </div>
             </div>
         );
-    }
-    //popup için eklendi
-    onClick(name) {
-        let state = {
-            [`${name}`]: true
-        };
-
-        // if (position) {
-        //     state = {
-        //         ...state,
-        //         position
-        //     }
-        // }
-
-        this.setState(state);
-    }
-
-    onHide(name) {
-        this.setState({
-            [`${name}`]: false
-        });
-    }
+    } 
 
     activityBodyTemplate(rowData) {
         return <ProgressBar value={rowData.activity} showValue={false} />;
@@ -239,22 +212,13 @@ export class PersonelListe extends Component {
     renderFooter(name) {
         return (
             <div>
-                <Button label="Yes" icon="pi pi-check" onClick={() => this.onHide(name)} />
-                <Button label="No" icon="pi pi-times" onClick={() => this.onHide(name)} className="p-button-secondary"/>
+                <Button label="Kapat" icon="pi pi-times" onClick={() => this.setState({displayBasic:false})} className="p-button-danger"/>
             </div>
         );
-    }
-    ShopPopup()
-    {
-        this.setState({displayBasic:true});
-    }
+    }  
     render() {
         const header = this.renderHeader();
-        const representativeFilter = this.renderRepresentativeFilter();
-        const dateFilter = this.renderDateFilter();
-        const statusFilter = this.renderStatusFilter();
-        
-
+        const dateFilter = this.renderDateFilter();       
         return (
             
             <div className="datatable-doc-demo">
@@ -262,11 +226,7 @@ export class PersonelListe extends Component {
                 <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({displayBasic:true})} />
                 <Dialog header="Personel Detayları" 
                 visible={this.state.displayBasic} 
-                style={{width: '50vw'}} onHide={() => this.onHide('displayBasic')} footer={this.renderFooter('displayBasic')}>
-                    
-
-
-
+                style={{width: '50vw'}} onHide={() => this.setState({displayBasic:false})} footer={this.renderFooter('displayBasic')}> 
                 </Dialog>
                 <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
