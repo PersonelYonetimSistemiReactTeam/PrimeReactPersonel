@@ -12,7 +12,6 @@ const OkulBilgisi = (props) => {
             mezuniyetYil: "",
             mezuniyetDurum: '1',
             il: '6',
-            checked: false,
             okulTipi: "",
             yurtdisi:false
         , ...props.okulBilgisi
@@ -26,7 +25,7 @@ const OkulBilgisi = (props) => {
     ];
  
 
-    const iller = Object.values({ ...props.ilList })
+
     const getKeyValue = (e) => {
         if (e.target) {
             if (e.target.type) {
@@ -45,6 +44,7 @@ const OkulBilgisi = (props) => {
         const { key, value } = getKeyValue(e);
         setOkul({ ...okulBilgisi, [key]: value });
 
+        props.onChange({ ...okulBilgisi, [key]: value });
     };
 
     return (
@@ -73,8 +73,9 @@ const OkulBilgisi = (props) => {
                         </div>
                         <div className="p-col-12 p-md-4">
                             <h3>İl Seçiniz</h3>
-                            <Dropdown name="il" value={okulBilgisi.il} key={iller.value,iller.label} options={iller} onChange={onChange}  style={{ width: '12em' }}
-                                filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
+                            <Dropdown name="il" value={okulBilgisi.il} options={props.ilList} onChange={onChange}  style={{ width: '12em' }}
+                                filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true}
+                                optionLabel="label" optionValue="value" />
                         </div>
                         <div className="p-col-12 p-md-4">
                             <br></br><br></br><br></br>

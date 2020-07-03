@@ -36,8 +36,6 @@ const YuksekOkulBilgisi = (props) => {
         { label: '100', value: '3' }
     ];
    
-    const uniList = Object.entries({...props.uniList})
-
     const getKeyValue = (e) => {
         if (e.target) {
             if (e.target.type) {
@@ -59,6 +57,8 @@ const YuksekOkulBilgisi = (props) => {
         const { key, value } = getKeyValue(e);
         setYuksekOkul({ ...yuksekOkulBilgisi, [key]: value });
 
+        props.onChange({ ...yuksekOkulBilgisi, [key]: value });
+
     };
    
     return (
@@ -68,9 +68,9 @@ const YuksekOkulBilgisi = (props) => {
                     <div className="p-grid p-fluid">
                         <div className="p-col-12 p-md-4">
                             <h3>Üniversite</h3>
-                            {console.log(uniList)}
-                            <Dropdown name="universite" value={yuksekOkulBilgisi.universite} key={uniList.value} options={uniList} onChange={onChange} style={{ width: '12em' }}
-                                filter={true} filterPlaceholder="Üniversite" filterBy="label,value" showClear={true} />
+                            <Dropdown name="universite" value={yuksekOkulBilgisi.universite} options={props.uniList} onChange={onChange} style={{ width: '12em' }}
+                                filter={true} filterPlaceholder="Üniversite" filterBy="label,value" showClear={true} 
+                                optionLabel="label" optionValue="value" />
                         </div>
                         <div className="p-col-12 p-md-4">
                             <h3>Fakülte</h3>

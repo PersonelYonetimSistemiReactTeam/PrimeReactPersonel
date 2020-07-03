@@ -13,12 +13,12 @@ const IletisimBilgileri = (props) => {
     const [iletisimBilgileri, setIsBilgisi] = useState({
         il: '0',
         ilce: "",
-        SokakIsmi: "",
-        CaddeIsmi: "",
+        sokakismi: "",
+        caddeIsmi: "",
         adres: "",
         telefon: "",
-        Email: ""
-        , ...props.iletisimBilgileri
+        email: ""
+        , ...props.iletisimBilgisi
     });
 
     const [formErrors, setFormErrors] = useState({});
@@ -57,12 +57,12 @@ const IletisimBilgileri = (props) => {
             error = value === "" ? "İl Alanını Doldurunuz" : "";
         else if (key === "ilce")
             error = value === "" ? "İlçe Alanını Doldurunuz" : "";
-        else if (key === "CaddeIsmi")
+        else if (key === "caddeIsmi")
             error = value === "" ? "Cadde Alanını Doldurunuz" : "";
-        else if (key === "SokakIsmi")
+        else if (key === "sokakismi")
             error = value === "" ? "Sokak  Alanını Doldurunuz" : "";
-        else if (key === "Email")
-            error = value === "" ? "Email Alanını Doldurunuz" : "";
+        else if (key === "email")
+            error = value === "" ? "email Alanını Doldurunuz" : "";
         else if (key === "telefon")
             error = value === "" ? "Telefon Alanını Doldurunuz" : "";
         return error;
@@ -111,16 +111,15 @@ const IletisimBilgileri = (props) => {
         });
     };
     const prev = () => {
-        props.prev({ ...props.isBilgisi });
+        props.prev(iletisimBilgileri);
     };
-    const iller = Object.values({ ...props.ilList })
 
     return (
         <div className="p-grid p-fluid">
-            <div className="p-col-12 p-md-4">
+            <div className="p-col-12 p-md-4">          
                 <span className="p-float-label">
-                    <Dropdown id="Il" name="il" value={iletisimBilgileri.il} style={{ width: '12em' }}
-                        filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
+                    <Dropdown id="Il" name="il" value={iletisimBilgileri.il} options={props.ilList} onChange={onChange} style={{ width: '12em' }}
+                        filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} optionLabel="label" optionValue="value"  />
                     <label htmlFor="Il">İl</label>
                 </span>
                 {formErrors.il && <Message severity="error" text={formErrors.il} />}
@@ -147,13 +146,13 @@ const IletisimBilgileri = (props) => {
                         id="float-input"
                         type="text"
                         size={30}
-                        name="CaddeIsmi"
-                        value={iletisimBilgileri.CaddeIsmi}
+                        name="caddeIsmi"
+                        value={iletisimBilgileri.caddeIsmi}
                         onChange={onChange}
                     />
                     <label htmlFor="float-input">Cadde</label>
                 </span>
-                {formErrors.CaddeIsmi && <Message severity="error" text={formErrors.CaddeIsmi} />}
+                {formErrors.caddeIsmi && <Message severity="error" text={formErrors.caddeIsmi} />}
 
 
             </div>
@@ -163,13 +162,13 @@ const IletisimBilgileri = (props) => {
                         id="float-input"
                         type="text"
                         size={30}
-                        name="SokakIsmi"
-                        value={iletisimBilgileri.SokakIsmi}
+                        name="sokakismi"
+                        value={iletisimBilgileri.sokakismi}
                         onChange={onChange}
                     />
                     <label htmlFor="float-input">Sokak</label>
                 </span>
-                {formErrors.SokakIsmi && <Message severity="error" text={formErrors.SokakIsmi} />}
+                {formErrors.sokakismi && <Message severity="error" text={formErrors.sokakismi} />}
 
 
             </div>
@@ -180,20 +179,20 @@ const IletisimBilgileri = (props) => {
                         id="float-input"
                         type="email"
                         size={30}
-                        name="Email"
-                        value={iletisimBilgileri.Email}
+                        name="email"
+                        value={iletisimBilgileri.email}
                         onChange={onChange}
                     />
-                    <label htmlFor="float-input">Email</label>
+                    <label htmlFor="float-input">email</label>
                 </span>
-                {formErrors.Email && <Message severity="error" text={formErrors.Email} />}
+                {formErrors.email && <Message severity="error" text={formErrors.email} />}
 
 
             </div>
 
             <div className="p-col-12 p-md-4">
                 <span className="p-float-label">
-                    <InputMask id="float-mask" mask="5999999999" name="telefon" value={iletisimBilgileri.telefon} onChange={(e) => this.setState({ telefon: e.value })} onClick={(e) => this.handleInputChange(e)} />
+                    <InputMask id="float-mask" mask="5999999999" name="telefon" value={iletisimBilgileri.telefon} onChange={onChange} />
                     <label htmlFor="float-mask">599999999</label>
                 </span>
 
@@ -204,7 +203,7 @@ const IletisimBilgileri = (props) => {
                         id="float-textarea"
                         name="adres"
                         value={iletisimBilgileri.adres}
-                        onChange={(e) => this.handleInputChange(e)}
+                        onChange={onChange}
                         rows={5}
                         cols={30}
                     />

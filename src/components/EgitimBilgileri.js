@@ -5,18 +5,24 @@ import OkulBilgisi from './OkulBilgisi';
 import YuksekOkulBilgisi from './YuksekOkulBilgisi'
 import { UniService } from '../service/UniService';
 import { Button } from 'primereact/button';
+import { IlService } from '../service/IlService';
 
 
 
 const EgitimBilgileri = (props) => {
+
+    const [universiteList, setUniList] = useState({});
+    const [ilList, setIlList] = useState({});
+
+
     const [egitim, setEgitim] = useState({
         egitimSeviyesi: "",
-        IlkOgretimBilgisi: { egitimSeviyesi: "İlkOgretim" },
-        OrtaOgretimBilgisi: { egitimSeviyesi: "OrtaOgretim" },
-        LiseBilgisi: { egitimSeviyesi: "Lise" },
-        LisansBilgisi: { egitimSeviyesi: "Lisans" },
-        YLisansBilgisi: { egitimSeviyesi: "YLisans" },
-        DoktoraBilgisi: { egitimSeviyesi: "Doktora" },
+        ilkOgretimBilgisi: { egitimSeviyesi: "İlkOgretim" },
+        ortaOgretimBilgisi: { egitimSeviyesi: "OrtaOgretim" },
+        liseBilgisi: { egitimSeviyesi: "Lise" },
+        lisansBilgisi: { egitimSeviyesi: "Lisans" },
+        ylisansBilgisi: { egitimSeviyesi: "YLisans" },
+        doktoraBilgisi: { egitimSeviyesi: "Doktora" },
     });
     const [formErrors, setFormErrors] = useState({});
 
@@ -31,6 +37,19 @@ const EgitimBilgileri = (props) => {
         { name: 'Doktora', code: '6' }
     ];
 
+    const ilService = new IlService();
+    const unilistService = new UniService();
+    
+    useEffect(() => {    
+        
+        
+        ilService.getIller().then(
+            data => setIlList(data));
+
+        unilistService.getUniList().then(
+            data => setUniList(data));
+
+  }, []);
 
     const getKeyValue = (e) => {
         if (e.target) {
@@ -90,6 +109,7 @@ const EgitimBilgileri = (props) => {
         growl.current.show({ severity: 'error', summary: req, detail: '' });
     }
 
+
     const next = () => {
 
         checkErrors(egitim).then(formErrors => {
@@ -104,16 +124,10 @@ const EgitimBilgileri = (props) => {
     };
 
     const prev = () => {
-        props.prev({...props.kimlikBilgisi})
+        props.prev(egitim);
     };
-    const [universiteList, setUniList] = useState({});
-    const ilList = { ...props.ilList }
+    
 
-    useEffect(() => {
-        const unilistService = new UniService();
-        unilistService.getUniList().then(
-            data => setUniList(data));
-    }, []);
 
     return (
         <div className="p-grid p-fluid">
@@ -129,33 +143,45 @@ const EgitimBilgileri = (props) => {
                 {Number(egitim.egitimSeviyesi) > 0 &&
                     <div className="okulBilgisi">
                         <h2>İlköğretim Bilgisi</h2>
-                        <OkulBilgisi okulBilgisi={egitim.IlkOgretimBilgisi} ilList={ilList} />
+                        <OkulBilgisi okulBilgisi={egitim.ilkOgretimBilgisi} ilList={ilList} onChange={(ilkokul) => {
+              setEgitim({...egitim, ilkOgretimBilgisi: ilkokul});
+            }}/>
                     </div>}
                 {Number(egitim.egitimSeviyesi) > 1 &&
                     <div className="okulBilgisi">
                         <h2> Orta Öğretim Bilgisi</h2>
-                        <OkulBilgisi okulBilgisi={egitim.OrtaOgretimBilgisi} ilList={ilList} />
+                        <OkulBilgisi okulBilgisi={egitim.ortaOgretimBilgisi} ilList={ilList} onChange={(orta) => {
+              setEgitim({...egitim, ortaOgretimBilgisi: orta});
+            }}/>
                     </div>}
                 {Number(egitim.egitimSeviyesi) > 2 &&
                     <div className="okulBilgisi" >
                         <h2> Lise Bilgisi</h2>
-                        <OkulBilgisi okulBilgisi={egitim.LiseBilgisi} ilList={ilList} />
+                        <OkulBilgisi okulBilgisi={egitim.liseBilgisi} ilList={ilList} onChange={(lise) => {
+              setEgitim({...egitim, liseBilgisi: lise});
+            }}/>
                     </div>}
                 {Number(egitim.egitimSeviyesi) > 3 &&
                     <div className="okulBilgisi" >
                         <h2>Üniversite Bilgisi</h2>
-                        <YuksekOkulBilgisi yuksekOkulBilgisi={egitim.LisansBilgisi} uniList={universiteList} />
+                        <YuksekOkulBilgisi yuksekOkulBilgisi={egitim.lisansBilgisi} uniList={universiteList} onChange={(lisans) => {
+              setEgitim({...egitim, lisansBilgisi: lisans});
+            }}/>
                     </div>}
                 {Number(egitim.egitimSeviyesi) > 4 &&
                     <div className="okulBilgisi">
                         <h2>Yüksek Lisans Bilgisi</h2>
-                        <YuksekOkulBilgisi yuksekOkulBilgisi={egitim.YLisansBilgisi} uniList={universiteList} />
+                        <YuksekOkulBilgisi yuksekOkulBilgisi={egitim.yLisansBilgisi} uniList={universiteList} onChange={(ylisans) => {
+              setEgitim({...egitim, yLisansBilgisi: ylisans});
+            }}/>
                     </div>
                 }
                 {Number(egitim.egitimSeviyesi) > 5 &&
                     <div className="okulBilgisi">
                         <h2>Doktora Bilgisi</h2>
-                        <YuksekOkulBilgisi YuksekOkulBilgisi={egitim.DoktoraBilgisi} uniList={universiteList} />
+                        <YuksekOkulBilgisi YuksekOkulBilgisi={egitim.doktoraBilgisi} uniList={universiteList} onChange={(doktora) => {
+              setEgitim({...egitim, doktoraBilgisi: doktora});
+            }}/>
                     </div>
                 }
             </div>

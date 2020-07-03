@@ -12,6 +12,7 @@ import { IlService } from '../service/IlService';
 const PersonelKayit = (props) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [ilList, setIlList] = useState({});
   const [personel, setPersonel] = useState({
     kimlik:{},
     egitim:{},
@@ -38,14 +39,14 @@ const PersonelKayit = (props) => {
   const save = () => {
     console.log({personel});
   }
-  const [ilList, setIlList] = useState({});
-
-  useEffect(() => {    
-      const ilService = new IlService();
+  const ilService = new IlService();
+  
+  useEffect(() => {          
+      
       ilService.getIller().then(
-        data => setIlList(data));
-
-  }, []);
+          data => setIlList(data));
+}, []);
+  
 
   return (
     
@@ -59,10 +60,27 @@ const PersonelKayit = (props) => {
               setSelectedIndex(selectedIndex+1)
             }} />}
             {selectedIndex === 1 && 
-             <EgitimBilgileri egitimBilgisi={personel.egitim} kimlikBilgisi={personel.kimlikBilgisi} ilList={[ilList]} next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />
+             <EgitimBilgileri egitimBilgisi={personel.egitim} next={(egitim) => {
+              setPersonel({...personel, egitim: egitim});
+              setSelectedIndex(selectedIndex+1);
+            }} prev={(egitim) => {
+              setPersonel({...personel, egitim: egitim});
+              setSelectedIndex(selectedIndex-1);}} />
             }
-            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is} egitimBilgisi={personel.egitimBilgisi}  next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />}
-            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} isBilgisi={personel.isBilgisi} save={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}}/>}
+            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is} ilList={ilList} next={(is) => {
+              setPersonel({...personel, is: is})
+              setSelectedIndex(selectedIndex+1)
+            }} prev={(is) => {
+              setPersonel({...personel, is: is});
+              setSelectedIndex(selectedIndex-1);}
+              } />}
+            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} ilList={ilList} save={(iletisim) => {
+              setPersonel({...personel, iletisim: iletisim})
+              save();
+            }} prev={(iletisim) => {
+              setPersonel({...personel, iletisim: iletisim});
+              setSelectedIndex(selectedIndex-1);
+              }}/>}
           </div>
        </div>
  );

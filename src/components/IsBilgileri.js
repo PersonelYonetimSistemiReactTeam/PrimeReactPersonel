@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Message } from 'primereact/message';
@@ -13,7 +13,6 @@ const IsBilgileri = (props) => {
     unvan: "",
     sirket: "",
     il: "",
-    iller: [],
     baglioldugumudurluk: "",
     baglioldugumudur: "",
     kidem: ""
@@ -33,6 +32,8 @@ const IsBilgileri = (props) => {
     { name: 'Limak Gıda', code: 'LI' },
     { name: 'Limak Liman', code: 'LI' }
   ];
+
+
 
   const getKeyValue = (e) => {
     if (e.target) {
@@ -114,9 +115,9 @@ const IsBilgileri = (props) => {
     });
   };
 
-  
+
   const prev = () => {
-    props.prev({...props.egitimBilgisi});    
+    props.prev(isBilgisi);
   };
   return (
     <div>
@@ -152,15 +153,16 @@ const IsBilgileri = (props) => {
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <Dropdown id="Sirket" name="sirket" value={isBilgisi.sirket} options={sirketlist} optionLabel="name" style={{ width: '12em' }} />
-            <label htmlFor="Sirket">Çalıştığı Şirket</label>
+            <Dropdown id="sirket" name="sirket" value={isBilgisi.sirket} options={sirketlist}  onChange={onChange}  optionLabel="name" style={{ width: '12em' }} optionLabel="name" optionValue="code" />
+            <label htmlFor="sirket">Çalıştığı Şirket</label>
           </span>
           {formErrors.sirket && <Message severity="error" text={formErrors.sirket} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <Dropdown id="Il" value={isBilgisi.il} style={{ width: '12em' }}
-              filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
+            <Dropdown name="il" value={isBilgisi.il} options={props.ilList} onChange={onChange} style={{ width: '12em' }}
+              filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true}
+              optionLabel="label" optionValue="value" />
             <label htmlFor="Il">Çalıştığı İl</label>
           </span>
           {formErrors.il && <Message severity="error" text={formErrors.il} />}
