@@ -1,13 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Calendar } from 'primereact/calendar';
 import { RadioButton } from 'primereact/radiobutton';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import '../layout/sass/personelKayit.scss';
 import { InputMask } from 'primereact/inputmask';
-import PersonelConsumer from '../context';
 import { Growl } from 'primereact/growl';
 
 
@@ -33,7 +31,7 @@ const KimlikBilgileri = (props) => {
   let growl = useRef(null);
 
   const kangrubulist = [
-    { name: 'O Rh-pozitif', code: 'O Rh-pozitif' },
+    { name: '0 Rh-pozitif', code: 'O Rh-pozitif' },
     { name: '0 Rh-negatif', code: '0 Rh-negatif' },
     { name: 'A Rh-pozitif', code: 'A Rh-pozitif' },
     { name: 'A Rh-negatif', code: 'A Rh-negatif' },
@@ -71,13 +69,12 @@ const KimlikBilgileri = (props) => {
 
   const checkError = (key, value) => {
     let error = "";
-
     if (key === "ad")
       error = value === "" ? "Ad Alanını Doldurunuz" : "";
     else if (key === "soyad")
       error = value === "" ? "Soyad Alanını Doldurunuz" : "";
     else if (key === "tc")
-      error = value.length < 11 ? "Hatalı TC" : "";
+      error = value.length < 11 ? "Lütfen TC Kimlik No Alanını Doldurunuz" : "";
     return error;
   };
 
@@ -121,48 +118,49 @@ const KimlikBilgileri = (props) => {
   };
 
   return (
-<div>
-<Growl ref={growl} />
-    <div className="p-grid p-fluid">
-      <div className="p-col-12 p-md-4">
-        <span className="p-float-label">
-          <InputText name="ad" size={30} value={kimlik.ad} className={formErrors.ad ? "error" : ""} onChange={onChange} />
-          <label htmlFor="float-input">Ad</label>
-        </span>
-        {formErrors.ad && <Message severity="error" text={formErrors.ad} />}
-      </div>
-      <div className="p-col-12 p-md-4">
-        <span className="p-float-label">
-          <InputText name="soyad" size={30} value={kimlik.soyad} className={formErrors.soyad ? "error" : ""} onChange={onChange} />
-          <label htmlFor="float-input">Soyad</label>
-        </span>
-      </div>
-      <div className="p-col-12 p-md-4">
+    <div>
+      <Growl ref={growl} />
+      <div className="p-grid p-fluid">
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="ad" size={30} value={kimlik.ad} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <label htmlFor="float-input">Ad</label>
+          </span>
+          {formErrors.ad && <Message severity="error" text={formErrors.ad} />}
+        </div>
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="soyad" size={30} value={kimlik.soyad} className={formErrors.soyad ? "error" : ""} onChange={onChange} />
+            <label htmlFor="float-input">Soyad</label>
+          </span>
+          {formErrors.ad && <Message severity="error" text={formErrors.soyad} />}
+        </div>
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputMask id="float-mask" name="tc" mask="99999999999" autoClear={false} value={kimlik.tc} onChange={onChange} />
+            <label htmlFor="float-input">T.C Kimlik No</label>
+          </span>
+          {formErrors.ad && <Message severity="error" text={formErrors.tc} />}
+        </div>
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <Dropdown id="kangrubu" name="kangrubu" value={kimlik.kangrubu} options={kangrubulist} ariaLabel="Test" onChange={onChange} optionLabel="name" optionValue="code" />
+            <label htmlFor="kangrubu">Kan Grubu</label>
+          </span>
+        </div>
 
-        <span className="p-float-label">
-          <InputMask id="float-mask" name="tc" mask="99999999999" autoClear={false} value={kimlik.tc} onChange={onChange} />
-          <label htmlFor="float-input">T.C Kimlik No</label>
-        </span>
-      </div>
-      <div className="p-col-12 p-md-4">
-        <span className="">
-        {/* <label htmlFor="kangrubu">Kan Grubu</label> */}
-          <Dropdown id="kangrubu" name="kangrubu" value={kimlik.kangrubu} options={kangrubulist} ariaLabel="Test" onChange={onChange} optionLabel="name" optionValue="code" />
-        </span>
-      </div>
 
-
-      <div className="p-col-12 p-md-4">
-        <span className="p-float-label">
-          <InputText name="anneadi" type="text" size={30} value={kimlik.anneadi} onChange={onChange} />
-          <label htmlFor="float-input">Anne Adı</label>
-        </span>
-      </div>
-      <div className="p-col-12 p-md-4">
-        <span className="p-float-label">
-          <InputText name="babaadi" type="text" size={30} value={kimlik.babaadi} onChange={onChange} />
-          <label htmlFor="float-input">Baba Adı</label>
-        </span>
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="anneadi" type="text" size={30} value={kimlik.anneadi} onChange={onChange} />
+            <label htmlFor="float-input">Anne Adı</label>
+          </span>
+        </div>
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="babaadi" type="text" size={30} value={kimlik.babaadi} onChange={onChange} />
+            <label htmlFor="float-input">Baba Adı</label>
+          </span>
         </div>
         <div className="p-col-12 p-md-4">
 
@@ -172,14 +170,14 @@ const KimlikBilgileri = (props) => {
           </span>
         </div>
         <div className="p-col-12 p-md-4">
-          <label htmlFor="float-input">Cinsiyet</label>
+          <label htmlFor="float-input"><b>Cinsiyet</b>     </label>
           <RadioButton inputId="rbkadin" name="cinsiyet" value="Kadın" onChange={onChange} checked={kimlik.cinsiyet === 'Kadın'} />
           <label htmlFor="rb1" className="p-radiobutton-label">Kadın </label>
           <RadioButton inputId="rberkek" name="cinsiyet" value="Erkek" onChange={onChange} checked={kimlik.cinsiyet === 'Erkek'} />
           <label htmlFor="rb2" className="p-radiobutton-label">Erkek</label>
         </div>
         <div className="p-col-12 p-md-4">
-          <label htmlFor="float-input">Medeni Durum</label>
+          <label htmlFor="float-input"><b>Medeni Durum</b>    </label>
           <RadioButton inputId="rbEvli" name="medenidurum" value="Evli" onChange={onChange} checked={kimlik.medenidurum === 'Evli'} />
           <label htmlFor="rb1" className="p-radiobutton-label">Evli </label>
           <RadioButton inputId="rbBekar" name="medenidurum" value="Bekar" onChange={onChange} checked={kimlik.medenidurum === 'Bekar'} />
@@ -206,9 +204,9 @@ const KimlikBilgileri = (props) => {
 
         </div>
         <div className="p-col-12">
-          <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={next} style={{width:'10em'}} />
+          <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={next} style={{ width: '10em' }} />
         </div>
-    </div>
+      </div>
     </div>
   );
 

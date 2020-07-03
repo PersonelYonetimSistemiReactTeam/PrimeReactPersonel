@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
-import { TabView, TabPanel } from 'primereact/tabview';
-import { EgitimBilgileri } from './EgitimBilgileri';
+import React, { useState,useEffect } from 'react';
+import EgitimBilgileri  from './EgitimBilgileri';
 import  KimlikBilgileri  from './KimlikBilgileri';
 import { IletisimBilgileri } from './IletisimBilgileri';
-import { IsBilgileri } from './IsBilgileri';
-import PersonelConsumer from '../context';
-
+import IsBilgileri from './IsBilgileri';
 import 'primeicons/primeicons.css';
 import { Steps } from 'primereact/steps';
-import { Growl } from 'primereact/growl';
-import { Button } from 'primereact/button';
-import { Message } from 'primereact/message';
+import { IlService } from '../service/IlService';
+
 
 
 const PersonelKayit = (props) => {
@@ -22,7 +18,7 @@ const PersonelKayit = (props) => {
     is:{},
     iletisim:{}
   });
-
+  
   const items = [
     {
       label: 'Kimlik Bilgileri'
@@ -42,7 +38,14 @@ const PersonelKayit = (props) => {
   const save = () => {
     console.log({personel});
   }
-  
+  const [ilList, setIlList] = useState({});
+
+  useEffect(() => {    
+      const ilService = new IlService();
+      ilService.getIller().then(
+        data => setIlList(data));
+
+  }, []);
 
   return (
     
@@ -56,10 +59,10 @@ const PersonelKayit = (props) => {
               setSelectedIndex(selectedIndex+1)
             }} />}
             {selectedIndex === 1 && 
-             <EgitimBilgileri egitimBilgisi={personel.egitim} next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />
+             <EgitimBilgileri egitimBilgisi={personel.egitim} ilList={[ilList]} next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />
             }
-            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is} next={setSelectedIndex(selectedIndex+1)} prev={setSelectedIndex(selectedIndex-1)} />}
-            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} save={save} prev={setSelectedIndex(selectedIndex-1)} />}
+            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is}  next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />}
+            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} save={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}}/>}
           </div>
           <div className="steps-action">
             {/* {selected < 3 && <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={validate === true ? () => this.next() : this.showError}/>}

@@ -2,18 +2,17 @@ import React, { Component, useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Message } from 'primereact/message';
-import validator from 'validator';
 import { IlService } from '../service/IlService';
 import '../layout/sass/personelKayit.scss';
-import PersonelConsumer from '../context';
 import { Growl } from 'primereact/growl';
+import { Button } from 'primereact/button';
 
 
 const IsBilgileri = (props) => {
   const [IsBilgisi, setIsBilgisi] = useState({
     unvan: "",
     sirket: "",
-    il: '6',
+    il: "",
     iller: [],
     baglioldugumudurluk: "",
     baglioldugumudur: "",
@@ -22,7 +21,7 @@ const IsBilgileri = (props) => {
   });
 
   const [formErrors, setFormErrors] = useState({});
-  
+
   let growl = useRef(null);
 
   const sirketlist = [
@@ -35,8 +34,7 @@ const IsBilgileri = (props) => {
     { name: 'Limak Liman', code: 'LI' }
   ];
 
-  const getKeyValue = (e) => 
-  {
+  const getKeyValue = (e) => {
     if (e.target) {
       if (e.target.type) {
         if (e.target.type === "checkbox")
@@ -68,10 +66,14 @@ const IsBilgileri = (props) => {
       error = value === "" ? "unvan Alanını Doldurunuz" : "";
     else if (key === "baglioldugumudurluk")
       error = value === "" ? "Bağlı olduğu müdürlük Alanını Doldurunuz" : "";
-      else if (key === "baglioldugumudurluk")
-      error = value === "" ? "Müdürlük Alanını Doldurunuz" : "";
-      else if (key === "kidem")
+    else if (key === "baglioldugumudur")
+      error = value === "" ? "Bağlı Olduğu Müdür Alanını Doldurunuz" : "";
+    else if (key === "kidem")
       error = value === "" ? "Kıdem Alanını Doldurunuz" : "";
+    else if (key === "il")
+      error = value === "" ? "İl Alanını Doldurunuz" : "";
+    else if (key === "sirket")
+      error = value === "" ? "Şirket Alanını Doldurunuz" : "";
     return error;
   };
 
@@ -94,7 +96,7 @@ const IsBilgileri = (props) => {
 
     return errors;
   };
-  
+
   const showError = (req) => {
     growl.current.show({ severity: 'error', summary: req, detail: '' });
   }
@@ -114,52 +116,55 @@ const IsBilgileri = (props) => {
 
   return (
     <div>
-    <Growl ref={growl} />
-    <div className="p-grid p-fluid">
-      <div className="p-col-12 p-md-4">
-        <h3>Ünvan*</h3>
-        <span className="p-float-label">
-          <InputText name="unvan" type="text" size={30} value={IsBilgisi.unvan} className={formErrors.ad ? "error" : ""} onChange={onChange}/>
-          <label htmlFor="float-input">Ünvan</label>
-        </span>
-        <div className={IsBilgisi.reqClassUnvan}>
-          <Message severity="error" text="Unvan alanı boş geçilemez!" />
+      <Growl ref={growl} />
+      <div className="p-grid p-fluid">
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="unvan" type="text" size={30} value={IsBilgisi.unvan} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <label htmlFor="float-input">Ünvan</label>
+          </span>
+          {formErrors.unvan && <Message severity="error" text={formErrors.unvan} />}
         </div>
-        <h3>Bağlı Olduğu Müdürlük*</h3>
-        <span className="p-float-label">
-          <InputText name="baglioldugumudurluk" type="text" size={30} className={formErrors.ad ? "error" : ""} onChange={onChange} />
-          <label htmlFor="float-input">Bağlı Olduğu Müdürlük</label>
-        </span>
-        <div className={IsBilgisi.reqClassMudurluk} >
-          <Message severity="error" text="Bağlı olduğu müdürlük alanı boş geçilemez!" />
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="baglioldugumudurluk" value ={IsBilgisi.baglioldugumudurluk} type="text" size={30} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <label htmlFor="float-input">Bağlı Olduğu Müdürlük</label>
+          </span>
+          {formErrors.baglioldugumudurluk && <Message severity="error" text={formErrors.baglioldugumudurluk} />}
         </div>
-        <h3>Bağlı Olduğu Müdür/Amir*</h3>
-        <span className="p-float-label">
-          <InputText name="baglioldugumudur" type="text" size={30} value={IsBilgisi.baglioldugumudur} className={formErrors.ad ? "error" : ""} onChange={onChange}/>
-          <label htmlFor="float-input">Bağlı Olduğu Müdür/Amir</label>
-        </span>
-        <div className={IsBilgisi.reqClassMudur} >
-          <Message severity="error" text="Bağlı olduğu müdür/amir alanı boş geçilemez!" />
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="baglioldugumudur" type="text" size={30} value={IsBilgisi.baglioldugumudur} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <label htmlFor="float-input">Bağlı Olduğu Müdür/Amir</label>
+          </span>
+          {formErrors.baglioldugumudur && <Message severity="error" text={formErrors.baglioldugumudur} />}
         </div>
-        <h3>Kıdem*</h3>
-        <span className="p-float-label">
-          <InputText name="kidem" type="text" size={30} value={IsBilgisi.kidem} className={formErrors.ad ? "error" : ""} onChange={onChange} />
-          <label htmlFor="float-input">Kıdem</label>
-        </span>
-        <div className={IsBilgisi.reqClassKidem} >
-          <Message severity="error" text="Kıdem alanı boş geçilemez!" />
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <InputText name="kidem" type="text" size={30} value={IsBilgisi.kidem} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <label htmlFor="float-input">Kıdem</label>
+          </span>
+          {formErrors.kidem && <Message severity="error" text={formErrors.kidem} />}
         </div>
-        <h3>Şirket*</h3>
-        <div className="p-col-12 p-md-12">
-          <Dropdown id="Sirket" value={IsBilgisi.sirket} options={sirketlist}  optionLabel="name" style={{ width: '12em' }} />
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <Dropdown id="Sirket" name ="sirket" value={IsBilgisi.sirket} options={sirketlist} optionLabel="name" style={{ width: '12em' }} />
+            <label htmlFor="Sirket">Çalıştığı Şirket</label>
+          </span>
+          {formErrors.sirket && <Message severity="error" text={formErrors.sirket} />}
         </div>
-        <div className="p-col-12 p-md-">
-          <h3>Çalıştığı İl</h3>
-          <Dropdown id="Il" value={IsBilgisi.il}    style={{ width: '12em' }}
-            filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
+        <div className="p-col-12 p-md-4">
+          <span className="p-float-label">
+            <Dropdown id="Il" value={IsBilgisi.il} style={{ width: '12em' }}
+              filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
+            <label htmlFor="Il">Çalıştığı İl</label>
+          </span>
+          {formErrors.il && <Message severity="error" text={formErrors.il} />}
+        </div>
+        <div className="p-col-12">
+          <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={next} style={{ width: '10em' }} />
         </div>
       </div>
-    </div>
     </div>
   );
 };

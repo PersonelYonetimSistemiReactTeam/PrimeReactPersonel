@@ -251,5 +251,3 @@ export class PersonelListe extends Component {
             }
 }
                 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<PersonelListe />, rootElement);

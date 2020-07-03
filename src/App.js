@@ -177,11 +177,12 @@ class App extends Component {
                     <Route path="/charts" component={ChartsDemo} />
                     <Route path="/misc" component={MiscDemo} />
                     <Route path="/empty" component={EmptyPage} />
-                    <Route path="/documentation" component={Documentation}
+                    <Route path="/documentation" component={Documentation}/>
+                     <Route path="/personelListe" component={PersonelListe}
+                     
                      />
                      <Route path="/personelKayit"><PersonelKayit/></Route>
-                     <Route path="/personelListe" component={PersonelListe}
-                     />
+
                 </div>
 
                 <AppFooter />

@@ -8,15 +8,13 @@ import ScrollToTop from './ScrollToTop';
 import { PersonelProvider } from './context';
 
 ReactDOM.render(
-    <PersonelProvider>
     <HashRouter>
         <ScrollToTop>
            
                 <App></App>
             
         </ScrollToTop>
-    </HashRouter>
-    </PersonelProvider>,
+    </HashRouter>,
     document.getElementById('root')
 );
 
