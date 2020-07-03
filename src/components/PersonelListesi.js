@@ -101,7 +101,7 @@ const PersonelListesi = (props) => {
 
     const renderRepresentativeFilter = (rowData) => {
         return (
-            <MultiSelect className="p-column-filter" value={this.state.selectedRepresentatives} options={this.representatives}
+            <MultiSelect className="p-column-filter" value={selectedRepresentatives} options={this.representatives}
                 onChange={this.onRepresentativeFilterChange} itemTemplate={this.representativeItemTemplate} placeholder="All" optionLabel="name" optionValue="name" />
         );
     }
@@ -120,23 +120,23 @@ const PersonelListesi = (props) => {
 
         <div className="datatable-doc-demo">
             <Dialog header="Personel Detayları"
-                visible={this.state.displayBasic}
+                visible={displayBasic}
                 style={{ width: '50vw' }} onHide={() => this.setState({ displayBasic: false })} footer={this.renderFooter('displayBasic')}>
             </Dialog>
 
             <h3>Basic</h3>
             <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({ displayDetay: true })} />
             <Dialog header="Personel Detayları"
-                visible={this.state.displayDetay}
+                visible={displayDetay}
                 style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
             </Dialog>
             <Button label="a" icon="pi pi-pencil" onClick={() => this.setState({ displayGuncelle: true })} />
             <Dialog header="Personel Bilgi Güncelleme"
-                visible={this.state.displayGuncelle}
+                visible={displayGuncelle}
                 style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
-                <DataTable ref={(el) => this.dt = el} value={this.state.customers}
-                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
-                    selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
+                <DataTable ref={(el) => this.dt = el} value={customers}
+                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={globalFilter}
+                    selection={selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
                     paginator rows={10}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
                     <Column selectionMode="multiple" style={{ width: '3em' }} />
@@ -150,9 +150,9 @@ const PersonelListesi = (props) => {
                 </DataTable>
             </Dialog>
 
-            <DataTable ref={(el) => this.dt = el} value={this.state.customers}
-                header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
-                selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
+            <DataTable ref={(el) => this.dt = el} value={customers}
+                header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={globalFilter}
+                selection={selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
                 paginator rows={10} emptyMessage="Personel bulunamadı!"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
                 <Column selectionMode="multiple" style={{ width: '3em' }} />

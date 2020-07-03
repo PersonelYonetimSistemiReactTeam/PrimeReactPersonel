@@ -1,22 +1,22 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
-import {AppTopbar} from './AppTopbar';
-import {AppFooter} from './AppFooter';
-import {AppMenu} from './AppMenu';
-import {AppProfile} from './AppProfile';
-import {Route} from 'react-router-dom';
-import {Dashboard} from './components/Dashboard';
-import {FormsDemo} from './components/FormsDemo';
-import {SampleDemo} from './components/SampleDemo';
-import {DataDemo} from './components/DataDemo';
-import {PanelsDemo} from './components/PanelsDemo';
-import {OverlaysDemo} from './components/OverlaysDemo';
-import {MenusDemo} from './components/MenusDemo';
-import {MessagesDemo} from './components/MessagesDemo';
-import {ChartsDemo} from './components/ChartsDemo';
-import {MiscDemo} from './components/MiscDemo';
-import {EmptyPage} from './components/EmptyPage';
-import {Documentation} from "./components/Documentation";
+import { AppTopbar } from './AppTopbar';
+import { AppFooter } from './AppFooter';
+import { AppMenu } from './AppMenu';
+import { AppProfile } from './AppProfile';
+import { Route } from 'react-router-dom';
+import { Dashboard } from './components/Dashboard';
+import { FormsDemo } from './components/FormsDemo';
+import { SampleDemo } from './components/SampleDemo';
+import { DataDemo } from './components/DataDemo';
+import { PanelsDemo } from './components/PanelsDemo';
+import { OverlaysDemo } from './components/OverlaysDemo';
+import { MenusDemo } from './components/MenusDemo';
+import { MessagesDemo } from './components/MessagesDemo';
+import { ChartsDemo } from './components/ChartsDemo';
+import { MiscDemo } from './components/MiscDemo';
+import { EmptyPage } from './components/EmptyPage';
+import { Documentation } from "./components/Documentation";
 import PersonelKayit from "./components/PersonelKayit";
 import PersonelListe from "./components/PersonelListesi";
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -80,7 +80,7 @@ class App extends Component {
                 mobileMenuActive: !mobileMenuActive
             });
         }
-       
+
         event.preventDefault();
     }
 
@@ -89,7 +89,7 @@ class App extends Component {
     }
 
     onMenuItemClick(event) {
-        if(!event.item.items) {
+        if (!event.item.items) {
             this.setState({
                 overlayMenuActive: false,
                 mobileMenuActive: false
@@ -99,15 +99,15 @@ class App extends Component {
 
     createMenu() {
         this.menu = [
-            {label: 'Ana Sayfa', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/'}},
+            { label: 'Ana Sayfa', icon: 'pi pi-fw pi-home', command: () => { window.location = '#/' } },
             {
                 label: 'Personel İşlemleri', icon: 'pi pi-users',
                 items: [
-                    {label: 'Personel Listesi', icon: 'pi pi-list',  command: () => {window.location = '#/personelListe'} },
-                    {label: 'Personel Kayıt', icon: 'pi pi-user-plus',  command: () => {window.location = '#/personelKayit'} }
+                    { label: 'Personel Listesi', icon: 'pi pi-list', command: () => { window.location = '#/personelListe' } },
+                    { label: 'Personel Kayıt', icon: 'pi pi-user-plus', command: () => { window.location = '#/personelKayit' } }
                 ]
-            },                    
-            {label: 'Yönetim', icon: 'pi pi-fw pi-cog', command: () => {window.location = "#/documentation"}}
+            },
+            { label: 'Yönetim', icon: 'pi pi-fw pi-cog', command: () => { window.location = "#/documentation" } }
         ];
     }
 
@@ -137,7 +137,7 @@ class App extends Component {
     }
 
     render() {
-        const logo = this.state.layoutColorMode === 'dark' ? 'assets/layout/images/logo-white.svg': 'assets/layout/images/logo.svg';
+        const logo = this.state.layoutColorMode === 'dark' ? 'assets/layout/images/logo-white.svg' : 'assets/layout/images/logo.svg';
 
         const wrapperClass = classNames('layout-wrapper', {
             'layout-overlay': this.state.layoutMode === 'overlay',
@@ -154,12 +154,12 @@ class App extends Component {
 
         return (
             <div className={wrapperClass} onClick={this.onWrapperClick}>
-                <AppTopbar onToggleMenu={this.onToggleMenu}/>
+                <AppTopbar onToggleMenu={this.onToggleMenu} />
 
                 <div ref={(el) => this.sidebar = el} className={sidebarClassName} onClick={this.onSidebarClick}>
                     <div className="layout-logo">
                         <img alt="Logo" src={logo} />
-                      <h3 className ="personelHeader">Personel Yönetim Sistemi</h3>  
+                        <h3 className="personelHeader">Personel Yönetim Sistemi</h3>
                     </div>
                     <AppProfile />
                     <AppMenu model={this.menu} onMenuItemClick={this.onMenuItemClick} />
@@ -177,9 +177,9 @@ class App extends Component {
                     <Route path="/charts" component={ChartsDemo} />
                     <Route path="/misc" component={MiscDemo} />
                     <Route path="/empty" component={EmptyPage} />
-                    <Route path="/documentation" component={Documentation}/>
-                     <Route path="/personelListe" component={PersonelListe}/>
-                     <Route path="/personelKayit" component={PersonelKayit}/>
+                    <Route path="/documentation" component={Documentation} />
+                    <Route path="/personelListe" component={PersonelListe} />
+                    <Route path="/personelKayit" component={PersonelKayit} />
 
                 </div>
 
