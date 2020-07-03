@@ -123,6 +123,33 @@ const PersonelListesi = (props) => {
                 visible={this.state.displayBasic}
                 style={{ width: '50vw' }} onHide={() => this.setState({ displayBasic: false })} footer={this.renderFooter('displayBasic')}>
             </Dialog>
+
+            <h3>Basic</h3>
+            <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({ displayDetay: true })} />
+            <Dialog header="Personel Detayları"
+                visible={this.state.displayDetay}
+                style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
+            </Dialog>
+            <Button label="a" icon="pi pi-pencil" onClick={() => this.setState({ displayGuncelle: true })} />
+            <Dialog header="Personel Bilgi Güncelleme"
+                visible={this.state.displayGuncelle}
+                style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
+                <DataTable ref={(el) => this.dt = el} value={this.state.customers}
+                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
+                    selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
+                    paginator rows={10}
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
+                    <Column selectionMode="multiple" style={{ width: '3em' }} />
+                    <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
+                    <Column field="surname" header="Soyad" sortable filter filterPlaceholder="Soyad" />
+                    <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl" />
+                    <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
+                    <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
+                    <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
+                    <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
+                </DataTable>
+            </Dialog>
+
             <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                 header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                 selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
