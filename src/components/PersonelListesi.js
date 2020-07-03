@@ -3,7 +3,6 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import '../index.css';
-import ReactDOM from 'react-dom';
 
 import React, { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
@@ -16,15 +15,22 @@ import { Calendar } from 'primereact/calendar';
 import { MultiSelect } from 'primereact/multiselect';
 import { ProgressBar } from 'primereact/progressbar';
 import classNames from 'classnames';
-import { PersonelListeService } from '../service/CustomerService';
-import { SplitButton } from 'primereact/splitbutton';
-import { Growl } from 'primereact/growl';
-import { OverlayPanel } from 'primereact/overlaypanel';
 import { Dialog } from 'primereact/dialog';
-import { Router, Route, hashHistory } from 'react-router';
-import propTypes from "prop-types";
+import PersonelKayit from './PersonelKayit';
+
+
 
 export class PersonelListe extends Component {
+    renderScene(route, navigator) {
+        var routeId = route.id; // hangi route olduğunu id altına atıyoruz
+        if (routeId === 'PersonelKayit') {
+            return (
+                <PersonelKayit
+                    navigator={navigator} // açılan pencerenin parametreler göndermek isterseniz bunu yazarsınız
+                />
+            );
+        }
+    }
 
     constructor() {
         super();
@@ -66,7 +72,9 @@ export class PersonelListe extends Component {
         this.filterDate = this.filterDate.bind(this);
         this.statusItemTemplate = this.statusItemTemplate.bind(this);
         this.onStatusFilterChange = this.onStatusFilterChange.bind(this);
+        this.handleOnClick =  this.handleOnClick.bind(this);
     }
+
 
     componentDidMount() {
         this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
@@ -217,36 +225,49 @@ export class PersonelListe extends Component {
             </div>
         );
     }
+    handleOnClick = () => {
+       console.log("tamammm")
+        this.setState({redirect: true});
+      }
+      
     render() {
         const header = this.renderHeader();
         const dateFilter = this.renderDateFilter();
-        return (
 
+        if (this.state.redirect) {
+            return <PersonelKayit push to="/PersonelKayit" />;
+          }
+
+
+        return (
             <div className="datatable-doc-demo">
                 <h3>Basic</h3>
-                <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({ displayDetay: true })} />
+
+                
+                <Button label="Show" icon="pi pi-external-link" onClick={this.handleOnClick} />
+
+
                 <Dialog header="Personel Detayları"
                     visible={this.state.displayDetay}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
                 </Dialog>
-                <Button label="a" icon="pi pi-pencil" onClick={() => this.setState({ displayGuncelle: true })} />
                 <Dialog header="Personel Bilgi Güncelleme"
                     visible={this.state.displayGuncelle}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
-                                        <DataTable ref={(el) => this.dt = el} value={this.state.customers}
-                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
-                    selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
-                    paginator rows={10} 
-                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
-                    <Column selectionMode="multiple" style={{ width: '3em' }} />
-                    <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
-                    <Column field="surname" header="Soyad" sortable filter filterPlaceholder="Soyad" />
-                    <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl" />
-                    <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
-                    <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
-                    <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
-                    <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
-                </DataTable>
+                    <DataTable ref={(el) => this.dt = el} value={this.state.customers}
+                        header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
+                        selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
+                        paginator rows={10}
+                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
+                        <Column selectionMode="multiple" style={{ width: '3em' }} />
+                        <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
+                        <Column field="surname" header="Soyad" sortable filter filterPlaceholder="Soyad" />
+                        <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl" />
+                        <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
+                        <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
+                        <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
+                        <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
+                    </DataTable>
                 </Dialog>
                 <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
