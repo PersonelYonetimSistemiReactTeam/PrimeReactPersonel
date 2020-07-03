@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import EgitimBilgileri  from './EgitimBilgileri';
 import  KimlikBilgileri  from './KimlikBilgileri';
-import { IletisimBilgileri } from './IletisimBilgileri';
+import IletisimBilgileri  from './IletisimBilgileri';
 import IsBilgileri from './IsBilgileri';
 import 'primeicons/primeicons.css';
 import { Steps } from 'primereact/steps';
@@ -59,16 +59,12 @@ const PersonelKayit = (props) => {
               setSelectedIndex(selectedIndex+1)
             }} />}
             {selectedIndex === 1 && 
-             <EgitimBilgileri egitimBilgisi={personel.egitim} ilList={[ilList]} next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />
+             <EgitimBilgileri egitimBilgisi={personel.egitim} kimlikBilgisi={personel.kimlikBilgisi} ilList={[ilList]} next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />
             }
-            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is}  next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />}
-            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} save={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}}/>}
+            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is} egitimBilgisi={personel.egitimBilgisi}  next={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}} />}
+            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} isBilgisi={personel.isBilgisi} save={() => {setSelectedIndex(selectedIndex+1)}} prev={() => {setSelectedIndex(selectedIndex-1)}}/>}
           </div>
-          <div className="steps-action">
-            {/* {selected < 3 && <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={validate === true ? () => this.next() : this.showError}/>}
-            {selected === 3 && <Button id="kaydet" label="Kaydet" icon="pi pi-check" iconPos="left" className="p-button-success" onClick={() => this.sendData()} />} */}
-          </div>
-        </div>
+       </div>
  );
 };  
 export default PersonelKayit;

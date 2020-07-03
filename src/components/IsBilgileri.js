@@ -9,7 +9,7 @@ import { Button } from 'primereact/button';
 
 
 const IsBilgileri = (props) => {
-  const [IsBilgisi, setIsBilgisi] = useState({
+  const [isBilgisi, setIsBilgisi] = useState({
     unvan: "",
     sirket: "",
     il: "",
@@ -17,7 +17,7 @@ const IsBilgileri = (props) => {
     baglioldugumudurluk: "",
     baglioldugumudur: "",
     kidem: ""
-
+    , ...props.isBilgisi
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -70,10 +70,10 @@ const IsBilgileri = (props) => {
       error = value === "" ? "Bağlı Olduğu Müdür Alanını Doldurunuz" : "";
     else if (key === "kidem")
       error = value === "" ? "Kıdem Alanını Doldurunuz" : "";
-    else if (key === "il")
-      error = value === "" ? "İl Alanını Doldurunuz" : "";
-    else if (key === "sirket")
-      error = value === "" ? "Şirket Alanını Doldurunuz" : "";
+    // else if (key === "il")
+    //   error = value === "" ? "İl Alanını Doldurunuz" : "";
+    // else if (key === "sirket")
+    //   error = value === "" ? "Şirket Alanını Doldurunuz" : "";
     return error;
   };
 
@@ -83,7 +83,7 @@ const IsBilgileri = (props) => {
 
     setFormErrors({ ...formErrors, [key]: checkError(key, value) });
 
-    setIsBilgisi({ ...IsBilgisi, [key]: value });
+    setIsBilgisi({ ...isBilgisi, [key]: value });
 
   };
   const checkErrors = async (user) => {
@@ -103,10 +103,10 @@ const IsBilgileri = (props) => {
 
   const next = () => {
 
-    checkErrors(IsBilgisi).then(formErrors => {
+    checkErrors(isBilgisi).then(formErrors => {
       if (formValid(formErrors)) {
 
-        props.next(IsBilgisi);
+        props.next(isBilgisi);
 
       }
       else
@@ -114,54 +114,59 @@ const IsBilgileri = (props) => {
     });
   };
 
+  
+  const prev = () => {
+    props.prev({...props.egitimBilgisi});    
+  };
   return (
     <div>
       <Growl ref={growl} />
       <div className="p-grid p-fluid">
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <InputText name="unvan" type="text" size={30} value={IsBilgisi.unvan} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <InputText name="unvan" type="text" size={30} value={isBilgisi.unvan} className={formErrors.ad ? "error" : ""} onChange={onChange} />
             <label htmlFor="float-input">Ünvan</label>
           </span>
           {formErrors.unvan && <Message severity="error" text={formErrors.unvan} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <InputText name="baglioldugumudurluk" value ={IsBilgisi.baglioldugumudurluk} type="text" size={30} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <InputText name="baglioldugumudurluk" value={isBilgisi.baglioldugumudurluk} type="text" size={30} className={formErrors.ad ? "error" : ""} onChange={onChange} />
             <label htmlFor="float-input">Bağlı Olduğu Müdürlük</label>
           </span>
           {formErrors.baglioldugumudurluk && <Message severity="error" text={formErrors.baglioldugumudurluk} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <InputText name="baglioldugumudur" type="text" size={30} value={IsBilgisi.baglioldugumudur} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <InputText name="baglioldugumudur" type="text" size={30} value={isBilgisi.baglioldugumudur} className={formErrors.ad ? "error" : ""} onChange={onChange} />
             <label htmlFor="float-input">Bağlı Olduğu Müdür/Amir</label>
           </span>
           {formErrors.baglioldugumudur && <Message severity="error" text={formErrors.baglioldugumudur} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <InputText name="kidem" type="text" size={30} value={IsBilgisi.kidem} className={formErrors.ad ? "error" : ""} onChange={onChange} />
+            <InputText name="kidem" type="text" size={30} value={isBilgisi.kidem} className={formErrors.ad ? "error" : ""} onChange={onChange} />
             <label htmlFor="float-input">Kıdem</label>
           </span>
           {formErrors.kidem && <Message severity="error" text={formErrors.kidem} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <Dropdown id="Sirket" name ="sirket" value={IsBilgisi.sirket} options={sirketlist} optionLabel="name" style={{ width: '12em' }} />
+            <Dropdown id="Sirket" name="sirket" value={isBilgisi.sirket} options={sirketlist} optionLabel="name" style={{ width: '12em' }} />
             <label htmlFor="Sirket">Çalıştığı Şirket</label>
           </span>
           {formErrors.sirket && <Message severity="error" text={formErrors.sirket} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <Dropdown id="Il" value={IsBilgisi.il} style={{ width: '12em' }}
+            <Dropdown id="Il" value={isBilgisi.il} style={{ width: '12em' }}
               filter={true} filterPlaceholder="İl" filterBy="label,value" showClear={true} />
             <label htmlFor="Il">Çalıştığı İl</label>
           </span>
           {formErrors.il && <Message severity="error" text={formErrors.il} />}
         </div>
         <div className="p-col-12">
+          <Button label="Geri" style={{ marginLeft: 8 }} icon="pi pi-angle-left" onClick={prev} style={{ width: '10em' }} />
           <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={next} style={{ width: '10em' }} />
         </div>
       </div>
