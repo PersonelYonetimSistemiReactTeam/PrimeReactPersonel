@@ -5,7 +5,7 @@ import 'primeflex/primeflex.css';
 import '../index.css';
 import ReactDOM from 'react-dom';
 
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
@@ -21,38 +21,58 @@ import { SplitButton } from 'primereact/splitbutton';
 import { Growl } from 'primereact/growl';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Dialog } from 'primereact/dialog';
+import { Router, Route, hashHistory } from 'react-router';
+import propTypes from "prop-types";
 
-const PersonelListesi = (props) => {
-    const [personel, setPersonel] = useState({
-        kimlik: {},
-        egitim: {},
-        is: {},
-        iletisim: {}
-    });
-    const [displayBasic, setdisplayBasic] = useState({});
-    const [personelList, setdisplayBasic] = useState({});
-    const [personelList, setPersonelList] = useState({});
-    const [personelList, setPersonelList] = useState({});
-    const [personelList, setPersonelList] = useState({});
+export class PersonelListe extends Component {
 
-    const [personelList, setPersonelList] = useState({});
+    constructor() {
+        super();
+        this.state = {
+            customers: null,
+            selectedCustomers: null,
+            globalFilter: null,
+            selectedRepresentatives: null,
+            dateFilter: null,
+            selectedStatus: null,
+            displayBasic: false
 
-    const items = [
-        {
-            label: 'Update',
-            icon: 'pi pi-refresh',
-            command: () => {
-                this.growl.show({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
+        };
+        this.items = [
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh',
+                command: () => {
+                    this.growl.show({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
+                }
             }
-        }
 
-    ]
-    const customers = new CustomerService();
-    const header = this.renderHeader();
-    const dateFilter = this.renderDateFilter();
+        ]
 
+        this.customers = new CustomerService();
 
-    const renderHeader = () => {
+        //body cells
+        this.countryBodyTemplate = this.countryBodyTemplate.bind(this);
+        this.representativeBodyTemplate = this.representativeBodyTemplate.bind(this);
+        this.statusBodyTemplate = this.statusBodyTemplate.bind(this);
+        this.activityBodyTemplate = this.activityBodyTemplate.bind(this);
+        this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
+        this.actionTemplate = this.actionTemplate.bind(this);
+
+        //filters
+        this.representativeItemTemplate = this.representativeItemTemplate.bind(this);
+        this.onRepresentativeFilterChange = this.onRepresentativeFilterChange.bind(this);
+        this.onDateFilterChange = this.onDateFilterChange.bind(this);
+        this.filterDate = this.filterDate.bind(this);
+        this.statusItemTemplate = this.statusItemTemplate.bind(this);
+        this.onStatusFilterChange = this.onStatusFilterChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
+    }
+    //Genel arama için yapıldı
+    renderHeader() {
         return (
             <div>
                 Personel Listesi
@@ -63,21 +83,21 @@ const PersonelListesi = (props) => {
         );
     }
 
-    const activityBodyTemplate = (rowData) => {
+    activityBodyTemplate(rowData) {
         return <ProgressBar value={rowData.activity} showValue={false} />;
     }
 
-    const actionBodyTemplate = () => {
+    actionBodyTemplate() {
         return (
             <Button type="button" icon="pi pi-cog" className="p-button-secondary"></Button>
         );
     }
 
-    const statusBodyTemplate = (rowData) => {
+    statusBodyTemplate(rowData) {
         return <span className={classNames('customer-badge', 'status-' + rowData.status)}>{rowData.status}</span>;
     }
 
-    const countryBodyTemplate = (rowData) => {
+    countryBodyTemplate(rowData) {
         let { name, code } = rowData.country;
 
         return (
@@ -88,7 +108,7 @@ const PersonelListesi = (props) => {
         );
     }
 
-    const representativeBodyTemplate = (rowData) => {
+    representativeBodyTemplate(rowData) {
         const src = "showcase/demo/images/avatar/" + rowData.representative.image;
 
         return (
@@ -99,45 +119,124 @@ const PersonelListesi = (props) => {
         );
     }
 
-    const renderRepresentativeFilter = (rowData) => {
+    renderRepresentativeFilter() {
         return (
-            <MultiSelect className="p-column-filter" value={selectedRepresentatives} options={this.representatives}
+            <MultiSelect className="p-column-filter" value={this.state.selectedRepresentatives} options={this.representatives}
                 onChange={this.onRepresentativeFilterChange} itemTemplate={this.representativeItemTemplate} placeholder="All" optionLabel="name" optionValue="name" />
         );
     }
 
-    const representativeItemTemplate = (option) => {
+    representativeItemTemplate(option) {
         const src = "showcase/demo/images/avatar/" + option.image;
+
+        return (
+            <div className="p-multiselect-representative-option">
+                <img alt={option.name} src={src} srcSet="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" width="32" style={{ verticalAlign: 'middle' }} />
+                <span style={{ verticalAlign: 'middle', marginLeft: '.5em' }}>{option.name}</span>
+            </div>
+        );
     }
 
-    useEffect(() => {
+    onRepresentativeFilterChange(event) {
+        this.dt.filter(event.value, 'representative.name', 'in');
+        this.setState({ selectedRepresentatives: event.value });
+    }
 
-        customers.getCustomersLarge().then(data => setPersonelList(data));
-    }, []);
+    renderDateFilter() {
+        return (
+            <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="İşe Başlama Tarihi" dateFormat="dd-mm-yy" className="p-column-filter" />
+        );
+    }
 
+    onDateFilterChange(event) {
+        if (event.value !== null)
+            this.dt.filter(this.formatDate(event.value), 'date', 'equals');
+        else
+            this.dt.filter(null, 'date', 'equals');
 
-    return (
+        this.setState({ dateFilter: event.value });
+    }
 
-        <div className="datatable-doc-demo">
-            <Dialog header="Personel Detayları"
-                visible={displayBasic}
-                style={{ width: '50vw' }} onHide={() => this.setState({ displayBasic: false })} footer={this.renderFooter('displayBasic')}>
-            </Dialog>
+    filterDate(value, filter) {
+        if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+            return true;
+        }
 
-            <h3>Basic</h3>
-            <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({ displayDetay: true })} />
-            <Dialog header="Personel Detayları"
-                visible={displayDetay}
-                style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
-            </Dialog>
-            <Button label="a" icon="pi pi-pencil" onClick={() => this.setState({ displayGuncelle: true })} />
-            <Dialog header="Personel Bilgi Güncelleme"
-                visible={displayGuncelle}
-                style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
-                <DataTable ref={(el) => this.dt = el} value={customers}
-                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={globalFilter}
-                    selection={selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
-                    paginator rows={10}
+        if (value === undefined || value === null) {
+            return false;
+        }
+
+        return value === this.formatDate(filter);
+    }
+
+    formatDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    }
+
+    renderStatusFilter() {
+        return (
+            <Dropdown value={this.state.selectedStatus} options={this.statuses} onChange={this.onStatusFilterChange}
+                itemTemplate={this.statusItemTemplate} showClear={true} placeholder="Birim" className="p-column-filter" />
+        );
+    }
+
+    statusItemTemplate(option) {
+        return (
+            <span className={classNames('customer-badge', 'status-' + option)}>{option}</span>
+        );
+    }
+
+    onStatusFilterChange(event) {
+        this.dt.filter(event.value, 'status', 'equals');
+        this.setState({ selectedStatus: event.value });
+    }
+    save() {
+        this.growl.show({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
+    }
+    actionTemplate(rowData, column) {
+        return <div>
+            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.setState({ displayDetay: true })} ></Button>
+            <Button icon="pi pi-pencil" className="p-button-warning" onClick={() => this.setState({ displayGuncelle: true })}></Button>
+        </div>;
+    }
+    renderFooter(name) {
+        return (
+            <div>
+                <Button label="Kapat" icon="pi pi-times" onClick={() => this.setState({ displayBasic: false })} className="p-button-danger" />
+            </div>
+        );
+    }
+    render() {
+        const header = this.renderHeader();
+        const dateFilter = this.renderDateFilter();
+        return (
+
+            <div className="datatable-doc-demo">
+                <h3>Basic</h3>
+                <Button label="Show" icon="pi pi-external-link" onClick={() => this.setState({ displayDetay: true })} />
+                <Dialog header="Personel Detayları"
+                    visible={this.state.displayDetay}
+                    style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
+                </Dialog>
+                <Button label="a" icon="pi pi-pencil" onClick={() => this.setState({ displayGuncelle: true })} />
+                <Dialog header="Personel Bilgi Güncelleme"
+                    visible={this.state.displayGuncelle}
+                    style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
+                                        <DataTable ref={(el) => this.dt = el} value={this.state.customers}
+                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
+                    selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
+                    paginator rows={10} 
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
                     <Column selectionMode="multiple" style={{ width: '3em' }} />
                     <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
@@ -148,28 +247,27 @@ const PersonelListesi = (props) => {
                     <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
                     <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
                 </DataTable>
-            </Dialog>
+                </Dialog>
+                <DataTable ref={(el) => this.dt = el} value={this.state.customers}
+                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
+                    selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
+                    paginator rows={10} emptyMessage="Personel bulunamadı!"
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
+                    <Column selectionMode="multiple" style={{ width: '3em' }} />
+                    <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
+                    <Column field="surname" header="Soyad" sortable filter filterPlaceholder="Soyad" />
+                    <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl" />
+                    <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
+                    <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
+                    <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
+                    <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
+                    <Column body={this.actionTemplate} style={{ textAlign: 'center', width: '6em' }} />
+                    <Column body={this.actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
 
-            <DataTable ref={(el) => this.dt = el} value={customers}
-                header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={globalFilter}
-                selection={selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
-                paginator rows={10} emptyMessage="Personel bulunamadı!"
-                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
-                <Column selectionMode="multiple" style={{ width: '3em' }} />
-                <Column field="name" header="Ad" sortable filter filterPlaceholder="Ad" />
-                <Column field="surname" header="Soyad" sortable filter filterPlaceholder="Soyad" />
-                <Column sortField="country.name" filterField="country.name" header="İl" body={this.countryBodyTemplate} sortable filter filterMatchMode="contains" filterPlaceholder="İl" />
-                <Column field="date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
-                <Column field="sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
-                <Column field="status" header="Birim" sortable filter filterPlaceholder="Birim" />
-                <Column field="yonetici" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
-                <Column body={this.actionTemplate} style={{ textAlign: 'center', width: '6em' }} />
-                <Column body={this.actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
+                </DataTable>
 
-            </DataTable>
-
-        </div>
-    );
-};
-export default PersonelListesi;
+            </div>
+        );
+    }
+}
 
