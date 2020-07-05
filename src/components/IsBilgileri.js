@@ -168,8 +168,8 @@ const IsBilgileri = (props) => {
           {formErrors.il && <Message severity="error" text={formErrors.il} />}
         </div>
         <div className="p-col-12">
-          <Button label="Geri" style={{ marginLeft: 8 }} icon="pi pi-angle-left" onClick={prev} style={{ width: '10em' }} />
-          <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={next} style={{ width: '10em' }} />
+          <Button label="Geri"  icon="pi pi-angle-left" onClick={prev} style={{ width: '10em'}} />
+          <Button label="İleri"  icon="pi pi-angle-right" iconPos="right"  onClick={next} style={{ width: '10em', marginLeft: 8  }} />
         </div>
       </div>
     </div>

@@ -1,11 +1,14 @@
-import React, { useState,useEffect } from 'react';
-import EgitimBilgileri  from './EgitimBilgileri';
-import  KimlikBilgileri  from './KimlikBilgileri';
-import IletisimBilgileri  from './IletisimBilgileri';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import EgitimBilgileri from './EgitimBilgileri';
+import KimlikBilgileri from './KimlikBilgileri';
+import IletisimBilgileri from './IletisimBilgileri';
 import IsBilgileri from './IsBilgileri';
 import 'primeicons/primeicons.css';
 import { Steps } from 'primereact/steps';
 import { IlService } from '../service/IlService';
+import { PersonelService } from '../service/PersonelService';
+import { Growl } from 'primereact/growl';
+
 
 
 
@@ -14,12 +17,20 @@ const PersonelKayit = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [ilList, setIlList] = useState({});
   const [personel, setPersonel] = useState({
-    kimlik:{},
-    egitim:{},
-    is:{},
-    iletisim:{}
-  });
-  
+    kimlik: {},
+    egitim: {},
+    is: {},
+    iletisim: {}
+  }, { ...props.guncelleme });
+  let growl = useRef(null);
+  const ilService = new IlService();
+  const personelService = new PersonelService();
+  const showSuccess = (data) => {
+    growl.current.show({ severity: 'success', summary: 'Başarılı', detail: data });
+  }
+  const showError = () => {
+    growl.current.show({ severity: 'error', summary: 'Hata', detail: 'Personel Kaydetme Başarısız' });
+  }
   const items = [
     {
       label: 'Kimlik Bilgileri'
@@ -35,54 +46,59 @@ const PersonelKayit = (props) => {
       label: 'İletişim Bilgileri',
     }
   ];
+  const fetchProduct = useEffect(() => {
+    if (Object.keys(personel.iletisim).length !== 0)
+      save()
+  }, [personel.iletisim]);
 
   const save = () => {
-    console.log({personel});
+    personelService.postPersonel(personel).then(
+      data => data.message === "Kişi Kaydedildi" ? showSuccess(data.message) : showError());
   }
-  const ilService = new IlService();
-  
-  useEffect(() => {          
-      
-      ilService.getIller().then(
-          data => setIlList(data));
-}, []);
-  
+
+  useEffect(() => {
+    ilService.getIller().then(
+      data => setIlList(data));
+  }, []);
+
 
   return (
-    
-        <div className="card">
-          <h1>Personel Kayıt</h1>
-          <div>
-            <Steps model={items} activeIndex={selectedIndex} onSelect={(e) => {setSelectedIndex(e.index)}} />
-            <br/>
-            {selectedIndex === 0 && <KimlikBilgileri kimlikBilgisi={personel.kimlik} next={(kimlik) => {
-              setPersonel({...personel, kimlik: kimlik})
-              setSelectedIndex(selectedIndex+1)
-            }} />}
-            {selectedIndex === 1 && 
-             <EgitimBilgileri egitimBilgisi={personel.egitim} next={(egitim) => {
-              setPersonel({...personel, egitim: egitim});
-              setSelectedIndex(selectedIndex+1);
-            }} prev={(egitim) => {
-              setPersonel({...personel, egitim: egitim});
-              setSelectedIndex(selectedIndex-1);}} />
-            }
-            {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is} ilList={ilList} next={(is) => {
-              setPersonel({...personel, is: is})
-              setSelectedIndex(selectedIndex+1)
-            }} prev={(is) => {
-              setPersonel({...personel, is: is});
-              setSelectedIndex(selectedIndex-1);}
-              } />}
-            {selectedIndex === 3 && <IletisimBilgileri iletisimBilgisi={personel.iletisim} ilList={ilList} save={(iletisim) => {
-              setPersonel({...personel, iletisim: iletisim})
-              save();
-            }} prev={(iletisim) => {
-              setPersonel({...personel, iletisim: iletisim});
-              setSelectedIndex(selectedIndex-1);
-              }}/>}
-          </div>
-       </div>
- );
-};  
+
+    <div className="card">
+      <Growl ref={growl} />
+      <div>
+        <Steps model={items} activeIndex={selectedIndex} onSelect={(e) => { setSelectedIndex(e.index) }} />
+        <br />
+        {selectedIndex === 0 && <KimlikBilgileri kimlikBilgisi={personel.kimlik} next={(kimlik) => {
+          setPersonel({ ...personel, kimlik: kimlik })
+          setSelectedIndex(selectedIndex + 1)
+        }} />}
+        {selectedIndex === 1 &&
+          <EgitimBilgileri egitimBilgisi={personel.egitim} next={(egitim) => {
+            setPersonel({ ...personel, egitim: egitim });
+            setSelectedIndex(selectedIndex + 1);
+          }} prev={(egitim) => {
+            setPersonel({ ...personel, egitim: egitim });
+            setSelectedIndex(selectedIndex - 1);
+          }} />
+        }
+        {selectedIndex === 2 && <IsBilgileri isBilgisi={personel.is} ilList={ilList} next={(is) => {
+          setPersonel({ ...personel, is: is })
+          setSelectedIndex(selectedIndex + 1)
+        }} prev={(is) => {
+          setPersonel({ ...personel, is: is });
+          setSelectedIndex(selectedIndex - 1);
+        }
+        } />}
+        {selectedIndex === 3 && <IletisimBilgileri iletisimBilgileri={personel.iletisimBilgileri} ilList={ilList} save={(iletisimBilgileri) => {
+          setPersonel({ ...personel, iletisim: iletisimBilgileri })
+        }}
+          prev={(iletisim) => {
+            setPersonel({ ...personel, iletisim: iletisim });
+            setSelectedIndex(selectedIndex - 1);
+          }} />}
+      </div>
+    </div>
+  );
+};
 export default PersonelKayit;

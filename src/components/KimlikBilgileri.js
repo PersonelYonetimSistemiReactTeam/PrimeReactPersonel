@@ -67,13 +67,15 @@ const KimlikBilgileri = (props) => {
     return isValid;
   };
 
+ 
+
   const checkError = (key, value) => {
     let error = "";
     if (key === "ad")
       error = value === "" ? "Ad Alanını Doldurunuz" : "";
     else if (key === "soyad")
       error = value === "" ? "Soyad Alanını Doldurunuz" : "";
-    else if (key === "tc")
+    else if (key === "tcKimlik")
       error = value.length < 11 ? "Lütfen TC Kimlik No Alanını Doldurunuz" : "";
     return error;
   };
@@ -100,9 +102,6 @@ const KimlikBilgileri = (props) => {
   };
 
 
-  const showError = (req) => {
-    growl.current.show({ severity: 'error', summary: req, detail: '' });
-  }
 
   const next = () => {
 
@@ -116,6 +115,7 @@ const KimlikBilgileri = (props) => {
         setFormErrors(formErrors);
     });
   };
+  
 
   return (
     <div>
@@ -133,14 +133,14 @@ const KimlikBilgileri = (props) => {
             <InputText name="soyad" size={30} value={kimlik.soyad} className={formErrors.soyad ? "error" : ""} onChange={onChange} />
             <label htmlFor="float-input">Soyad</label>
           </span>
-          {formErrors.ad && <Message severity="error" text={formErrors.soyad} />}
+          {formErrors.soyad && <Message severity="error" text={formErrors.soyad} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <InputMask id="float-mask" name="tc" mask="99999999999" autoClear={false} value={kimlik.tc} onChange={onChange} />
+            <InputMask id="float-mask" name="tcKimlik" mask="99999999999" className={formErrors.tcKimlik ? "error" : ""} autoClear={false} value={kimlik.tcKimlik} onChange={onChange} />
             <label htmlFor="float-input">T.C Kimlik No</label>
           </span>
-          {formErrors.ad && <Message severity="error" text={formErrors.tc} />}
+          {formErrors.tcKimlik && <Message severity="error" text={formErrors.tcKimlik} />}
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
@@ -204,7 +204,7 @@ const KimlikBilgileri = (props) => {
 
         </div>
         <div className="p-col-12">
-          <Button label="İleri" style={{ marginLeft: 8 }} icon="pi pi-angle-right" onClick={next} style={{ width: '10em' }} />
+          <Button label="İleri"  icon="pi pi-angle-right"  iconPos="right" onClick={next} style={{ width: '10em' }} />
         </div>
       </div>
     </div>

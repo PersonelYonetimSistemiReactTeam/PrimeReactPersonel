@@ -18,7 +18,7 @@ const IletisimBilgileri = (props) => {
         adres: "",
         telefon: "",
         email: ""
-        , ...props.iletisimBilgisi
+        , ...props.iletisimBilgileri
     });
 
     const [formErrors, setFormErrors] = useState({});
@@ -211,8 +211,8 @@ const IletisimBilgileri = (props) => {
                 </span>
             </div>
             <div className="p-col-12">
-                <Button label="Geri" style={{ marginLeft: 8 }} icon="pi pi-angle-left" onClick={prev} style={{ width: '10em' }} />
-                <Button label="Kaydet" style={{ marginLeft: 8 }} icon="pi pi-check" className="p-button-success" onClick={save} style={{ width: '10em' }} />
+                <Button label="Geri"  icon="pi pi-angle-left" onClick={prev} style={{ width: '10em' }} />
+                <Button label="Kaydet"  icon="pi pi-check" className="p-button-success" onClick={save} style={{ width: '10em', marginLeft: 8  }} />
             </div>
         </div>
 
