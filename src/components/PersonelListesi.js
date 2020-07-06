@@ -16,7 +16,7 @@ import 'primeflex/primeflex.css';
 import '../index.css';
 import PersonelKayit from './PersonelKayit';
 import { PersonelService } from '../service/PersonelService';
-
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 
 
@@ -42,8 +42,8 @@ export class PersonelListe extends Component {
             selectedStatus: null,
             displayBasic: false,
             personelService: null,
-            personelBilgileri:null,
-                   
+            personelBilgileri: [],
+            isLoading: true
         };
         this.items = [
             {
@@ -86,30 +86,25 @@ export class PersonelListe extends Component {
     // }
 
     componentDidMount() {
-        // var promise = new Promise((resolve, reject) => {
+        // this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
 
-        // });
-        this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
-        this.personelService.getKimlik().then(res =>this.setState({ personelBilgileri: res }))
+        this.personelService.getPersonelSirketKimlikId().then(res =>{
+            console.log(res);
+            this.setState({ personelBilgileri: res })
 
 
-        // this.personelService.getKimlik().then(res => this.setState({ personelBilgileri: res }))
-        //     .then(data => Object.entries(data).forEach(([kimlikKey, kimlikValue]) => {
-        //         this.personelService.getisbilgisi().then(is => Object.entries(is.data).forEach(([isKey, isValue]) => {
-        //             if (kimlikValue["id"] === isValue["kimlik_bilgisi_id"]) {
-        //                 this.personelService.getisbilgisiId(isValue["id"])
-        //                     .then(res => console.log(this.state.kimlik))
-        //             }
-        //         }))
-        //     }))
+            // this.setState((state, props) => ({
+            //     personelBilgileri: res
+            //  }), ()=>{
+            //    //after callback 
+            //  });
 
-        // console.log(await this.personelService.getPersonelListesi());
 
-        // console.log(this.state.personelBilgileri); this.setState({ personelBilgileri:  });
+        } )
 
-        console.log("sadsa");
-        console.log(this.state.personelBilgileri)
-
+        // this.personelService. getPersonel(3).then(res => console.log(res));
+        // this.personelService.getPersonelSirketKimlikId().then(res => this.setState({ personelBilgileri: res }))
+        // this.personelService.getPersonelSirketKimlikId().then(res => console.log(res))
     }
 
     //Genel arama için yapıldı
@@ -146,7 +141,7 @@ export class PersonelListe extends Component {
         return <span className={classNames('customer-badge', 'status-' + rowData.status)}>{rowData.status}</span>;
     }
 
-    
+
 
     representativeBodyTemplate(rowData) {
         const src = "showcase/demo/images/avatar/" + rowData.representative.image;
@@ -269,25 +264,27 @@ export class PersonelListe extends Component {
                     <PersonelKayit personelGuncelleme={false} />
 
                 </Dialog>
-                <DataTable ref={(el) => this.dt = el} value={this.state.personelBilgileri}
+
+
+                {/* <DataTable  value={this.state.personelBilgileri}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover
-                    selection={this.state.selectedCustomers} onSelectionChange={e => this.setState({ selectedCustomers: e.value })}
                     paginator rows={10} emptyMessage="Personel bulunamadı!"
-                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
-                    <Column selectionMode="multiple" style={{ width: '3em' }} />
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" 
+                    rowsPerPageOptions={[10, 25, 50]}>
+                    <Column selectionMode="single" style={{ width: '3em' }} />
                     <Column field="ad" header="Ad" sortable filter filterPlaceholder="Ad" />
                     <Column field="soyad" header="Soyad" sortable filter filterPlaceholder="Soyad" />
-                    <Column sortField="is.il" filterField="country.name" header="İl"  sortable filter  filterPlaceholder="İl" />
+                    <Column sortField="is.il" filterField="country.name" header="İl" sortable filter filterPlaceholder="İl" />
                     <Column field="is.date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
                     <Column field="is.sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
                     <Column field="is.baglioldugumudurluk" header="Birim" sortable filter filterPlaceholder="Birim" />
                     <Column field="is.baglioldugumudur" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
                     <Column body={this.actionDetay} style={{ textAlign: 'center', width: '4em' }} />
                     <Column body={this.actionGuncelle} style={{ textAlign: 'center', width: '4em' }} />
-                    <Column body={this.actionBodyTemplate} headerStyle={{ width: '4em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
+                    <Column body={this.actionBodyTemplate} 
+                    headerStyle={{ width: '4em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
 
-                </DataTable>
-
+                </DataTable> */}
             </div>
         );
     }
