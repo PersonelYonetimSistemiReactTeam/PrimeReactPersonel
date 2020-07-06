@@ -94,14 +94,20 @@ export class PersonelService {
 
 
     deletePersonel(id) {
-        return axios.delete(url + 'kimlik/detail/' + id)
-            .then(res =>
-                res.data
-            ).catch(error =>
-                error
-
-            );
+        return axios.delete(url + 'kimlik/detail/' )
     }
+
+    getiletisimKimId(id) {
+        return axios.get(url + 'iletisim/personel/detail/' + id)
+            .then(res => res.data);
+    }
+
+    getPersonelKimId(id) {
+        return axios.get(url + 'kimlik/personel/detail/' + id)
+            .then(res => res.data);
+    }
+
+    
 
 
 }

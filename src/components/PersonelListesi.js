@@ -22,17 +22,17 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 
 
 
-export class PersonelListe extends Component {
-    renderScene(route, navigator) {
-        var routeId = route.id; // hangi route olduğunu id altına atıyoruz
-        if (routeId === 'PersonelKayit') {
-            return (
-                <PersonelKayit
-                    navigator={navigator} // açılan pencerenin parametreler göndermek isterseniz bunu yazarsınız
-                />
-            );
-        }
-    }
+class PersonelListe extends Component {
+    // renderScene(route, navigator) {
+    //     var routeId = route.id; // hangi route olduğunu id altına atıyoruz
+    //     if (routeId === 'PersonelKayit') {
+    //         return (
+    //             <PersonelKayit
+    //                 navigator={navigator} // açılan pencerenin parametreler göndermek isterseniz bunu yazarsınız
+    //             />
+    //         );
+    //     }
+    // }
 
     constructor() {
         super();
@@ -46,7 +46,14 @@ export class PersonelListe extends Component {
             displayBasic: false,
             personelService: null,
             personelBilgileri: null,
-            isLoading: true
+            isLoading: true,
+            iletimBilgileri: null,
+            secilenpersonel: {
+                kimlik: {},
+                is: {},
+                iletisim: {}
+            }
+
         };
         this.items = [
             {
@@ -79,16 +86,19 @@ export class PersonelListe extends Component {
         this.filterDate = this.filterDate.bind(this);
         this.statusItemTemplate = this.statusItemTemplate.bind(this);
         this.onStatusFilterChange = this.onStatusFilterChange.bind(this);
-        this.handleOnClick =  this.handleOnClick.bind(this);
+
+        this.guncelleme = this.guncelleme.bind(this);
+
+
     }
 
 
     componentDidMount() {
         // this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
 
-        this.personelService.getPersonelSirketKimlikId().then(res =>{
-            this.setState({ personelBilgileri: res })
-        } )
+        this.personelService.getPersonelSirketKimlikId().then(res => {
+            this.setState({ personelBilgileri: res });
+        });
 
         // this.personelService. getPersonel(3).then(res => console.log(res));
         // this.personelService.getPersonelSirketKimlikId().then(res => this.setState({ personelBilgileri: res }))
@@ -110,29 +120,32 @@ export class PersonelListe extends Component {
         return <ProgressBar value={rowData.activity} showValue={false} />;
     }
 
-    actionBodyTemplate(rowData, column) {
+    actionBodyTemplate(dataKey) {
         return (
-            <Button type="button" icon="pi pi-times" className="p-button-danger" onClick={console.log()}></Button>
+            <Button type="button" icon="pi pi-times" className="p-button-danger" onClick={() => this.personelService.deletePersonel(dataKey["id"])}></Button>
         );
     }
-    actionDetay(rowData, column) {
+    actionDetay(dataKey) {
         return <div>
-            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.setState({ displayDetay: true })} ></Button>
+            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.personelService.getiletisimKimId(dataKey["id"]).then(res => this.setState({ personel: res, displayDetay: true }))}></Button>
         </div>;
     }
 
-    
-
-
-
-
-    actionGuncelle(rowData, column) {
+    actionGuncelle(dataKey) {
         return <div>
-            <Button icon="pi pi-pencil" className="p-button-warning" onClick={() => this.setState({ displayGuncelle: true })}></Button>
+            <Button icon="pi pi-pencil" className="p-button-warning" onClick={() => this.guncelleme(dataKey["id"])}></Button>
 
         </div>;
     }
 
+    guncelleme(datakey) {
+        this.personelService.getPersonelKimId(datakey).
+            then(res => this.setState({ 
+                displayGuncelle: true, 
+                secilenpersonel: { kimlik: res.kimlik, iletisim: res.iletisim, is: res.is } }));
+           
+
+    }
     statusBodyTemplate(rowData) {
         return <span className={classNames('customer-badge', 'status-' + rowData.status)}>{rowData.status}</span>;
     }
@@ -238,70 +251,64 @@ export class PersonelListe extends Component {
     renderFooter(name) {
         return (
             <div>
-                <Button label="Kapat" icon="pi pi-times" onClick={() => this.setState({ displayBasic: false })} className="p-button-danger" />
+                <Button label="Kapat" icon="pi pi-times" onClick={() => this.setState({ displayBasic: false, displayDetay: false, displayGuncelle: false })} className="p-button-danger" />
             </div>
         );
     }
-    handleOnClick = () => {
-        this.setState({redirect: true});
-      }
-      
+
+
     render() {
         const header = this.renderHeader();
         const dateFilter = this.renderDateFilter();
 
-        if (this.state.redirect) {
-            return <PersonelKayit push to="/PersonelKayit" />;
-          }
-
 
         return (
             <div className="datatable-doc-demo">
-                <Dialog header="Personel Detayları"
+                <Dialog header="Personel Detayı"
                     visible={this.state.displayDetay}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
-               <DataTable 
-               //ref={(el) => this.dt = el} 
-            //    value={this.state.customers}
-                    // header={header} responsive className="p-datatable-customers" dataKey="id"
-                    // rowHover globalFilter={this.state.globalFilter}
-                    // selection={this.state.selectedCustomers} 
-                    paginator rows={10} emptyMessage="Personel bulunamadı!"
-                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
-                    <Column selectionMode="multiple" style={{ width: '3em' }} />
-                    <Column field="name" header="Kıdem" />
-                    <Column field="surname" header="Çalıştığı Müdürlük"  />
-                    <Column sortField="country.name" header="Çalıştığı İl" body={this.countryBodyTemplate} />
-                    <Column field="date" header="İşe Başlama Tarihi" />
-                    <Column field="yonetici" header="Bağlı Olduğu Yönetici"/>
-                    <Column body={this.actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
-                </DataTable>
+                    <DataTable value={this.state.iletimBilgileri}
+                        paginator rows={10} emptyMessage="Personel Detayı Bulunamadı!"
+                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
+                        <Column selectionMode="multiple" style={{ width: '3em' }} />
+                        <Column field="telefon" header="Telefon" />
+                        <Column field="email" header="Email" />
+                        <Column body={this.actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
+                    </DataTable>
                 </Dialog>
                 <Dialog header="Personel Bilgi Güncelleme"
                     visible={this.state.displayGuncelle}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
+
+                    <PersonelKayit guncelleme={this.state.secilenpersonel} />
+
                 </Dialog>
 
-                <DataTable  value={this.state.personelBilgileri}
-                    header={header} responsive className="p-datatable-customers" dataKey="id" rowHover
-                    paginator rows={10} emptyMessage="Personel bulunamadı!"
-                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" 
+                <DataTable value={this.state.personelBilgileri}
+                    header={header}
+                    responsive className="p-datatable-customers"
+
+                    dataKey="id" rowHover
+                    paginator rows={10}
+                    // emptyMessage="Personel bulunamadı!"
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     rowsPerPageOptions={[10, 25, 50]}>
                     <Column selectionMode="single" style={{ width: '3em' }} />
                     <Column field="ad" header="Ad" sortable filter filterPlaceholder="Ad" />
                     <Column field="soyad" header="Soyad" sortable filter filterPlaceholder="Soyad" />
-                    <Column sortField="is.il" filterField="country.name" header="İl" sortable filter filterPlaceholder="İl" />
+                    {/* <Column sortField="is.il" filterField="country.name" header="İl" sortable filter filterPlaceholder="İl" /> */}
                     <Column field="is.date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />
                     <Column field="is.sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
                     <Column field="is.baglioldugumudurluk" header="Birim" sortable filter filterPlaceholder="Birim" />
                     <Column field="is.baglioldugumudur" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />
                     <Column body={this.actionDetay} style={{ textAlign: 'center', width: '4em' }} />
                     <Column body={this.actionGuncelle} style={{ textAlign: 'center', width: '4em' }} />
-                    <Column body={this.actionBodyTemplate} 
-                    headerStyle={{ width: '4em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
+                    <Column body={(datakey) => this.actionBodyTemplate(datakey)}
+                        headerStyle={{ width: '4em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
                 </DataTable>
             </div>
         );
     }
-}
+};
+export default PersonelListe
 

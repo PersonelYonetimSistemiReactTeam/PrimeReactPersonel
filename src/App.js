@@ -18,7 +18,7 @@ import { MiscDemo } from './components/MiscDemo';
 import { EmptyPage } from './components/EmptyPage';
 import { Documentation } from "./components/Documentation";
 import PersonelKayit from "./components/PersonelKayit";
-import {PersonelListe} from "./components/PersonelListesi";
+import PersonelListe from "./components/PersonelListesi";
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';

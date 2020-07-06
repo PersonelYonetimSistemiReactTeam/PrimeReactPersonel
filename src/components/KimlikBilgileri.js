@@ -26,6 +26,7 @@ const KimlikBilgileri = (props) => {
     ilce: "",
     mahallekoy: "", ...props.kimlikBilgisi
   });
+
   const [formErrors, setFormErrors] = useState({});
 
   let growl = useRef(null);

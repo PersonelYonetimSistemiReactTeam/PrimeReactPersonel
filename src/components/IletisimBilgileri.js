@@ -10,10 +10,10 @@ import validator from 'validator';
 import { Button } from 'primereact/button';
 
 const IletisimBilgileri = (props) => {
-    const [iletisimBilgileri, setIsBilgisi] = useState({
+    const [iletisimBilgileri, setIletisimBilgileri] = useState({
         il: '0',
         ilce: "",
-        sokakismi: "",
+        sokakIsmi: "",
         caddeIsmi: "",
         adres: "",
         telefon: "",
@@ -59,7 +59,7 @@ const IletisimBilgileri = (props) => {
             error = value === "" ? "İlçe Alanını Doldurunuz" : "";
         else if (key === "caddeIsmi")
             error = value === "" ? "Cadde Alanını Doldurunuz" : "";
-        else if (key === "sokakismi")
+        else if (key === "sokakIsmi")
             error = value === "" ? "Sokak  Alanını Doldurunuz" : "";
         else if (key === "email")
             error = value === "" ? "email Alanını Doldurunuz" : "";
@@ -80,7 +80,7 @@ const IletisimBilgileri = (props) => {
 
         setFormErrors({ ...formErrors, [key]: checkError(key, value) });
 
-        setIsBilgisi({ ...iletisimBilgileri, [key]: value });
+        setIletisimBilgileri({ ...iletisimBilgileri, [key]: value });
 
     };
     const checkErrors = async (user) => {
@@ -127,14 +127,14 @@ const IletisimBilgileri = (props) => {
             <div className="p-col-12 p-md-4">
                 <span className="p-float-label">
                     <InputText
-                        id="float-input"
+                        id="ilce"
                         type="text"
                         size={30}
                         name="ilce"
                         value={iletisimBilgileri.ilce}
                         onChange={onChange}
                     />
-                    <label htmlFor="float-input">İlçe</label>
+                    <label htmlFor="ilce">İlçe</label>
                 </span>
                 {formErrors.ilce && <Message severity="error" text={formErrors.ilce} />}
 
@@ -143,14 +143,14 @@ const IletisimBilgileri = (props) => {
             <div className="p-col-12 p-md-4">
                 <span className="p-float-label">
                     <InputText
-                        id="float-input"
+                        id="caddeIsmi"
                         type="text"
                         size={30}
                         name="caddeIsmi"
                         value={iletisimBilgileri.caddeIsmi}
                         onChange={onChange}
                     />
-                    <label htmlFor="float-input">Cadde</label>
+                    <label htmlFor="caddeIsmi">Cadde</label>
                 </span>
                 {formErrors.caddeIsmi && <Message severity="error" text={formErrors.caddeIsmi} />}
 
@@ -159,16 +159,16 @@ const IletisimBilgileri = (props) => {
             <div className="p-col-12 p-md-4">
                 <span className="p-float-label">
                     <InputText
-                        id="float-input"
+                        id="sokakIsmi"
                         type="text"
                         size={30}
-                        name="sokakismi"
-                        value={iletisimBilgileri.sokakismi}
+                        name="sokakIsmi"
+                        value={iletisimBilgileri.sokakIsmi}
                         onChange={onChange}
                     />
-                    <label htmlFor="float-input">Sokak</label>
+                    <label htmlFor="sokakIsmi">Sokak</label>
                 </span>
-                {formErrors.sokakismi && <Message severity="error" text={formErrors.sokakismi} />}
+                {formErrors.sokakIsmi && <Message severity="error" text={formErrors.sokakIsmi} />}
 
 
             </div>
@@ -176,14 +176,14 @@ const IletisimBilgileri = (props) => {
             <div className="p-col-12 p-md-4">
                 <span className="p-float-label">
                     <InputText
-                        id="float-input"
+                        id="email"
                         type="email"
                         size={30}
                         name="email"
                         value={iletisimBilgileri.email}
                         onChange={onChange}
                     />
-                    <label htmlFor="float-input">email</label>
+                    <label htmlFor="email">email</label>
                 </span>
                 {formErrors.email && <Message severity="error" text={formErrors.email} />}
 

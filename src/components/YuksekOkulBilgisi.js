@@ -9,11 +9,11 @@ import { Calendar } from 'primereact/calendar';
 
 const YuksekOkulBilgisi = (props) => {
     const [yuksekOkulBilgisi, setYuksekOkul] = useState({
-        mezuniyetYil: null,
+        mezuniyetYil: "",
         mezuniyetDurum: '0',
         universite: '0',
-        bastarih: null,
-        sontarih: null,
+        bastarih: "",
+        sontarih: "",
         notSistemi: "0",
         notortalamasi:"",
         fakulte: "",

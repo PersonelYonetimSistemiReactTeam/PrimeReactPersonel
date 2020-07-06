@@ -14,14 +14,15 @@ import { Growl } from 'primereact/growl';
 
 const PersonelKayit = (props) => {
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [ilList, setIlList] = useState({});
   const [personel, setPersonel] = useState({
     kimlik: {},
     egitim: {},
     is: {},
     iletisim: {}
-  }, { ...props.guncelleme });
+  });
+  
   let growl = useRef(null);
   const ilService = new IlService();
   const personelService = new PersonelService();
@@ -46,10 +47,10 @@ const PersonelKayit = (props) => {
       label: 'İletişim Bilgileri',
     }
   ];
-  const fetchProduct = useEffect(() => {
-    if (Object.keys(personel.iletisim).length !== 0)
-      save()
-  }, [personel.iletisim]);
+  // const fetchProduct = useEffect(() => {
+  //   if (Object.keys(personel.iletisim).length !== 0)
+  //     save()
+  // }, [personel.iletisim]);
 
   const save = () => {
     personelService.postPersonel(personel).then(
@@ -59,7 +60,22 @@ const PersonelKayit = (props) => {
   useEffect(() => {
     ilService.getIller().then(
       data => setIlList(data));
+    setSelectedIndex(0);
+
   }, []);
+
+  useEffect(() => {
+    
+    console.log("bura");
+    console.log(props.guncelleme);
+    console.log("bura2");
+    const xx = {...props.guncelleme};
+    console.log(xx);
+
+    setPersonel(xx);
+    setSelectedIndex(0);
+
+  }, [props.guncelleme]);
 
 
   return (
@@ -92,6 +108,7 @@ const PersonelKayit = (props) => {
         } />}
         {selectedIndex === 3 && <IletisimBilgileri iletisimBilgileri={personel.iletisimBilgileri} ilList={ilList} save={(iletisimBilgileri) => {
           setPersonel({ ...personel, iletisim: iletisimBilgileri })
+          save()
         }}
           prev={(iletisim) => {
             setPersonel({ ...personel, iletisim: iletisim });

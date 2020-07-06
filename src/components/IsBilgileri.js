@@ -24,13 +24,13 @@ const IsBilgileri = (props) => {
   let growl = useRef(null);
 
   const sirketlist = [
-    { name: 'Limak Teknoloji', code: 'LT' },
-    { name: 'Limak Enerji', code: 'LE' },
-    { name: 'Limak Çimento', code: 'LC' },
-    { name: 'Limak İnşaat', code: 'LI' },
-    { name: 'Limak Turizm', code: 'LI' },
-    { name: 'Limak Gıda', code: 'LI' },
-    { name: 'Limak Liman', code: 'LI' }
+    { name: 'Limak Teknoloji', code: 'Limak Teknoloji' },
+    { name: 'Limak Enerji', code: 'Limak Enerji' },
+    { name: 'Limak Çimento', code: 'Limak Çimento' },
+    { name: 'Limak İnşaat', code: 'Limak İnşaat' },
+    { name: 'Limak Turizm', code: 'Limak Turizm' },
+    { name: 'Limak Gıda', code: 'Limak Gıda' },
+    { name: 'Limak Liman', code: 'Limak Liman' }
   ];
 
 
