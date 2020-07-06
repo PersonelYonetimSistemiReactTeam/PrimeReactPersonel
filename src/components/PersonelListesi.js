@@ -45,7 +45,7 @@ export class PersonelListe extends Component {
             selectedStatus: null,
             displayBasic: false,
             personelService: null,
-            personelBilgileri: [],
+            personelBilgileri: null,
             isLoading: true
         };
         this.items = [
@@ -60,14 +60,17 @@ export class PersonelListe extends Component {
         ]
 
         this.customers = new CustomerService();
+        this.personelService = new PersonelService();
+
 
         //body cells
-        this.countryBodyTemplate = this.countryBodyTemplate.bind(this);
+        // this.countryBodyTemplate = this.countryBodyTemplate.bind(this);
         this.representativeBodyTemplate = this.representativeBodyTemplate.bind(this);
         this.statusBodyTemplate = this.statusBodyTemplate.bind(this);
         this.activityBodyTemplate = this.activityBodyTemplate.bind(this);
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.actionTemplate = this.actionTemplate.bind(this);
+        this.actionDetay = this.actionDetay.bind(this);
+        this.actionGuncelle = this.actionGuncelle.bind(this);
 
         //filters
         this.representativeItemTemplate = this.representativeItemTemplate.bind(this);
@@ -84,17 +87,7 @@ export class PersonelListe extends Component {
         // this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
 
         this.personelService.getPersonelSirketKimlikId().then(res =>{
-            console.log(res);
             this.setState({ personelBilgileri: res })
-
-
-            // this.setState((state, props) => ({
-            //     personelBilgileri: res
-            //  }), ()=>{
-            //    //after callback 
-            //  });
-
-
         } )
 
         // this.personelService. getPersonel(3).then(res => console.log(res));
@@ -117,10 +110,27 @@ export class PersonelListe extends Component {
         return <ProgressBar value={rowData.activity} showValue={false} />;
     }
 
-    actionBodyTemplate() {
+    actionBodyTemplate(rowData, column) {
         return (
-            <Button type="button" icon="pi pi-cog" className="p-button-secondary"></Button>
+            <Button type="button" icon="pi pi-times" className="p-button-danger" onClick={console.log()}></Button>
         );
+    }
+    actionDetay(rowData, column) {
+        return <div>
+            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.setState({ displayDetay: true })} ></Button>
+        </div>;
+    }
+
+    
+
+
+
+
+    actionGuncelle(rowData, column) {
+        return <div>
+            <Button icon="pi pi-pencil" className="p-button-warning" onClick={() => this.setState({ displayGuncelle: true })}></Button>
+
+        </div>;
     }
 
     statusBodyTemplate(rowData) {
@@ -224,12 +234,7 @@ export class PersonelListe extends Component {
     save() {
         this.growl.show({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
-    actionTemplate(rowData, column) {
-        return <div>
-            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.setState({ displayDetay: true })} ></Button>
-            <Button icon="pi pi-pencil" className="p-button-warning" onClick={this.handleOnClick}></Button>
-        </div>;
-    }
+
     renderFooter(name) {
         return (
             <div>
@@ -280,8 +285,7 @@ export class PersonelListe extends Component {
 
                 </Dialog>
 
-
-                {/* <DataTable  value={this.state.personelBilgileri}
+                <DataTable  value={this.state.personelBilgileri}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover
                     paginator rows={10} emptyMessage="Personel bulunamadı!"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" 
@@ -298,8 +302,7 @@ export class PersonelListe extends Component {
                     <Column body={this.actionGuncelle} style={{ textAlign: 'center', width: '4em' }} />
                     <Column body={this.actionBodyTemplate} 
                     headerStyle={{ width: '4em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
-
-                </DataTable> */}
+                </DataTable>
             </div>
         );
     }
