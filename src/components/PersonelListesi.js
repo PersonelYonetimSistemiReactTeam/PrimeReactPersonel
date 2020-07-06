@@ -1,6 +1,13 @@
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import '../index.css';
+
 import React, { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { CustomerService } from '../service/CustomerService';
 import { Dropdown } from 'primereact/dropdown';
@@ -9,11 +16,6 @@ import { MultiSelect } from 'primereact/multiselect';
 import { ProgressBar } from 'primereact/progressbar';
 import classNames from 'classnames';
 import { Dialog } from 'primereact/dialog';
-import 'primeicons/primeicons.css';
-import 'primereact/resources/themes/nova-light/theme.css';
-import 'primereact/resources/primereact.css';
-import 'primeflex/primeflex.css';
-import '../index.css';
 import PersonelKayit from './PersonelKayit';
 import { PersonelService } from '../service/PersonelService';
 import { ProgressSpinner } from 'primereact/progressspinner';
@@ -37,6 +39,7 @@ export class PersonelListe extends Component {
         this.state = {
             customers: null,
             selectedCustomers: null,
+            globalFilter: null,
             selectedRepresentatives: null,
             dateFilter: null,
             selectedStatus: null,
@@ -57,17 +60,14 @@ export class PersonelListe extends Component {
         ]
 
         this.customers = new CustomerService();
-        this.personelService = new PersonelService();
 
         //body cells
-
+        this.countryBodyTemplate = this.countryBodyTemplate.bind(this);
         this.representativeBodyTemplate = this.representativeBodyTemplate.bind(this);
         this.statusBodyTemplate = this.statusBodyTemplate.bind(this);
         this.activityBodyTemplate = this.activityBodyTemplate.bind(this);
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.actionDetay = this.actionDetay.bind(this);
-        this.actionGuncelle = this.actionGuncelle.bind(this);
-
+        this.actionTemplate = this.actionTemplate.bind(this);
 
         //filters
         this.representativeItemTemplate = this.representativeItemTemplate.bind(this);
@@ -76,14 +76,9 @@ export class PersonelListe extends Component {
         this.filterDate = this.filterDate.bind(this);
         this.statusItemTemplate = this.statusItemTemplate.bind(this);
         this.onStatusFilterChange = this.onStatusFilterChange.bind(this);
+        this.handleOnClick =  this.handleOnClick.bind(this);
     }
-    // componentWillMount() {
-    //     var promise = new Promise( (resolve, reject) => {
-    //         return this.setState({ personelBilgileri: this.personelService.getPersonelListesi() });
-    //        });
-    //     promise.then("sada",this.state.personelBilgileri)
 
-    // }
 
     componentDidMount() {
         // this.customers.getCustomersLarge().then(data => this.setState({ customers: data }));
@@ -106,41 +101,31 @@ export class PersonelListe extends Component {
         // this.personelService.getPersonelSirketKimlikId().then(res => this.setState({ personelBilgileri: res }))
         // this.personelService.getPersonelSirketKimlikId().then(res => console.log(res))
     }
-
     //Genel arama için yapıldı
     renderHeader() {
         return (
             <div>
                 Personel Listesi
-            </div >
+                <div className="p-datatable-globalfilter-container">
+                    <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Global Search" />
+                </div>
+            </div>
         );
     }
 
     activityBodyTemplate(rowData) {
         return <ProgressBar value={rowData.activity} showValue={false} />;
     }
-    actionDetay(rowData, column) {
-        return <div>
-            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.setState({ displayDetay: true })} ></Button>
-        </div>;
-    }
-    actionGuncelle(rowData, column) {
-        return <div>
-            <Button icon="pi pi-pencil" className="p-button-warning" onClick={() => this.setState({ displayGuncelle: true })}></Button>
-
-        </div>;
-    }
 
     actionBodyTemplate() {
         return (
-            <Button type="button" icon="pi pi-times" className="p-button-danger"></Button>
+            <Button type="button" icon="pi pi-cog" className="p-button-secondary"></Button>
         );
     }
 
     statusBodyTemplate(rowData) {
         return <span className={classNames('customer-badge', 'status-' + rowData.status)}>{rowData.status}</span>;
     }
-
 
 
     representativeBodyTemplate(rowData) {
@@ -239,29 +224,59 @@ export class PersonelListe extends Component {
     save() {
         this.growl.show({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
-
+    actionTemplate(rowData, column) {
+        return <div>
+            <Button icon="pi pi-search" className="p-button-success" onClick={() => this.setState({ displayDetay: true })} ></Button>
+            <Button icon="pi pi-pencil" className="p-button-warning" onClick={this.handleOnClick}></Button>
+        </div>;
+    }
     renderFooter(name) {
         return (
             <div>
-                <Button label="Kapat" icon="pi pi-times" onClick={() => this.setState({ displayGuncelle: false, displayDetay: false })} className="p-button-danger" />
+                <Button label="Kapat" icon="pi pi-times" onClick={() => this.setState({ displayBasic: false })} className="p-button-danger" />
             </div>
         );
     }
-
+    handleOnClick = () => {
+       console.log("tamammm")
+        this.setState({redirect: true});
+      }
+      
     render() {
         const header = this.renderHeader();
         const dateFilter = this.renderDateFilter();
+
+        if (this.state.redirect) {
+            return <PersonelKayit push to="/PersonelKayit" />;
+          }
+
+
         return (
             <div className="datatable-doc-demo">
                 <Dialog header="Personel Detayları"
                     visible={this.state.displayDetay}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayDetay: false })} footer={this.renderFooter('displayDetay')}>
+               <DataTable 
+               //ref={(el) => this.dt = el} 
+            //    value={this.state.customers}
+                    // header={header} responsive className="p-datatable-customers" dataKey="id"
+                    // rowHover globalFilter={this.state.globalFilter}
+                    // selection={this.state.selectedCustomers} 
+                    paginator rows={10} emptyMessage="Personel bulunamadı!"
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
+                    <Column selectionMode="multiple" style={{ width: '3em' }} />
+                    <Column field="name" header="Kıdem" />
+                    <Column field="surname" header="Çalıştığı Müdürlük"  />
+                    <Column sortField="country.name" header="Çalıştığı İl" body={this.countryBodyTemplate} />
+                    <Column field="date" header="İşe Başlama Tarihi" />
+                    <Column field="yonetici" header="Yönetici"/>
+                    <Column body={this.actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
+
+                </DataTable>
                 </Dialog>
                 <Dialog header="Personel Bilgi Güncelleme"
                     visible={this.state.displayGuncelle}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
-
-                    <PersonelKayit personelGuncelleme={false} />
 
                 </Dialog>
 
