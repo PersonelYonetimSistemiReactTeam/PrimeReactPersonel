@@ -226,7 +226,6 @@ export class PersonelListe extends Component {
         );
     }
     handleOnClick = () => {
-       console.log("tamammm")
         this.setState({redirect: true});
       }
       
@@ -257,15 +256,13 @@ export class PersonelListe extends Component {
                     <Column field="surname" header="Çalıştığı Müdürlük"  />
                     <Column sortField="country.name" header="Çalıştığı İl" body={this.countryBodyTemplate} />
                     <Column field="date" header="İşe Başlama Tarihi" />
-                    <Column field="yonetici" header="Yönetici"/>
+                    <Column field="yonetici" header="Bağlı Olduğu Yönetici"/>
                     <Column body={this.actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
-
                 </DataTable>
                 </Dialog>
                 <Dialog header="Personel Bilgi Güncelleme"
                     visible={this.state.displayGuncelle}
                     style={{ width: '50vw' }} onHide={() => this.setState({ displayGuncelle: false })} footer={this.renderFooter('displayGuncelle')}>
-
                 </Dialog>
                 <DataTable ref={(el) => this.dt = el} value={this.state.customers}
                     header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={this.state.globalFilter}
