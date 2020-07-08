@@ -6,17 +6,6 @@ import { AppMenu } from './AppMenu';
 import { AppProfile } from './AppProfile';
 import { Route } from 'react-router-dom';
 import { Dashboard } from './components/Dashboard';
-import { FormsDemo } from './components/FormsDemo';
-import { SampleDemo } from './components/SampleDemo';
-import { DataDemo } from './components/DataDemo';
-import { PanelsDemo } from './components/PanelsDemo';
-import { OverlaysDemo } from './components/OverlaysDemo';
-import { MenusDemo } from './components/MenusDemo';
-import { MessagesDemo } from './components/MessagesDemo';
-import { ChartsDemo } from './components/ChartsDemo';
-import { MiscDemo } from './components/MiscDemo';
-import { EmptyPage } from './components/EmptyPage';
-import { Documentation } from "./components/Documentation";
 import PersonelKayit from "./components/PersonelKayit";
 import PersonelListesi from "./components/PersonelListesi";
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -167,17 +156,6 @@ class App extends Component {
 
                 <div className="layout-main">
                     <Route path="/" exact component={Dashboard} />
-                    <Route path="/forms" component={FormsDemo} />
-                    <Route path="/sample" component={SampleDemo} />
-                    <Route path="/data" component={DataDemo} />
-                    <Route path="/panels" component={PanelsDemo} />
-                    <Route path="/overlays" component={OverlaysDemo} />
-                    <Route path="/menus" component={MenusDemo} />
-                    <Route path="/messages" component={MessagesDemo} />
-                    <Route path="/charts" component={ChartsDemo} />
-                    <Route path="/misc" component={MiscDemo} />
-                    <Route path="/empty" component={EmptyPage} />
-                    <Route path="/documentation" component={Documentation} />
                     <Route path="/personelListesi" component={PersonelListesi} />
                     <Route path="/personelKayit" component={PersonelKayit} />
 

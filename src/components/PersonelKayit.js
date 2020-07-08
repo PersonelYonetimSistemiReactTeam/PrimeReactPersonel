@@ -92,7 +92,7 @@ const PersonelKayit = (props) => {
           setSelectedIndex(selectedIndex - 1);
         }
         } />}
-        {selectedIndex === 3 && <IletisimBilgileri iletisimBilgileri={personel.iletisimBilgileri} ilList={ilList} save={(iletisimBilgileri) => {
+        {selectedIndex === 3 && <IletisimBilgileri iletisimBilgileri={personel.iletisim} ilList={ilList} save={(iletisimBilgileri) => {
           setPersonel({ ...personel, iletisim: iletisimBilgileri })
           save()
         }}

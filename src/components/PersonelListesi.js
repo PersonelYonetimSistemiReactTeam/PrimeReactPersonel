@@ -33,14 +33,18 @@ const PersonelListesi = () => {
     let dt = useRef(null);
 
 
-    useEffect(() => {
-        personelService.getPersonelSirketKimlikId()
-        .then(res => {
-            setPersonelBilgileri(res)})
-        .catch(err => {
-            console.log("hata");
-        })
-    }, []);
+
+useEffect(() => {
+    console.log("sdf")
+    personelService.getPersonelSirketKimlikId()
+    .then(res => {
+        setPersonelBilgileri(res)})
+    .catch(err => {
+        console.log("hata");
+    })
+},  []);
+
+    
 
     const renderHeader = ()  => {
         return (
