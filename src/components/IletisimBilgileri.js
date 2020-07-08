@@ -1,12 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputMask } from 'primereact/inputmask';
 import { Dropdown } from 'primereact/dropdown';
-import { IlService } from '../service/IlService';
-import PersonelConsumer from '../context';
 import { Message } from 'primereact/message';
-import validator from 'validator';
 import { Button } from 'primereact/button';
 
 const IletisimBilgileri = (props) => {
@@ -22,9 +19,6 @@ const IletisimBilgileri = (props) => {
     });
 
     const [formErrors, setFormErrors] = useState({});
-
-    let growl = useRef(null);
-
 
     const getKeyValue = (e) => {
         if (e.target) {
@@ -69,11 +63,6 @@ const IletisimBilgileri = (props) => {
 
     };
 
-    const cities = [
-        { name: 'İstanbul', value: 'IST' },
-        { name: 'Ankara', value: 'ANK' },
-    ];
-
     const onChange = (e) => {
 
         const { key, value } = getKeyValue(e);
@@ -93,10 +82,6 @@ const IletisimBilgileri = (props) => {
 
         return errors;
     };
-
-    const showError = (req) => {
-        growl.current.show({ severity: 'error', summary: req, detail: '' });
-    }
 
     const save = () => {
 

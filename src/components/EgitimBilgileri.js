@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import '../layout/sass/personelKayit.scss';
 import OkulBilgisi from './OkulBilgisi';

@@ -1,7 +1,6 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { UniService } from '../service/UniService';
 import '../layout/sass/personelKayit.scss';
 import { Calendar } from 'primereact/calendar';
 

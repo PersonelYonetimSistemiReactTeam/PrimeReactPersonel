@@ -34,8 +34,12 @@ const PersonelListesi = () => {
 
 
     useEffect(() => {
-        personelService.getPersonelSirketKimlikId().then(res => {
+        personelService.getPersonelSirketKimlikId()
+        .then(res => {
             setPersonelBilgileri(res)})
+        .catch(err => {
+            console.log("hata");
+        })
     }, []);
 
     const renderHeader = ()  => {
@@ -69,9 +73,7 @@ const PersonelListesi = () => {
 
     const guncelleme = (dataKey)  => {
         setdisplayGuncelle(true)
-        personelService.getPersonelKimId(dataKey).
-            then(res => setSecilenPersonel({ kimlik: res.kimlik, iletisim: res.iletisim, is: res.is })
-            );
+        personelService.getPersonelKimId(dataKey).then(res => setSecilenPersonel({ kimlik: res.kimlik, iletisim: res.iletisim, is: res.is }));
     }
 
     const renderDateFilter = ()  => {
@@ -120,7 +122,7 @@ const PersonelListesi = () => {
     const renderFooter = (name)  => {
         return (
             <div>
-                <Button label="Kapat" icon="pi pi-times" onClick={() => setdisplayDetay(false),setdisplayGuncelle(false)} className="p-button-danger" />
+                <Button label="Kapat" icon="pi pi-times" onClick={() => {setdisplayDetay(false);setdisplayGuncelle(false)}} className="p-button-danger" />
             </div>
         );
     }
@@ -132,14 +134,7 @@ const PersonelListesi = () => {
             <Dialog header="Personel Detayı"
                 visible={displayDetay}
                 style={{ width: '50vw' }} onHide={() => setdisplayDetay(false)} footer={() =>renderFooter('displayDetay')}>
-                {/* <DataTable value={}
-                    paginator rows={10} emptyMessage="Personel Detayı Bulunamadı!"
-                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10, 25, 50]}>
-                    <Column selectionMode="multiple" style={{ width: '3em' }} />
-                    <Column field="telefon" header="Telefon" />
-                    <Column field="email" header="Email" />
-                    <Column body={actionBodyTemplate} headerStyle={{ width: '8em', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
-                </DataTable> */}
+             
             </Dialog>
             <Dialog header="Personel Bilgi Güncelleme"
                 visible={displayGuncelle}
@@ -151,8 +146,6 @@ const PersonelListesi = () => {
 
             <DataTable value={personelBilgileri}
                 header={header} responsive className="p-datatable-customers" dataKey="id" rowHover globalFilter={globalFilter}
-                responsive className="p-datatable-customers"
-                dataKey="id" rowHover
                 paginator rows={10}
                 emptyMessage="Personel bulunamadı!"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"

@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Message } from 'primereact/message';
-import { IlService } from '../service/IlService';
 import '../layout/sass/personelKayit.scss';
 import { Growl } from 'primereact/growl';
 import { Button } from 'primereact/button';
@@ -97,11 +96,7 @@ const IsBilgileri = (props) => {
 
     return errors;
   };
-
-  const showError = (req) => {
-    growl.current.show({ severity: 'error', summary: req, detail: '' });
-  }
-
+ 
   const next = () => {
 
     checkErrors(isBilgisi).then(formErrors => {
@@ -153,7 +148,7 @@ const IsBilgileri = (props) => {
         </div>
         <div className="p-col-12 p-md-4">
           <span className="p-float-label">
-            <Dropdown id="sirket" name="sirket" value={isBilgisi.sirket} options={sirketlist}  onChange={onChange}  optionLabel="name" style={{ width: '12em' }} optionLabel="name" optionValue="code" />
+            <Dropdown id="sirket" name="sirket" value={isBilgisi.sirket} options={sirketlist}  onChange={onChange}  style={{ width: '12em' }} optionLabel="name" optionValue="code" />
             <label htmlFor="sirket">Çalıştığı Şirket</label>
           </span>
           {formErrors.sirket && <Message severity="error" text={formErrors.sirket} />}
