@@ -26,8 +26,6 @@ const EgitimBilgileri = (props) => {
     });
     const [formErrors, setFormErrors] = useState({});
 
-    let growl = useRef(null);
-
     const egitimseviyeleri = [
         { name: 'İlköğretim', code: "1" },
         { name: 'Orta Öğretim', code: '2' },
@@ -104,10 +102,6 @@ const EgitimBilgileri = (props) => {
         return errors;
     };
 
-
-    const showError = (req) => {
-        growl.current.show({ severity: 'error', summary: req, detail: '' });
-    }
 
 
     const next = () => {

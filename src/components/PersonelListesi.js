@@ -4,7 +4,6 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
-import classNames from 'classnames';
 import { Dialog } from 'primereact/dialog';
 import PersonelKayit from './PersonelKayit';
 import { PersonelService } from '../service/PersonelService';
@@ -15,15 +14,12 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 
 
-const PersonelListesi = (props) => {
+const PersonelListesi = () => {
 
-    const [selectedRepresentatives, setSelectedRepresentatives] = useState(null);
     const [dateFilter, setDateFilter] = useState(null);
-    const [selectedStatus, setSelectedStatus] = useState(null);
     const [globalFilter, setGlobalFilter] = useState(null)
     const [personel, setPersonel] = useState(null);
     const [personelBilgileri, setPersonelBilgileri] = useState(null);
-    const [displayBasic, setdisplayBasic] = useState(false);
     const [displayDetay, setdisplayDetay] = useState(false);
     const [displayGuncelle, setdisplayGuncelle] = useState(false);
     const [secilenpersonel, setSecilenPersonel] = useState({
@@ -78,22 +74,6 @@ const PersonelListesi = (props) => {
             );
     }
 
-    const statusBodyTemplate = (rowData)  => {
-        return <span className={classNames('customer-badge', 'status-' + rowData.status)}>{rowData.status}</span>;
-    }
-
-
-    const representativeBodyTemplate = (rowData)  => {
-        const src = "showcase/demo/images/avatar/" + rowData.representative.image;
-
-        return (
-            <React.Fragment>
-                <img alt={rowData.representative.name} src={src} srcSet="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" width="32" style={{ verticalAlign: 'middle' }} />
-                <span style={{ verticalAlign: 'middle', marginLeft: '.5em' }}>{rowData.representative.name}</span>
-            </React.Fragment>
-        );
-    }
-
     const renderDateFilter = ()  => {
         return (
             <Calendar value={dateFilter} onChange={onDateFilterChange} placeholder="İşe Başlama Tarihi" dateFormat="dd-mm-yy" className="p-column-filter" />
@@ -140,7 +120,7 @@ const PersonelListesi = (props) => {
     const renderFooter = (name)  => {
         return (
             <div>
-                <Button label="Kapat" icon="pi pi-times" onClick={() => setdisplayBasic(false),setdisplayDetay(false),setdisplayGuncelle(false)} className="p-button-danger" />
+                <Button label="Kapat" icon="pi pi-times" onClick={() => setdisplayDetay(false),setdisplayGuncelle(false)} className="p-button-danger" />
             </div>
         );
     }
@@ -180,7 +160,7 @@ const PersonelListesi = (props) => {
                 <Column selectionMode="single" style={{ width: '3em' }} />
                 <Column field="ad" header="Ad" sortable filter filterPlaceholder="Ad" />
                 <Column field="soyad" header="Soyad" sortable filter filterPlaceholder="Soyad" />
-                <Column field="is.date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={filterDate} filterElement={dateFilter} />
+                <Column field="is.date" header="İşe Başlama Tarihi" sortable filter filterMatchMode="custom" filterFunction={filterDate} filterElement={dateFilterEl} />
                 <Column field="is.sirket" header="Şirket" sortable filter filterPlaceholder="Sirket" />
                 <Column field="is.baglioldugumudurluk" header="Birim" sortable filter filterPlaceholder="Birim" />
                 <Column field="is.baglioldugumudur" header="Yönetici" sortable filter filterPlaceholder="Yönetici" />

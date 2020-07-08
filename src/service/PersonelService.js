@@ -18,7 +18,7 @@ export class PersonelService {
                 })
 
             )
-            .then(data => root)
+            .then(data => root);
     }
 
     getPersonel(id) {
