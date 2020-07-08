@@ -18,7 +18,7 @@ import { MiscDemo } from './components/MiscDemo';
 import { EmptyPage } from './components/EmptyPage';
 import { Documentation } from "./components/Documentation";
 import PersonelKayit from "./components/PersonelKayit";
-import PersonelListe from "./components/PersonelListesi";
+import PersonelListesi from "./components/PersonelListesi";
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -103,7 +103,7 @@ class App extends Component {
             {
                 label: 'Personel İşlemleri', icon: 'pi pi-users',
                 items: [
-                    { label: 'Personel Listesi', icon: 'pi pi-list', command: () => { window.location = '#/personelListe' } },
+                    { label: 'Personel Listesi', icon: 'pi pi-list', command: () => { window.location = '#/personelListesi' } },
                     { label: 'Personel Kayıt', icon: 'pi pi-user-plus', command: () => { window.location = '#/personelKayit' } }
                 ]
             },
@@ -178,7 +178,7 @@ class App extends Component {
                     <Route path="/misc" component={MiscDemo} />
                     <Route path="/empty" component={EmptyPage} />
                     <Route path="/documentation" component={Documentation} />
-                    <Route path="/personelListe" component={PersonelListe} />
+                    <Route path="/personelListesi" component={PersonelListesi} />
                     <Route path="/personelKayit" component={PersonelKayit} />
 
                 </div>

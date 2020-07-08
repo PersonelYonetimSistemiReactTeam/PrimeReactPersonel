@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import EgitimBilgileri from './EgitimBilgileri';
 import KimlikBilgileri from './KimlikBilgileri';
 import IletisimBilgileri from './IletisimBilgileri';
 import IsBilgileri from './IsBilgileri';
-import 'primeicons/primeicons.css';
 import { Steps } from 'primereact/steps';
 import { IlService } from '../service/IlService';
 import { PersonelService } from '../service/PersonelService';
 import { Growl } from 'primereact/growl';
-
-
 
 
 const PersonelKayit = (props) => {
@@ -47,10 +44,6 @@ const PersonelKayit = (props) => {
       label: 'İletişim Bilgileri',
     }
   ];
-  // const fetchProduct = useEffect(() => {
-  //   if (Object.keys(personel.iletisim).length !== 0)
-  //     save()
-  // }, [personel.iletisim]);
 
   const save = () => {
     personelService.postPersonel(personel).then(
@@ -64,17 +57,10 @@ const PersonelKayit = (props) => {
 
   }, []);
 
-  useEffect(() => {
-    
-    console.log("bura");
-    console.log(props.guncelleme);
-    console.log("bura2");
+  useEffect(() => {    
     const xx = {...props.guncelleme};
-    console.log(xx);
-
     setPersonel(xx);
     setSelectedIndex(0);
-
   }, [props.guncelleme]);
 
 

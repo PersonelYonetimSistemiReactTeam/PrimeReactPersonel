@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { IlService } from '../service/IlService';
 import '../layout/sass/personelKayit.scss';
-import { Checkbox } from 'primereact/checkbox';
 
 
 const OkulBilgisi = (props) => {
