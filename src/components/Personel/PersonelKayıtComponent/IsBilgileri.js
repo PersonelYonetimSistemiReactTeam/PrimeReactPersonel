@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Message } from 'primereact/message';
-import '../layout/sass/personelKayit.scss';
+import '../../../layout/sass/personelKayit.scss';
 import { Growl } from 'primereact/growl';
 import { Button } from 'primereact/button';
 

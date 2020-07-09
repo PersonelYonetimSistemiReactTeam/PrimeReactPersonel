@@ -4,7 +4,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-import '../layout/sass/personelKayit.scss';
+import '../../../layout/sass/personelKayit.scss';
 import { InputMask } from 'primereact/inputmask';
 import { Growl } from 'primereact/growl';
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const url = 'http://172.16.6.80:8000/';
-const url = 'http://192.168.1.35:8000';
+const url = 'http://172.16.6.80:8000/';
+// const url = 'http://192.168.1.35:8000';
 
 
 export class PersonelService {

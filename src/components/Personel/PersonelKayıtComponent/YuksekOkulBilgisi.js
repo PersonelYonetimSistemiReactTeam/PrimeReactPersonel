@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import '../layout/sass/personelKayit.scss';
+import '../../../layout/sass/personelKayit.scss';
 import { Calendar } from 'primereact/calendar';
 
 

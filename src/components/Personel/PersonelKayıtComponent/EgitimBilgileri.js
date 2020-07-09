@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'primereact/dropdown';
-import '../layout/sass/personelKayit.scss';
+import '../../../layout/sass/personelKayit.scss';
 import OkulBilgisi from './OkulBilgisi';
 import YuksekOkulBilgisi from './YuksekOkulBilgisi'
-import { UniService } from '../service/UniService';
+import { UniService } from '../../../service/UniService';
 import { Button } from 'primereact/button';
-import { IlService } from '../service/IlService';
+import { IlService } from '../../../service/IlService';
 
 
 
